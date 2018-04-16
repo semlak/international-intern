@@ -1,22 +1,22 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const requirementSchema = new Schema({
-  reqTitle: { 
+const needsSchema = new Schema({
+  needTitle: { 
   	type: String, 
   	required: true 
   },
-  reqNote: { 
+  needNote: { 
   	type: String, 
   	required: true ,
   	imageurl: String
   },
-  reqDate: { 
+  needDate: { 
   	type: Date, 
   	default: Date.now 
   }
 });
 
-const Requirement = mongoose.model("Requirement", requirementSchema);
+const Needs = mongoose.model("Needs", needsSchema);
 
-module.exports = Requirement;
+module.exports = Needs;

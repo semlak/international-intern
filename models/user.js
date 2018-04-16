@@ -49,10 +49,10 @@ var UserSchema = new Schema({
   }
   ],
 
-  requirementRef: [
+  needsRef: [
   {
     type: Schema.Types.ObjectId,
-    ref: "Requirement"
+    ref: "Needs"
   }
   ],
   
