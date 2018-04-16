@@ -4,6 +4,8 @@ import Books from "./pages/Books";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
+import RegistrationForm from "./components/Users/RegistrationForm";
+import LoginForm from "./components/Users/LoginForm";
 
 const App = () => (
   <Router>
@@ -13,6 +15,8 @@ const App = () => (
         <Route exact path="/" component={Books} />
         <Route exact path="/books" component={Books} />
         <Route exact path="/books/:id" component={Detail} />
+        <Route exact path="/register" component={RegistrationForm} />
+        <Route exact path="/login" component={LoginForm} />
         <Route component={NoMatch} />
       </Switch>
     </div>
