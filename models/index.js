@@ -1,6 +1,6 @@
 module.exports = {
   Chapter: require("./chapter"),
   Expense: require("./expense")
-  Requirement: require("./requirement")
+  Needs: require("./needs")
   User: require("./user")
 };
