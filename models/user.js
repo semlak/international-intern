@@ -1,28 +1,33 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose');
 
-var Schema = mongoose.Schema;
-
-var UserSchema = new Schema({
+const UserSchema = new Schema({
   username: {
     type: String,
     trim: true,
     required: "Username is Required"
   },
+
+  // Note: actual password won't be stored, only salted hash of password
   password: {
-    type: String,
-    trim: true,
-    required: "Password is Required",
-    validate: [
-      function(input) {
-        return input.length >= 6;
-      },
-      "Password should be longer."
-    ]
+    type: String
+    // trim: true,
+    // required: "Password is Required",
+    // validate: [
+      // function(input) {
+        // return input.length >= 6;
+      // },
+      // "Password should be longer."
+    // ]
   },
   email: {
     type: String,
     unique: true,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
+  },
+  fullname: {
+    type: String
   },
   userCreated: {
     type: Date,
@@ -65,6 +70,8 @@ var UserSchema = new Schema({
 
 });
 
-var User = mongoose.model("User", UserSchema);
+UserSchema.plugin(passportLocalMongoose);
+
+const User = mongoose.model("User", UserSchema);
 
 module.exports = User;
