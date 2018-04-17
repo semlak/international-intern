@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import API from "../../utils/API";
 
 export default class extends Component {
@@ -40,6 +41,9 @@ export default class extends Component {
 			console.log("currentUser is: " , currentUser);
 			this.setState({currentUser: currentUser});
 		})
+		API.getNeeds()
+			.then(needs => console.log("needs: ", needs))
+			.catch(err => console.log("error while retreiving needs: ", err))
 	}
 
 	render() {
@@ -59,6 +63,9 @@ export default class extends Component {
 					<button className="btn btn-warning" onClick={this.logoff}>Logoff</button>
 
 				</form>
+				<br/>
+				<Link className="btn btn-link" to="/register">Register</Link> 
+				<Link className="btn btn-link" to="/newPost">Post</Link> 
 			</div>
 		)
 	}
