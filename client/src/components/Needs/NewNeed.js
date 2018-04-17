@@ -14,7 +14,7 @@ export default class extends Component {
 	submitForm = event => {
 		event.preventDefault();
 		if (this.state.needTitle.length < 1 || this.state.needNote.length < 1 ) {
-				throw new Error("Bad post info. This is a crappy error message")
+				throw new Error("Bad requirement info. This is a crappy error message")
 		}
 		const data = {
 			needTitle: this.state.needTitle,
@@ -50,10 +50,10 @@ export default class extends Component {
 				<form>
 					<p>Need Title</p>
 					<input name="needTitle" type="text" value={this.state.needTitle} onChange={this.handleInputChange} />
-					<p>Email</p>
+					<p>Requirement Text:</p>
 					<textarea name="needNote" type="text" value={this.state.needNote} onChange={this.handleInputChange} />
 					<br/>
-					<button className="btn btn-primary" onClick={this.submitForm}>Post</button>
+					<button className="btn btn-primary" onClick={this.submitForm}>Submit</button>
 
 				</form>
 				<br/>

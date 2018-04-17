@@ -13,11 +13,11 @@ const needsSchema = new Schema({
   	imageurl: String
   },
   needDate: { 
-  	type: Date, 
-  	default: Date.now 
+	type: Date, 
+	default: Date.now 
   },
   user: {
-	  type: Schema.Types.ObjectId, ref: 'User'
+	type: Schema.Types.ObjectId, ref: 'user'
   }
 });
 
