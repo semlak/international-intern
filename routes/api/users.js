@@ -3,8 +3,6 @@ const router = express.Router();
 const Users = require("../../controllers/usersController.js");
 
 // restrict index for logged in user only
-// router.get('/', Users.home);
-
 
 // api route for register action
 router.post('/register', Users.doRegister);

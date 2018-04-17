@@ -20,6 +20,12 @@ export default {
   loginUser: data => axios.post("/api/users/login", data),
   logoutUser: () => axios.get("/api/users/logout"),
   getCurrentUser: () => axios.get("/api/users/getCurrentUser"),
-  updateUser: data => axios.put("/api/users/" + data.id, data)
+  updateUser: data => axios.put("/api/users/" + data.id, data),
 
+  // needs
+  getNeeds: () => axios.get("/api/needs/"),
+  getNeed: id => axios.get("/api/needs/" + id),
+  createNeed: data => axios.post("/api/needs/", data),
+  deleteNeed: id => axios.delete("/api/needs/" + id),
+  saveNeed: data => axios.put("/api/needs/" + data._id, data),
 };

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import API from "../../utils/API";
 
 export default class extends Component {
@@ -25,6 +26,7 @@ export default class extends Component {
 				let user = response.data.user;
 				console.log("User: ", user);
 				this.setState({currentUser: user, username: "", password: ""});
+
 			})
 			.catch(err => console.log("error on login", err));
 	}
@@ -40,11 +42,17 @@ export default class extends Component {
 			console.log("currentUser is: " , currentUser);
 			this.setState({currentUser: currentUser});
 		})
+		API.getNeeds()
+			.then(needs => console.log("needs: ", needs))
+			.catch(err => console.log("error while retreiving needs: ", err))
+
+
 	}
 
 	render() {
 		return (
 			<div>
+				<h1>Example Login Form</h1>
 				<h2>{this.state.currentUser && this.state.currentUser.email ? 
 					"User: " + this.state.currentUser.email : 
 					"No User Logged in"}
@@ -59,6 +67,9 @@ export default class extends Component {
 					<button className="btn btn-warning" onClick={this.logoff}>Logoff</button>
 
 				</form>
+				<br/>
+				<Link className="btn btn-link" to="/register">Register</Link> 
+				<Link className="btn btn-link" to="/newNeed">New Need</Link> 
 			</div>
 		)
 	}
