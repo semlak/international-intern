@@ -13,10 +13,8 @@ import Expenses from "./pages/Expenses";
 import UserLocation from "./pages/Location";
 import Requirements from "./pages/Requirements";
 
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-
 
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
