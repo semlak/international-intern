@@ -22,7 +22,6 @@ const App = () => (
         <Route exact path="/register" component={RegistrationForm} />
         <Route exact path="/login" component={LoginForm} />
         <Route exact path="/newNeed" component={NewNeed} />
-        <Route exact path="/home" component={Home} />
         <Route exact path="/addChapter" component={AddChapter} />
         <Route exact path="/exchangeGraph" component={ExchangeGraph} />
         <Route component={NoMatch} />
