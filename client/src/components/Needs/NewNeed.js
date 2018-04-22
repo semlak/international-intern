@@ -42,7 +42,7 @@ export default class extends Component {
 
 	render() {
 		return (
-			<div>
+			<div style={{marginLeft: 256 + 'px'}}>
 				<h2>{this.state.currentUser && this.state.currentUser.email ? 
 					"User: " + this.state.currentUser.email : 
 					"No User Logged in"}
@@ -57,8 +57,8 @@ export default class extends Component {
 
 				</form>
 				<br/>
-				<Link className="btn btn-link" to="/login">Login</Link> 
-				<Link className="btn btn-link" to="/register">Register</Link> 
+				{/* <Link className="btn btn-link" to="/login">Login</Link>  */}
+				{/* <Link className="btn btn-link" to="/register">Register</Link>  */}
 			</div>
 		)
 	}
