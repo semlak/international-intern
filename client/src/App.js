@@ -34,7 +34,9 @@ const App = () => (
           <Link to="/expenses"><MenuItem>Expenses</MenuItem></Link>
           <Link to="/location"><MenuItem>Location</MenuItem></Link>
           <Link to="/requirements"><MenuItem>Requirements</MenuItem></Link>
-          <Link to="/login"><MenuItem>test - Login</MenuItem></Link>
+          <Link to="/login"><MenuItem>temp - Login</MenuItem></Link>
+          <Link to="/register"><MenuItem>temp - Register</MenuItem></Link>
+          <Link to="/newNeed"><MenuItem>temp - New Need</MenuItem></Link>
         </Drawer>
         <Switch>
           {/* Menu Items */}
@@ -43,11 +45,9 @@ const App = () => (
           <Route exact path="/expenses" component={Expenses} />
           <Route exact path="/location" component={UserLocation} />
           <Route exact path="/requirements" component={Requirements} />
-
           <Route exact path="/register" component={RegistrationForm} />
           <Route exact path="/login" component={LoginForm} />
           <Route exact path="/newNeed" component={NewNeed} />
-
           <Route component={NoMatch} />
         </Switch>
       </div>
