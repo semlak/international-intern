@@ -1,7 +1,7 @@
 import React from "react";
 
 const Location = () => (
-  <div>
+  <div style={{marginLeft: 256 + 'px'}}>
     <h1>Location</h1>
     <p>
       Nunc pharetra finibus est at efficitur. Praesent sed congue diam. Integer gravida dui mauris,

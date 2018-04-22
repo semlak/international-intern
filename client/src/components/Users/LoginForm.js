@@ -51,7 +51,7 @@ export default class extends Component {
 
 	render() {
 		return (
-			<div>
+			<div style={{marginLeft: 256 + 'px'}}>
 				<h1>Example Login Form</h1>
 				<h2>{this.state.currentUser && this.state.currentUser.email ? 
 					"User: " + this.state.currentUser.email : 
