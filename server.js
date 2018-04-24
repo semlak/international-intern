@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const logger = require("morgan");
 const mongoose = require('mongoose');
 const routes = require('./routes');
 const passport = require('passport');
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 3001;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(logger("dev"))
 
 // initialize passport
 app.use(require('express-session')({
