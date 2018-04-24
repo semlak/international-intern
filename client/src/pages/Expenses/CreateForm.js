@@ -16,9 +16,6 @@ export default class extends Component {
 		event.preventDefault();
 		console.log("current state", this.state)
 
-		console.log(this.state.expenseDescription, 
-			this.state.date,
-			this.state.usdAmount,  this.state.currencyCode) 
 		if (this.state.expenseDescription && 
 			this.state.date && 
 			this.state.usdAmount && this.state.currencyCode) {
@@ -32,6 +29,11 @@ export default class extends Component {
 			API.newExpense(data)
 				.then(response => {
 					console.log("Response from submitting expense: ", response)
+					this.setState({
+						expenseDescription: "",
+						useAmount: '0.00', 
+		
+					})
 				})
 				.catch(err => {
 					console.log("Error while submitting expense: ", err)
