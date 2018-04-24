@@ -41,8 +41,19 @@ const UserSchema = new Schema({
   },
   internLocation: {
     type: String,
-    required: 'Internship Location is Required',
+    required: "Internship Location is Required"
   },
+
+  // internLocationCity: {
+  // 	type: String,
+  // 	required: "Internship Location City is Required"
+  // },
+
+  // internLocationCountry: {
+  //   type: String,
+  //   required: "Internship Location Country is Required"
+  // },
+
   // `chapterRef` is an object that stores a Chapter id
   // The ref property links the ObjectId to the Chapter model
   // This allows us to populate the User with an associated Chapter
