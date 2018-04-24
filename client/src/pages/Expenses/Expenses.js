@@ -10,7 +10,7 @@ const expenseData = [
 ]
 
 const Expenses = () => (
-  <div style={{marginLeft: 256 + 'px'}}>
+  <div>
     <h1>Expenses</h1>
       <CreateForm />
       <Ledger expenses={expenseData}/>

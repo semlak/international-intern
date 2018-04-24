@@ -56,7 +56,7 @@ export default class extends Component {
 
 	render() {
 		return (
-			<div style={{marginLeft: 256 + 'px'}}>
+			<div>
 				<h1>Add New Expense</h1>
 				<form>
 					<p>Description</p>
