@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Pages
 import Journal from "./pages/Journal";
-import Expenses from "./pages/Expenses";
+import Expenses from "./pages/Expenses/";
 import UserLocation from "./pages/Location";
 import Requirements from "./pages/Requirements";
 import NoMatch from "./pages/NoMatch";

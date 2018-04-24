@@ -28,4 +28,11 @@ export default {
   createNeed: data => axios.post("/api/needs/", data),
   deleteNeed: id => axios.delete("/api/needs/" + id),
   saveNeed: data => axios.put("/api/needs/" + data._id, data),
+
+  // expenses
+  newExpense: (data) => axios.post("/api/expenses/", data),
+  getExpenses: () => axios.get("/api/expenses/"),
+  updateExpense: (data) => axios.put("/api/expenses/" + data._id, data),
+  deleteExpense: (id) => axios.delete("/api/expenses/" + id)
+
 };

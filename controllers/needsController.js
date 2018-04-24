@@ -18,6 +18,7 @@ module.exports = {
   },
 
   create: (req, res) => {
+    console.log("received post request to create new need. req.body:", req.body)
     if (!req.isAuthenticated || !req.isAuthenticated()) {
       return res.status(202).json({error: true, message: "Bad Authentication"})
     }
