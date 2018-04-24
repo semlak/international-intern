@@ -20,7 +20,7 @@ const App = () => (
   <MuiThemeProvider>
     <Router>
       <div>
-        <AppBar title="International Intern" />
+        <AppBar title="International Intern" style={{ zIndex: '1600'}} />
         <Sidebar />
         <Switch>
           <Route exact path="/" component={Journal} />

@@ -28,7 +28,7 @@ const links = [
 ]
 
 const Sidebar = () => (
-  <Drawer>
+  <Drawer containerStyle={{'top': '64px'}}>
     {links.map(link => (
       <SidebarItem
         key={link.text}
