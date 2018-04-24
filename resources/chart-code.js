@@ -10,12 +10,14 @@
 
 // This is the chart code.  The graphed data must come in the form of an array.
 
+var dataArray = []
+
 var chart = new Chartist.Line('.ct-chart', {
   labels: ['week 1', 'week 2', 'week 3', 'week 4', 'week 5', 'week 6'],
   // Naming the series with the series object array notation
   series: [{
     name: 'series-1',
-    data: [5, 2, 4, 2, 0, 2]
+    data: [5, 2, 4, 2, 0, 2]//change this to dataArray which will pull from db.expense
   }]
 }, {
   fullWidth: true,
@@ -36,5 +38,14 @@ var chart = new Chartist.Line('.ct-chart', {
   }]
 ]);
 
+
+
+// This is css for changing the chart line characteristics.
+
+// .ct-series-a .ct-line {
+//  stroke: red;
+//  stroke-width: 5px;
+//  stroke-dasharray: 10px 20px;
+// }
 
 // End of chart code +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
