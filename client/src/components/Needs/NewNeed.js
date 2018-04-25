@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 // import {Link} from 'react-router-dom';
-import API from "../../utils/API";
+import API from '../../utils/API';
 
 export default class extends Component {
 	state = {
 		currentUser: null,
-		needTitle: "",
-		needNote: "",
+		needTitle: '',
+		needNote: '',
 	}
 
 	handleInputChange = event => this.setState({[event.target.name]: event.target.value})
