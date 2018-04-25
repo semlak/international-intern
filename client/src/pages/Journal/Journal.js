@@ -1,7 +1,6 @@
 import React from 'react';
 import AddChapter from "./AddChapter";
 import ChapterCard from "./ChapterCard";
-import pics from "./pics.json";
 
 const Journal = () => (
   <div>

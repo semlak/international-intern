@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import API from "../../utils/API";
 import "./ChapterCard.css";
-import pics from "pics.json";
 
 export default class extends Component {
 	state= {
-		pics:pics
 	}
 
 	render() {
