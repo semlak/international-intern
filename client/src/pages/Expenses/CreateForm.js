@@ -56,8 +56,8 @@ export default class extends Component {
 
 	render() {
 		return (
-			<div>
-				<h1>Add New Expense</h1>
+		  <div>
+				<h3>Add New Expense</h3>
 				<form>
 					<p>Description</p>
 					<input name="expenseDescription" type="text" value={this.state.expenseDescription} onChange={this.handleInputChange} />
@@ -69,7 +69,7 @@ export default class extends Component {
 					<p>Currency</p>
 					<input name="currencyCode" type="text" value={this.state.currencyCode} onChange={this.handleInputChange} />
 					<br/>
-					<button className="btn btn-primary" onClick={this.submitForm}>Submit Expense</button>
+					<button className="btn btn-primary mt-2" onClick={this.submitForm}>Submit Expense</button>
 				</form>
 			</div>
 		)
