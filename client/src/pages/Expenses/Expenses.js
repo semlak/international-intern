@@ -1,6 +1,7 @@
 import React from "react";
 import CreateForm from "./CreateForm";
-import Ledger from "./Ledger"
+import Ledger from "./Ledger";
+import Graph from "./Graph";
 
 const expenseData = [
   { "_id" : ("5ade8e43e0d4991f98664483"), "expDesc" : "cat food", "expAmount" : 12, "expDate" : ("2017-12-31T00:00:00Z"), "__v" : 0 },
@@ -10,10 +11,11 @@ const expenseData = [
 ]
 
 const Expenses = () => (
-  <div style={{marginLeft: 256 + 'px'}}>
-    <h1>Expenses</h1>
+  <div style={{marginLeft: 260 + 'px'}}>
+    <h1 style={{marginLeft: 100 + 'px'}}>Expenses</h1>
       <CreateForm />
       <Ledger expenses={expenseData}/>
+      <Graph />
   </div>
 );
 
