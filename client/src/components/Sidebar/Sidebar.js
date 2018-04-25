@@ -1,8 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Drawer from 'material-ui/Drawer';
 import SidebarItem from "./SidebarItem";
-import MenuItem from 'material-ui/MenuItem';
 
 const links = [
   {
@@ -30,7 +28,7 @@ const links = [
 ]
 
 const Sidebar = () => (
-  <Drawer>
+  <Drawer containerStyle={{'top': '64px'}}>
     {links.map(link => (
       <SidebarItem
         key={link.text}

@@ -11,8 +11,10 @@ const expenseData = [
 ]
 
 const Expenses = () => (
-  <div style={{marginLeft: 260 + 'px'}}>
-    <h1 style={{marginLeft: 100 + 'px'}}>Expenses</h1>
+
+  <div>
+    <h1>Expenses</h1>
+
       <CreateForm />
       <Ledger expenses={expenseData}/>
       <Graph />

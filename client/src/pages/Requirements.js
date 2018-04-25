@@ -1,7 +1,7 @@
 import React from "react";
 
 const Requirements = () => (
-  <div style={{marginLeft: 256 + 'px'}}>
+  <div>
     <h1>Requirements</h1>
     <p>
       Nunc pharetra finibus est at efficitur. Praesent sed congue diam. Integer gravida dui mauris,
