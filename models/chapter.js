@@ -3,17 +3,23 @@ const Schema = mongoose.Schema;
 
 const chapterSchema = new Schema({
   chapTitle: { 
-  	type: String, 
-  	required: true 
+    type: String, 
+    required: true 
   },
   chapNote: { 
-  	type: String, 
-  	required: true ,
-  	imageurl: String
+    type: String, 
+    required: true ,
+  },
+  imgURL: {
+    type:String 
   },
   chapDate: { 
-  	type: Date, 
-  	default: Date.now 
+    type: Date, 
+    default: Date.now 
+  }, 
+  reqNum: {
+    type: Number,
+    required:true
   }
 });
 
