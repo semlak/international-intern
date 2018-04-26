@@ -20,4 +20,6 @@ export default {
   updateExpense: data => axios.put('/api/expenses/' + data._id, data),
   deleteExpense: id => axios.delete('/api/expenses/' + id),
 
+  // weather
+  getWeather: queryURL => axios.get(queryURL),
 };
