@@ -2,7 +2,11 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 import API from '../../utils/API';
+import firebase from '../../utils/firebase';
+
+// const ref = firebase.storage().ref();
 
 export default class extends Component {
 	state={
@@ -18,7 +22,12 @@ export default class extends Component {
 		event.preventDefault();
 		console.log("current state", this.state)
 
+		// Create a root reference
+		var storageRef = firebase.storage().ref();
+
+
 	}
+
 
 	render() {
 		return (
@@ -32,7 +41,15 @@ export default class extends Component {
 					<p>Date</p>
 					<input name="date" type="date" value={this.state.date} placeholder={Date.now()} onChange={this.handleInputChange} />
 					<p>Image</p>
-					<input name="image" type="text" value={this.state.image} onChange={this.handleInputChange} />
+					{/* <input name="image" type="text" value={this.state.image} onChange={this.handleInputChange} /> */}
+
+					<RaisedButton
+						containerElement='label' // <-- Just add me!
+						label='My Label'>
+						<input type="file"
+						onChange={this.handleInputChange} />
+					</RaisedButton>
+
 					<p>Requirement</p>
 					<DropDownMenu value={this.state.value} onChange={this.handleChange}>
           				<MenuItem value={1} primaryText="1" />
@@ -42,7 +59,9 @@ export default class extends Component {
           				<MenuItem value={5} primaryText="5" />
         			</DropDownMenu>
 					<br />
-					<button className="btn btn-primary mt-2" onClick={this.submitForm}>Add Chapter</button>
+					<button onClick={this.submitForm}>Add Chapter</button>
+
+
 				</form>
 			</div>
 		)
