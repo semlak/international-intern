@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+import API from '../../utils/API';
+import firebase from '../../utils/firebase';
 
 const AddChapter = (props) => {
 
@@ -17,6 +20,12 @@ const AddChapter = (props) => {
 				<input name="date" type="date" defaultValue={props.date} placeholder={Date.now()} onChange={this.handleInputChange} />
 				<p>Image</p>
 				<input name="image" type="text" defaultValue={props.image} onChange={this.handleInputChange} />
+          
+        <RaisedButton
+          containerElement='label' label='My Label'>
+          <input type="file" onChange={this.handleInputChange} />
+        </RaisedButton>
+
 				<p>Requirement</p>
 				<DropDownMenu defaultValue={props.numReq} onChange={this.handleChange}>
       				<MenuItem value={1} primaryText="1" />
@@ -30,6 +39,6 @@ const AddChapter = (props) => {
 			</form>
 		</div>
 	)
-	
+
 }
 export default AddChapter;
