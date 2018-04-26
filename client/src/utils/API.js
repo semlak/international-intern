@@ -20,4 +20,9 @@ export default {
   updateExpense: data => axios.put('/api/expenses/' + data._id, data),
   deleteExpense: id => axios.delete('/api/expenses/' + id),
 
+  //chapters
+  addChapter: data => axios.post('/api/chapters/', data),
+  getChapters: () => axios.get('/api/chapters/'),
+  updateChapter: data => axios.put('/api/chapters/' + data._id, data),
+  deleteChapter: id => axios.delete('/api/chapters/' +id)
 };
