@@ -1,77 +1,79 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import API from "../../utils/API";
+// import API from "../../utils/API";
 
-export default class extends Component {
-	state = {
-		expenseDescription: "",
-		date: Date.now(),
-		usdAmount: '0.00',
-		currencyCode: "KRW"
-	}
+const CreateForm = (props) => {
+	// state = {
+	// 	expenseDescription: "",
+	// 	date: Date.now(),
+	// 	usdAmount: '0.00',
+	// 	currencyCode: "KRW"
+	// }
 
-	handleInputChange = event => this.setState({[event.target.name]: event.target.value})
+	// handleInputChange = event => this.setState({[event.target.name]: event.target.value})
 
-	submitForm = event => {
-		event.preventDefault();
-		console.log("current state", this.state)
+	// submitForm = event => {
+	// 	event.preventDefault();
+	// 	console.log("current state", this.state)
 
-		if (this.state.expenseDescription && 
-			this.state.date && 
-			this.state.usdAmount && this.state.currencyCode) {
+	// 	if (this.state.expenseDescription && 
+	// 		this.state.date && 
+	// 		this.state.usdAmount && this.state.currencyCode) {
 
-			const data = {
-				expDesc:this.state.expenseDescription,
-				expAmount: this.state.usdAmount,
-				expDate: this.state.date
+	// 		const data = {
+	// 			expDesc:this.state.expenseDescription,
+	// 			expAmount: this.state.usdAmount,
+	// 			expDate: this.state.date
 
-			}
-			API.newExpense(data)
-				.then(response => {
-					console.log("Response from submitting expense: ", response)
-					this.setState({
-						expenseDescription: "",
-						useAmount: '0.00', 
+	// 		}
+	// 		API.newExpense(data)
+	// 			.then(response => {
+	// 				console.log("Response from submitting expense: ", response)
+	// 				this.setState({
+	// 					expenseDescription: "",
+	// 					usdAmount: '0.00',
+	// 					date: "" 
 		
-					})
-				})
-				.catch(err => {
-					console.log("Error while submitting expense: ", err)
-				})
-			}
+	// 				})
+	// 			})
+	// 			.catch(err => {
+	// 				console.log("Error while submitting expense: ", err)
+	// 			})
+	// 		}
 
-		else {
-			console.log("Unable to submit ")
-		}
-	}
+	// 	else {
+	// 		console.log("Unable to submit ")
+	// 	}
+	// }
 
-	componentDidMount() {
-		API.getCurrentUser().then(response=> {
-			console.log("response: ", response);
-			let currentUser = response.data.user
-			console.log("currentUser is: " , currentUser);
-			this.setState({currentUser: currentUser});
-		})
-	}
+	// componentDidMount() {
+	// 	API.getCurrentUser().then(response=> {
+	// 		console.log("response: ", response);
+	// 		let currentUser = response.data.user
+	// 		console.log("currentUser is: " , currentUser);
+	// 		this.setState({currentUser: currentUser});
+	// 	})
+	// }
 
-	render() {
-		return (
-		  <div>
+
+	return (<div>
 				<h3>Add New Expense</h3>
 				<form>
 					<p>Description</p>
-					<input name="expenseDescription" type="text" value={this.state.expenseDescription} onChange={this.handleInputChange} />
+					<input name="expenseDescription" type="text" value={props.expenseDescription} onChange={props.handleInputChange} />
 					<p>Amount</p>
-					<input name="usdAmount" type="number" step='0.01' value={this.state.usdAmount} placeholder='0.00' onChange={this.handleInputChange} />
+					<input name="usdAmount" type="number" step='0.01' value={props.usdAmount} placeholder='0.00' onChange={props.handleInputChange} />
 
 					<p>Date</p>
-					<input name="date" type="date" step='' value={this.state.date} placeholder={Date.now()} onChange={this.handleInputChange} />
+					<input name="date" type="date" step='' value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
 					<p>Currency</p>
-					<input name="currencyCode" type="text" value={this.state.currencyCode} onChange={this.handleInputChange} />
+					<input name="currencyCode" type="text" value={props.currencyCode} onChange={props.handleInputChange} />
 					<br/>
-					<button className="btn btn-primary mt-2" onClick={this.submitForm}>Submit Expense</button>
+					<button className="btn btn-primary mt-2" onClick={props.submitForm}>Submit Expense</button>
 				</form>
 			</div>
 		)
-	}
+	
 }
+
+export default CreateForm;

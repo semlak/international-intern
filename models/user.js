@@ -35,6 +35,7 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  
   homeLocation: {
     type: String,
     required: 'Home Location is Required',
@@ -44,15 +45,15 @@ const UserSchema = new Schema({
     required: "Internship Location is Required"
   },
 
-  // internLocationCity: {
-  // 	type: String,
-  // 	required: "Internship Location City is Required"
-  // },
+  internLocationCity: {
+  	type: String,
+  	required: "Internship Location City is Required"
+  },
 
-  // internLocationCountry: {
-  //   type: String,
-  //   required: "Internship Location Country is Required"
-  // },
+  internLocationCountry: {
+    type: String,
+    required: "Internship Location Country is Required"
+  },
 
   // `chapterRef` is an object that stores a Chapter id
   // The ref property links the ObjectId to the Chapter model
