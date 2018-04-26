@@ -48,6 +48,8 @@ export default class extends Component {
 		}
 	}
 
+	
+
 	componentDidMount() {
 		API.getCurrentUser().then(response=> {
 			console.log("response: ", response);
@@ -55,12 +57,12 @@ export default class extends Component {
 			console.log("currentUser is: " , currentUser);
 			this.setState({currentUser: currentUser});
 		})
-		API.getChapters().then(response=> {
-			console.log("API chapter response: " , response);
-			this.setState({
-				chapterData: response.data
-			})
-		})
+		// API.getChapters().then(response=> {
+		// 	console.log("API chapter response: " , response);
+		// 	this.setState({
+		// 		chapterData: response.data
+		// 	})
+		// })
 	}
 
 	render() {

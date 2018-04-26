@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import API from "../../utils/API";
 import "./ChapterCard.css";
 
-const chapterCard = (props) => (
+const ChapterCard = (props) => (
 	<div className="card">
 		<div className="img-container">
 		</div>
@@ -11,3 +11,5 @@ const chapterCard = (props) => (
 		<p>"Date"</p>		
 	</div>
 )
+
+export default ChapterCard;
