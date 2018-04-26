@@ -53,7 +53,7 @@ export default class extends Component {
 					<p>Requirement Text:</p>
 					<textarea name="needNote" type="text" value={this.state.needNote} onChange={this.handleInputChange} />
 					<br/>
-					<button className="btn btn-primary" onClick={this.submitForm}>Submit</button>
+					<button onClick={this.submitForm}>Submit</button>
 
 				</form>
 				<br/>
