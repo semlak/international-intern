@@ -63,13 +63,11 @@ export default class extends Component {
 					<p>Password</p>
 					<input name="password" type="password" value={this.state.password} onChange={this.handleInputChange} />
 					<br/>
-					<button className="btn btn-primary" onClick={this.submitForm}>Login</button>
-					<button className="btn btn-warning" onClick={this.logoff}>Logoff</button>
+					<button onClick={this.submitForm}>Login</button>
+					<button onClick={this.logoff}>Logoff</button>
 
 				</form>
 				<br/>
-				<Link className="btn btn-link" to="/register">Register</Link> 
-				<Link className="btn btn-link" to="/newNeed">New Need</Link> 
 			</div>
 		)
 	}

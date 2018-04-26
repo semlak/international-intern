@@ -5,9 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import API from '../../utils/API';
 import firebase from '../../utils/firebase';
 
-const AddChapter = (props) => {
-
-	return (
+const AddChapter = (props) => (
 		<div>
 			<h3> Add New Chapter</h3>
 			<form>
@@ -20,10 +18,10 @@ const AddChapter = (props) => {
 				<p>Image</p>
 				<input name="image" type="text" defaultValue={props.image} onChange={this.handleInputChange} />
           
-        <RaisedButton
-          containerElement='label' label='My Label'>
-          <input type="file" onChange={this.handleInputChange} />
-        </RaisedButton>
+				<RaisedButton
+				containerElement='label' label='My Label'>
+				<input type="file" onChange={this.handleInputChange} />
+				</RaisedButton>
 
 				<p>Requirement</p>
 				<DropDownMenu defaultValue={props.numReq} onChange={this.handleChange}>
@@ -34,10 +32,8 @@ const AddChapter = (props) => {
       				<MenuItem value={5} primaryText="5" />
     			</DropDownMenu>
 				<br />
-				<button className="btn btn-primary mt-2" onClick={this.submitForm}>Add Chapter</button>
+				<button onClick={this.submitForm}>Add Chapter</button>
 			</form>
 		</div>
-	)
-
-}
+	);
 export default AddChapter;

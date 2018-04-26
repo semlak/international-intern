@@ -78,10 +78,10 @@ export default class extends Component {
 					<p>Internship Location</p>
 					<input name="internLocation" type="text" value={this.state.internLocation} onChange={this.handleInputChange} />
 					<br/>
-					<button className="btn btn-primary" onClick={this.submitForm}>Register</button>
+					<button onClick={this.submitForm}>Register</button>
 
 				</form>
-				<Link className="btn btn-link" to="/login">Login</Link> 
+				<Link to="/login">Login</Link> 
 			</div>
 		)
 	}
