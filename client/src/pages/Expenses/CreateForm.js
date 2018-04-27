@@ -56,7 +56,7 @@ const CreateForm = (props) => {
 	// }
 
 
-	return (<div>
+	return (<div style = {{marginLeft: 100}}>
 				<h3>Add New Expense</h3>
 				<form>
 					<p>Description</p>
