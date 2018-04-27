@@ -8,7 +8,7 @@ const Ledger = (props) => (
     <h1>Ledger</h1>
     <table>
       <thead>
-        <tr><th>Date</th><th> </th><th>Description</th><th>Amount</th></tr>
+        <tr><th>Date</th><th> </th><th>Description</th><th>Amount USD</th><th>Amount XXX</th></tr>
       </thead>
       <tbody>
         {props.expenses.map(expense => <ExpenseLedgerItem key={expense._id} {...expense}/>)}
