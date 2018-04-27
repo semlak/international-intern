@@ -42,11 +42,10 @@ export default class extends Component {
       })
       .catch(err => console.log('error on login', err));
   }
-  logoff = event => {
+  logoff = (event) => {
     event.preventDefault();
-    API.logoutUser().then(response => this.setState({currentUser: null}));
+    API.logoutUser().then(response => this.setState({ currentUser: null }));
   }
-
 
   render() {
     return (
@@ -70,19 +69,17 @@ export default class extends Component {
             value={this.state.password} 
             onChange={this.handleInputChange} 
           />
-          <br/>
-          <RaisedButton 
+          <br />
+          <RaisedButton
             onClick={this.submitForm}
             label="Login"
           />
-          <br/><br/>
-          <RaisedButton 
+          <br />
+          <RaisedButton
             onClick={this.logoff}
             label="Logoff"
           />
-
         </form>
-
       </div>
     );
   }
