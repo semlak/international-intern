@@ -3,6 +3,12 @@ import AddChapter from "./AddChapter";
 import ChapterCard from "./ChapterCard";
 import API from '../../utils/API';
 
+const chapterData = [
+  { "_id" : ("1"), "chapDate" : "2018/04/27", "chapTitle" : "Australia Arrival", "chapNote" : "Arrived in Australia. Everything is great!", "reqNum" : 1,  "__v" : 0 },
+  { "_id" : ("2"), "chapDate" : "2018/04/28", "chapTitle" : "Snorkling", "chapNote" : "Snorkled the Great Barrier Reef! WOOOOO!", "reqNum" : 2,  "__v" : 0 },
+  { "_id" : ("3"), "chapDate" : "2018/04/29", "chapTitle" : "Shopping", "chapNote" : "Shopped at the QVB today!", "reqNum" : 3,  "__v" : 0 }
+]
+
 export default class extends Component {
 
 	state={
@@ -10,7 +16,8 @@ export default class extends Component {
 		description: "",
 		date: Date.now(),
 		image: "",
-		reqNum: '0'
+		reqNum: '0',
+		chapterData:chapterData
 	};
 
 	handleInputChange = event => this.setState({[event.target.name]: event.target.value})
@@ -21,13 +28,12 @@ export default class extends Component {
 
 		if (this.state.chapterTitle &&
 			this.state.description &&
-			this.state.date && this.state.reqNum) {
+			this.state.date) {
 
 			const data = {
 				chapTitle: this.state.chapterTitle,
 				chapNote: this.state.description,
 				chapDate: this.state.date,
-				imgURL: this.state.image,
 				reqNum: this.state.reqNum
 			}
 			API.addChapter(data)
@@ -56,20 +62,24 @@ export default class extends Component {
 			let currentUser = response.data.user
 			console.log("currentUser is: " , currentUser);
 			this.setState({currentUser: currentUser});
+		}).catch(err =>{
+			console.log("Error while getting current user: ", err)
 		})
-		// API.getChapters().then(response=> {
-		// 	console.log("API chapter response: " , response);
-		// 	this.setState({
-		// 		chapterData: response.data
-		// 	})
-		// })
+		API.getChapters().then(response=> {
+			console.log("API chapter response: " , response);
+			this.setState({
+				chapterData: response.data
+			})
+		}).catch(err =>{
+			console.log("Error while getting chapters: ", err)
+		})
 	}
 
 	render() {
 		return <div>
 	    <h1>Journal</h1>
 	    <AddChapter handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} {...this.state}/>
-	    <ChapterCard card={this.state.chapterData} />
+	    <ChapterCard chapters={this.state.chapterData} />
 	  </div>
 	}
 };

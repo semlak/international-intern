@@ -28,5 +28,4 @@ export default {
   getChapters: () => axios.get('/api/chapters/'),
   updateChapter: data => axios.put('/api/chapters/' + data._id, data),
   deleteChapter: id => axios.delete('/api/chapters/' +id)
-
 };

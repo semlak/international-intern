@@ -1,9 +1,7 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import API from '../../utils/API';
 import firebase from '../../utils/firebase';
 
 const AddChapter = (props) => {
@@ -19,15 +17,13 @@ const AddChapter = (props) => {
 				<p>Date</p>
 				<input name="date" type="date" defaultValue={props.date} placeholder={Date.now()} onChange={this.handleInputChange} />
 				<p>Image</p>
-				<input name="image" type="text" defaultValue={props.image} onChange={this.handleInputChange} />
-          
-        <RaisedButton
-          containerElement='label' label='My Label'>
-          <input type="file" onChange={this.handleInputChange} />
-        </RaisedButton>
+		        <RaisedButton
+		          containerElement='label' label='My Label'>
+		          <input type="file" onChange={this.handleInputChange} />
+		        </RaisedButton>
 
 				<p>Requirement</p>
-				<DropDownMenu defaultValue={props.numReq} onChange={this.handleChange}>
+				<DropDownMenu defaultValue={props.numReq} onChange={this.handleInputChange}>
       				<MenuItem value={1} primaryText="1" />
       				<MenuItem value={2} primaryText="2" />
       				<MenuItem value={3} primaryText="3" />
