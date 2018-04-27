@@ -6,12 +6,12 @@ import API from "../../utils/API";
 
 
 
-const expenseData = [
-  { "_id" : ("5ade8e43e0d4991f98664483"), "expDesc" : "cat food", "expAmount" : 12, "expDate" : ("2017-12-31T00:00:00Z"), "__v" : 0 },
-  { "_id" : ("5ade8e8ce0d4991f98664484"), "expDesc" : "pizza", "expAmount" : 15, "expDate" : ("2016-11-30T00:00:00Z"), "__v" : 0},
-  { "_id" : ("5ade8ecde0d4991f98664485"), "expDesc" : "pizza", "expAmount" : 15, "expDate" : ("2016-11-30T00:00:00Z"), "__v" : 0 },
-  { "_id" : ("5ade8f6ee0d4991f98664486"), "expDesc" : "soup", "expAmount" : 144, "expDate" : ("2018-12-30T00:00:00Z"), "__v" : 0 }
-]
+// const expenseData = [
+//   { "_id" : ("5ade8e43e0d4991f98664483"), "expDesc" : "cat food", "expAmount" : 12, "expDate" : ("2017-12-31T00:00:00Z"), "__v" : 0 },
+//   { "_id" : ("5ade8e8ce0d4991f98664484"), "expDesc" : "pizza", "expAmount" : 15, "expDate" : ("2016-11-30T00:00:00Z"), "__v" : 0},
+//   { "_id" : ("5ade8ecde0d4991f98664485"), "expDesc" : "pizza", "expAmount" : 15, "expDate" : ("2016-11-30T00:00:00Z"), "__v" : 0 },
+//   { "_id" : ("5ade8f6ee0d4991f98664486"), "expDesc" : "soup", "expAmount" : 144, "expDate" : ("2018-12-30T00:00:00Z"), "__v" : 0 }
+// ]
 
 export default class extends Component {
 
@@ -20,7 +20,7 @@ export default class extends Component {
 		date: Date.now(),
 		usdAmount: '0.00',
 		currencyCode: "KRW",
-		expenseData: expenseData
+		expenseData: []
 	};
 
 	handleInputChange = event => this.setState({[event.target.name]: event.target.value})
@@ -47,6 +47,12 @@ export default class extends Component {
 						usdAmount: '0.00',
 						date: "" 
 		
+					})
+					API.getExpenses().then(response => {
+						console.log("API expense response: ", response);
+						this.setState({
+						expenseData: response.data
+						})
 					})
 				})
 				.catch(err => {
@@ -77,11 +83,11 @@ export default class extends Component {
 	render() {
 
 	  return <div>
-	    <h1>Expenses</h1>
+	    <h1 style = {{marginLeft: 100}}>Expenses</h1>
 
 	      <CreateForm handleInputChange={this.handleInputChange} submitForm={this.submitForm} {...this.state}/>
 	      <Ledger expenses={this.state.expenseData}/>
-	      <Graph />
+	      <Graph expenses={this.state.expenseData}/>
 	  </div>
 	}
 };
