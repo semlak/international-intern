@@ -69,7 +69,7 @@ const CreateForm = (props) => {
 					<p>Currency</p>
 					<input name="currencyCode" type="text" value={props.currencyCode} onChange={props.handleInputChange} />
 					<br/>
-					<button className="btn btn-primary mt-2" onClick={props.submitForm}>Submit Expense</button>
+					<button onClick={props.submitForm}>Submit Expense</button>
 				</form>
 			</div>
 		)

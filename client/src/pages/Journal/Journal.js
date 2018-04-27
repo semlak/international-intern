@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import AddChapter from "./AddChapter";
-import ChapterCard from "./ChapterCard";
+import React, { Component } from 'react';
+import AddChapter from './AddChapter';
+import ChapterCard from './ChapterCard';
 import API from '../../utils/API';
 
 const chapterData = [
@@ -10,8 +10,8 @@ const chapterData = [
 ]
 
 export default class extends Component {
-
-	state={
+  
+	state= {
 		chapterTitle: "",
 		description: "",
 		date: Date.now(),
@@ -20,13 +20,11 @@ export default class extends Component {
 		chapterData:chapterData
 	};
 
-	handleInputChange = event => this.setState({[event.target.name]: event.target.value})
+	handleFormSubmit = (event) => {
+	  event.preventDefault();
+	  console.log('current state', this.state);
 
-	handleFormSubmit = event => {
-		event.preventDefault();
-		console.log("current state", this.state)
-
-		if (this.state.chapterTitle &&
+	  if (this.state.chapterTitle &&
 			this.state.description &&
 			this.state.date) {
 
@@ -53,8 +51,6 @@ export default class extends Component {
 			console.log("Unable to add chapter.")
 		}
 	}
-
-	
 
 	componentDidMount() {
 		API.getCurrentUser().then(response=> {
