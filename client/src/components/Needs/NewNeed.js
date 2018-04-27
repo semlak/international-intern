@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import {Link} from 'react-router-dom';
 import API from '../../utils/API';
 
 export default class extends Component {
@@ -57,8 +56,6 @@ export default class extends Component {
 
 				</form>
 				<br/>
-				{/* <Link className="btn btn-link" to="/login">Login</Link>  */}
-				{/* <Link className="btn btn-link" to="/register">Register</Link>  */}
 			</div>
 		)
 	}
