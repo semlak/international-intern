@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from 'react';
 import dotenv from 'dotenv';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Material UI components
@@ -26,7 +26,6 @@ console.log('env:', process.env);
 // dotenv.config({path: './.env.development.local'})
 
 class App extends React.Component {
-
   state = {
     currentUser: '',
   }
@@ -35,7 +34,7 @@ class App extends React.Component {
     this.setState({ currentUser });
     console.log(this.state.currentUser);
   }
-  
+
   render() {
     return (
       <MuiThemeProvider>

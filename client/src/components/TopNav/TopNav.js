@@ -9,11 +9,17 @@ import API from '../../utils/API';
 
 class TopNav extends Component {
   state = {
-    currentUser: '',
     username: '',
     password: '',
     open: false,
   };
+
+  componentDidMount() {
+    API.getCurrentUser().then((response) => {
+      const currentUser = response.data.user;
+      this.props.onLogin(currentUser);
+    });
+  }
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -23,85 +29,74 @@ class TopNav extends Component {
     this.setState({ open: false });
   };
 
-  componentDidMount() {
-    API.getCurrentUser().then(response => {
-      //      console.log('response: ', response);
-      let currentUser = response.data.user;
-      //      console.log('currentUser is: ', currentUser);
-      this.setState({ currentUser: currentUser });
-      this.props.onLogin(currentUser);
-    });
-  }
+  handleInputChange = event => this.setState({ [event.target.name]: event.target.value })
 
-    handleInputChange = event => this.setState({ [event.target.name]: event.target.value })
-
-    submitForm = (event) => {
-      event.preventDefault();
-      if (this.state.password.length < 1 && this.state.username.length < 1) {
-        throw new Error('Bad login info. This is a crappy error message');
-      }
-
-      const data = {
-        username: this.state.username,
-        password: this.state.password,
-      };
-
-      API.loginUser(data)
-        .then((response) => {
-          //console.log('response: ', response);
-          const user = response.data.user;
-          //console.log('User: ', user);
-          this.setState({ currentUser: user, username: '', password: '' });
-          // close dialogue
-          this.props.onLogin(user);
-
-          this.handleClose();
-        })
-        .catch(err => console.log('error on login', err));
+  submitForm = (event) => {
+    event.preventDefault();
+    if (this.state.password.length < 1 && this.state.username.length < 1) {
+      throw new Error('Bad login info. This is a crappy error message');
     }
+
+    const data = {
+      username: this.state.username,
+      password: this.state.password,
+    };
+
+    API.loginUser(data)
+      .then((response) => {
+        // get user from response
+        const user = response.data.user;
+        // reset username and password fields
+        this.setState({ username: '', password: '' });
+        // pass user information to App.js
+        this.props.onLogin(user);
+        // close dialogue
+        this.handleClose();
+      })
+      .catch(err => console.log('error on login', err));
+  }
 
     logoff = (event) => {
       event.preventDefault();
-      API.logoutUser().then(response => this.setState({ currentUser: null }));
+      API.logoutUser().then(this.props.onLogin('null'));
+      
+      //API.logoutUser().then(response => this.setState({ currentUser: null }));
     }
 
     render() {
-
       const actions = [
-      <FlatButton
+        <FlatButton
         label="Cancel"
         primary
         onClick={this.handleClose}
       />,
-      <FlatButton
+        <FlatButton
         label="Submit"
-        primary={true}
-        keyboardFocused={true}
+        primary
+        keyboardFocused
         onClick={this.submitForm}
       />,
       ];
 
       return (
-      <div>
-        <AppBar
-          title="International Intern" 
-          style={{ zIndex: '1600' }} 
-          iconElementRight={
         <div>
+          <AppBar
+            title="International Intern"
+            style={{ zIndex: '1600' }}
+            iconElementRight={
+              <div>
+                <h3>{this.props.currentUser && this.props.currentUser.email ?
+                `User: ${this.props.currentUser.email}` :
+                'Not Logged in'}
+                </h3>
 
-          <h1>Hello: {this.props.currentUser.fullname}</h1>
-          <h2>{this.state.currentUser && this.state.currentUser.email ? 
-            'User: ' + this.state.currentUser.email : 
-            'Not Logged in'}
-          </h2>
+              {this.props.currentUser && this.props.currentUser.email ? <RaisedButton label="Logoff" onClick={this.logoff} /> : <RaisedButton label="Login" onClick={this.handleOpen} />}
 
-          {this.state.currentUser && this.state.currentUser.email ? <RaisedButton label="Logoff" onClick={this.logoff} /> : <RaisedButton label="Login" onClick={this.handleOpen} />}
-  
-        </div> 
+            </div>
       }
         />
 
-        <Dialog
+          <Dialog
           title="Login!"
           actions={actions}
           modal={false}
@@ -117,9 +112,9 @@ class TopNav extends Component {
             />
             <TextField
               floatingLabelText="Password"
-              name="password" 
-              type="password" 
-              value={this.state.password} 
+              name="password"
+              type="password"
+              value={this.state.password}
               onChange={this.handleInputChange}
             />
 
@@ -128,7 +123,7 @@ class TopNav extends Component {
         </Dialog>
 
 
-      </div>
+        </div>
       );
     }
 }
