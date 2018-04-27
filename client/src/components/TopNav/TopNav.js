@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
 import API from '../../utils/API';
+// import PropTypes from 'prop-types';
 
 class TopNav extends Component {
   state = {
@@ -56,47 +56,45 @@ class TopNav extends Component {
       .catch(err => console.log('error on login', err));
   }
 
-    logoff = (event) => {
-      event.preventDefault();
-      API.logoutUser().then(this.props.onLogin('null'));
-      
-      //API.logoutUser().then(response => this.setState({ currentUser: null }));
-    }
+  logoff = (event) => {
+    event.preventDefault();
+    API.logoutUser().then(this.props.onLogin('null'));
+    // API.logoutUser().then(response => this.setState({ currentUser: null }));
+  }
 
-    render() {
-      const actions = [
-        <FlatButton
+  render() {
+    const actions = [
+      <FlatButton
         label="Cancel"
         primary
         onClick={this.handleClose}
       />,
-        <FlatButton
+      <FlatButton
         label="Submit"
         primary
         keyboardFocused
         onClick={this.submitForm}
       />,
-      ];
+    ];
 
-      return (
-        <div>
-          <AppBar
-            title="International Intern"
-            style={{ zIndex: '1600' }}
-            iconElementRight={
-              <div>
-                <h3>{this.props.currentUser && this.props.currentUser.email ?
-                `User: ${this.props.currentUser.email}` :
-                'Not Logged in'}
-                </h3>
-
-              {this.props.currentUser && this.props.currentUser.email ? <RaisedButton label="Logoff" onClick={this.logoff} /> : <RaisedButton label="Login" onClick={this.handleOpen} />}
-
+    return (
+      <div>
+        <AppBar
+          title="International Intern"
+          style={{ zIndex: '1600' }}
+          iconElementRight={
+            <div>
+              <h3>{this.props.currentUser && this.props.currentUser.email ?
+              `User: ${this.props.currentUser.email}` :
+              'Not Logged in'}
+              </h3>
+              {this.props.currentUser && this.props.currentUser.email ?
+                <RaisedButton label="Logoff" onClick={this.logoff} /> :
+                <RaisedButton label="Login" onClick={this.handleOpen} />}
             </div>
-      }
+          }
         />
-
-          <Dialog
+        <Dialog
           title="Login!"
           actions={actions}
           modal={false}
@@ -117,19 +115,11 @@ class TopNav extends Component {
               value={this.state.password}
               onChange={this.handleInputChange}
             />
-
           </form>
-
         </Dialog>
-
-
-        </div>
-      );
-    }
+      </div>
+    );
+  }
 }
-
-// ContentArea.propTypes = {
-//   children: PropTypes.node.isRequired,
-// };
 
 export default TopNav;
