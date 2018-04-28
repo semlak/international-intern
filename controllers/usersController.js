@@ -1,6 +1,7 @@
 // const mongoose = require('mongoose');
 const passport = require('passport');
 const User = require('../models/user');
+const db = require('../models/');
 
 // Post registration
 const userController = {
@@ -49,7 +50,15 @@ const userController = {
   doLogin(req, res) {
     passport.authenticate('local')(req, res, () => {
     // res.redirect('/');
-      return res.json({ user: req.user });
+      User.findById(req.user._id)
+        .populate('expRef')
+        .populate('needsRef')
+        .populate('chapterRef')
+        .then(result => {
+          console.log("result after populate: ", result);
+          return res.json({ user: result});
+        })
+          //return res.json({ user: req.user });
     });
   },
 
