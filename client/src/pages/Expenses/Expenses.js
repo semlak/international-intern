@@ -82,7 +82,7 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <h1 style={{ marginLeft: 100 }}>Expenses</h1>
+        <h1>Expenses</h1>
         <CreateForm
           handleInputChange={this.handleInputChange}
           submitForm={this.submitForm}
