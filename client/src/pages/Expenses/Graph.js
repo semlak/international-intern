@@ -9,7 +9,6 @@ export default class extends Component {
 
   displayGraph = function() {
 
-      // let individualExpense = [14.5, 34, 9, 5.72, 4.12, 47, 3.47,12 ,15]
       let individualExpense =  this.props.expenses.map(expense => expense.expAmount);
       // console.log("Individual Expenses:" + individualExpense);
 
@@ -19,13 +18,11 @@ export default class extends Component {
         // console.log(cumulativeExpense);
       }
 
-      console.log("EEEEEEEEEEEEEEEEEEEEEE", individualExpense);
 
       let labels = Array.apply(null, {length: (individualExpense.length) + 1}).map((val, i) => i +1);
 
 
-      var chart = new Chartist.Line('.ct-chart', {
-      // labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      let chart = new Chartist.Line('.ct-chart', {
       
         labels: labels,
       // Naming the series with the series object array notation
@@ -58,6 +55,7 @@ export default class extends Component {
 
   componentWillReceiveProps() {
     this.displayGraph();
+    // this.forceUpdate();
   };
 
   componentDidMount() {

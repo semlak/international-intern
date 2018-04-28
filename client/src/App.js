@@ -8,7 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Journal from './pages/Journal/';
 import Expenses from './pages/Expenses/';
 import UserLocation from './pages/Location';
-import Requirements from './pages/Requirements';
+import Requirements from './pages/Requirements/';
 import NoMatch from './pages/NoMatch';
 // Components
 import RegistrationForm from './components/Users/RegistrationForm';
