@@ -62,7 +62,7 @@ export default class extends Component {
 			console.log("Error while getting current user: ", err)
 		})
 		API.getChapters().then(response=> {
-			console.log("API chapter response: " , response);
+			// console.log("API chapter response: " , response);
 			this.setState({
 				chapterData: response.data
 			})

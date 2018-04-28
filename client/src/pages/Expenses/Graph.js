@@ -24,7 +24,7 @@ export default class extends Component {
       let labels = Array.apply(null, {length: (individualExpense.length) + 1}).map((val, i) => i +1);
 
 
-      var chart = new Chartist.Line('.ct-chart', {
+      let chart = new Chartist.Line('.ct-chart', {
       // labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       
         labels: labels,

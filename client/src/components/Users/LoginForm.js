@@ -12,9 +12,9 @@ export default class extends Component {
 
   componentDidMount() {
     API.getCurrentUser().then(response => {
-      console.log('response: ', response);
+      //console.log('response: ', response);
       let currentUser = response.data.user;
-      console.log('currentUser is: ', currentUser);
+      //console.log('currentUser is: ', currentUser);
       this.setState({ currentUser: currentUser });
     });
     API.getNeeds()
@@ -35,9 +35,9 @@ export default class extends Component {
     };
     API.loginUser(data)
       .then((response) => {
-        console.log('response: ', response);
+        //console.log('response: ', response);
         const user = response.data.user;
-        console.log('User: ', user);
+        //console.log('User: ', user);
         this.setState({ currentUser: user, username: '', password: '' });
       })
       .catch(err => console.log('error on login', err));

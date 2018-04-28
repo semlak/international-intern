@@ -32,7 +32,7 @@ class App extends React.Component {
 
   handleLogin = (currentUser) => {
     this.setState({ currentUser });
-    console.log(this.state.currentUser);
+    // console.log(this.state.currentUser);
   }
 
   render() {

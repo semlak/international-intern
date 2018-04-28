@@ -21,7 +21,7 @@ export default class extends Component {
 		}
 		API.createNeed(data)
 			.then(response => {
-				console.log("response: ", response);
+				// console.log("response: ", response);
 				this.setState({
 					needTitle: "",
 					needNote: ""
@@ -32,9 +32,9 @@ export default class extends Component {
 
 	componentDidMount() {
 		API.getCurrentUser().then(response=> {
-			console.log("response: ", response);
+			//console.log("response: ", response);
 			let currentUser = response.data.user
-			console.log("currentUser is: " , currentUser);
+			//console.log("currentUser is: " , currentUser);
 			this.setState({currentUser: currentUser});
 		})
 	}

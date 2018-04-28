@@ -22,15 +22,15 @@ export default class extends Component {
 
   componentDidMount() {
     API.getCurrentUser().then((response) => {
-      console.log('response: ', response);
+      // console.log('response: ', response);
       const currentUser = response.data.user;
-      console.log('currentUser is: ', currentUser);
+      // console.log('currentUser is: ', currentUser);
       this.setState({
         currentUser,
       });
     });
     API.getExpenses().then((response) => {
-      console.log('API expense response: ', response);
+      // console.log('API expense response: ', response);
       this.setState({
         expenseData: response.data,
       });
@@ -44,7 +44,7 @@ export default class extends Component {
 
   submitForm = (event) => {
     event.preventDefault();
-    console.log('current state', this.state);
+    // console.log('current state', this.state);
 
     if (this.state.expenseDescription &&
       this.state.date &&
@@ -57,7 +57,7 @@ export default class extends Component {
 
       API.newExpense(data)
         .then((response) => {
-          console.log('Response from submitting expense: ', response);
+          // console.log('Response from submitting expense: ', response);
           this.setState({
             expenseDescription: '',
             usdAmount: '0.00',
@@ -65,7 +65,7 @@ export default class extends Component {
 
           });
           API.getExpenses().then((response) => {
-            console.log('API expense response: ', response);
+            // console.log('API expense response: ', response);
             this.setState({
               expenseData: response.data,
             });

@@ -43,7 +43,7 @@ export default class extends Component {
     // api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid=${APIKey}
 
     API.getWeather(queryURL).then((response) => {
-      console.log(`weather for ${city}, ${country_code}:`, response);
+      // console.log(`weather for ${city}, ${country_code}:`, response);
       const tempMinC = (response.data.main.temp_min - 273.15).toFixed(1);
       const tempMaxC = (response.data.main.temp_max - 273.15).toFixed(1);
       const tempMinF = ((tempMinC * 1.8) + 32).toFixed(1);
@@ -59,7 +59,7 @@ export default class extends Component {
         'windDirection': response.data.wind.deg,
         'sky': response.data.weather[0].main,
       }});
-      console.log('weather:', this.state.weather);
+      // onsole.log('weather:', this.state.weather);
     }).catch((error) => {
       throw error;
     });;
