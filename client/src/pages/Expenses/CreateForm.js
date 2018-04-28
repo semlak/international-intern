@@ -1,27 +1,57 @@
 import React from 'react';
+import {Card, CardHeader} from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+// import DatePicker from 'material-ui/DatePicker';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const CreateForm = (props) => {
+  return (
+    <Card>
+      <CardHeader
+        title="Add Expense"
+      />
 
+      <form>
+        <TextField
+          floatingLabelText="Description"
+          floatingLabelFixed
+          name="expenseDescription"
+          type="text"
+          value={props.expenseDescription}
+          onChange={props.handleInputChange}
+        />
+        <TextField
+          floatingLabelText="Amount"
+          floatingLabelFixed
+          name="usdAmount"
+          type="number"
+          step="0.01"
+          placeholder="0.00"
+          value={props.usdAmount}
+          onChange={props.handleInputChange}
+        />
+        {/* <DatePicker
+          floatingLabelText="Date"
+          name="date"
 
-
-	return (<div style = {{marginLeft: 100}}>
-				<h3>Add New Expense</h3>
-				<form>
-					<p>Description</p>
-					<input name="expenseDescription" type="text" value={props.expenseDescription} onChange={props.handleInputChange} />
-					<p>Amount</p>
-					<input name="usdAmount" type="number" step='0.01' value={props.usdAmount} placeholder='0.00' onChange={props.handleInputChange} />
-
-					<p>Date</p>
-					<input name="date" type="date" step='' value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
-					<p>Currency</p>
-					<input name="currencyCode" type="text" value={props.currencyCode} onChange={props.handleInputChange} />
-					<br/>
-					<button onClick={props.submitForm}>Submit Expense</button>
-				</form>
-			</div>
-		)
-	
-}
+        /> */}
+        <input name="date" type="date" step='' value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
+        <TextField
+          floatingLabelText="Currency Code"
+          floatingLabelFixed
+          name="currencyCode"
+          type="text"
+          value={props.currencyCode}
+          onChange={props.handleInputChange}
+        />
+        <RaisedButton
+          label="Submit"
+          primary={true}
+          onClick={props.submitForm} 
+        />
+      </form>
+    </Card>
+  );
+};
 
 export default CreateForm;

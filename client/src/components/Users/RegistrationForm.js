@@ -35,7 +35,7 @@ export default class extends Component {
 		API.registerUser(data)
 			.then(response => {
 				let newUser = response.data.user;
-				console.log("newUser: ", newUser);
+				//console.log("newUser: ", newUser);
 				this.setState({
 					currentUser: newUser,
 					email: "", password: "", passwordConfirm: "",
@@ -47,9 +47,9 @@ export default class extends Component {
 
 	componentDidMount() {
 		API.getCurrentUser().then(response=> {
-			console.log("response: ", response);
+			//console.log("response: ", response);
 			let currentUser = response.data.user
-			console.log("currentUser is: " , currentUser);
+			//console.log("currentUser is: " , currentUser);
 			this.setState({currentUser: currentUser});
 		})
 	}

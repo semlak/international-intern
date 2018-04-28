@@ -22,9 +22,9 @@ export default class extends Component {
   componentDidMount() {
     // fetch the user to get their location, etc...
     API.getCurrentUser().then((response) => {
-      console.log('get user: ', response);
+      // console.log('get user: ', response);
       const currentUser = response.data.user;
-      console.log('currentUser is: ', currentUser);
+      // console.log('currentUser is: ', currentUser);
       this.setState({ currentUser });
     });
 
@@ -43,11 +43,12 @@ export default class extends Component {
     // api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid=${APIKey}
 
     API.getWeather(queryURL).then((response) => {
-      console.log(`weather for ${city}, ${country_code}:`, response);
+      // console.log(`weather for ${city}, ${country_code}:`, response);
       const tempMinC = (response.data.main.temp_min - 273.15).toFixed(1);
       const tempMaxC = (response.data.main.temp_max - 273.15).toFixed(1);
       const tempMinF = ((tempMinC * 1.8) + 32).toFixed(1);
       const tempMaxF = ((tempMaxC * 1.8) + 32).toFixed(1);
+
 
       this.setState({
         weather: {
@@ -62,6 +63,7 @@ export default class extends Component {
         },
       });
       console.log('weather:', this.state.weather);
+
     }).catch((error) => {
       throw error;
     });

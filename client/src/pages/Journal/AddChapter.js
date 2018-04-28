@@ -2,7 +2,7 @@ import React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import firebase from '../../utils/firebase';
+// import firebase from '../../utils/firebase';
 
 const AddChapter = (props) => {
 
