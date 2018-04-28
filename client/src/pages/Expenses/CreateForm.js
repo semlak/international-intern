@@ -1,59 +1,7 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-// import API from "../../utils/API";
+import React from 'react';
 
 const CreateForm = (props) => {
-	// state = {
-	// 	expenseDescription: "",
-	// 	date: Date.now(),
-	// 	usdAmount: '0.00',
-	// 	currencyCode: "KRW"
-	// }
 
-	// handleInputChange = event => this.setState({[event.target.name]: event.target.value})
-
-	// submitForm = event => {
-	// 	event.preventDefault();
-	// 	console.log("current state", this.state)
-
-	// 	if (this.state.expenseDescription && 
-	// 		this.state.date && 
-	// 		this.state.usdAmount && this.state.currencyCode) {
-
-	// 		const data = {
-	// 			expDesc:this.state.expenseDescription,
-	// 			expAmount: this.state.usdAmount,
-	// 			expDate: this.state.date
-
-	// 		}
-	// 		API.newExpense(data)
-	// 			.then(response => {
-	// 				console.log("Response from submitting expense: ", response)
-	// 				this.setState({
-	// 					expenseDescription: "",
-	// 					usdAmount: '0.00',
-	// 					date: "" 
-		
-	// 				})
-	// 			})
-	// 			.catch(err => {
-	// 				console.log("Error while submitting expense: ", err)
-	// 			})
-	// 		}
-
-	// 	else {
-	// 		console.log("Unable to submit ")
-	// 	}
-	// }
-
-	// componentDidMount() {
-	// 	API.getCurrentUser().then(response=> {
-	// 		console.log("response: ", response);
-	// 		let currentUser = response.data.user
-	// 		console.log("currentUser is: " , currentUser);
-	// 		this.setState({currentUser: currentUser});
-	// 	})
-	// }
 
 
 	return (<div style = {{marginLeft: 100}}>
