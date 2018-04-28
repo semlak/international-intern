@@ -9,14 +9,24 @@ import {
 } from 'material-ui/Table';
 import Card from 'material-ui/Card';
 
-
 import ExpenseLedgerItem from './ExpenseLedgerItem';
+
+
+// class Ledger extends React.Component {
+//   render() {
+//     return <h2>Hello</h2>;
+//   }
+// }
 
 const Ledger = props => (
 // <h1>Ledger</h1>
 <Card>
   <Table>
-    <TableHeader
+  <TableHeader></TableHeader>
+  <TableBody>
+    <TableRow></TableRow>
+  </TableBody>
+    {/* <TableHeader
       displaySelectAll={false}
       adjustForCheckboxes={false}
     >
@@ -27,15 +37,15 @@ const Ledger = props => (
         <TableHeaderColumn>Amount XXX</TableHeaderColumn>
       </TableRow>
     </TableHeader>
-    <TableBody
-      //displaySelectAll={false}
-     // adjustForCheckboxes={false}
-    >
+    <TableBody>
       {props.expenses.map(expense => <ExpenseLedgerItem key={expense._id} {...expense} />)}
-    </TableBody>
+    </TableBody> */}
   </Table>
   </Card>
 );
+
+export default Ledger;
+
 
 // const Ledger = (props) => (
 //   <div className="expenseLedger" style={{marginLeft: 100 + 'px'}}>
@@ -54,4 +64,4 @@ const Ledger = props => (
 // );
 
 
-export default Ledger;
+

@@ -83,11 +83,11 @@ export default class extends Component {
     return (
       <div>
         <h1>Expenses</h1>
-        <CreateForm
+        {/* <CreateForm
           handleInputChange={this.handleInputChange}
           submitForm={this.submitForm}
           {...this.state}
-        />
+        /> */}
         <Ledger expenses={this.state.expenseData} />
         <Graph expenses={this.state.expenseData} />
       </div>

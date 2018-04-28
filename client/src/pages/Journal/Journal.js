@@ -16,7 +16,7 @@ export default class extends Component {
 		description: "",
 		date: Date.now(),
 		image: "",
-		reqNum: '0',
+		reqNum: '1',
 		chapterData:[]
 	};
 
@@ -41,7 +41,7 @@ export default class extends Component {
 	}
 
 	handleInputChange = (event) => this.setState({
-    	[event.target.name]: event.target.value,
+      [event.target.name]: event.target.value,
  	})
 
 	handleFormSubmit = (event) => {

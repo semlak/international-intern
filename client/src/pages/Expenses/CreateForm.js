@@ -2,7 +2,7 @@ import React from 'react';
 import {Card, CardHeader} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 // import DatePicker from 'material-ui/DatePicker';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 const CreateForm = (props) => {
   return (
@@ -12,6 +12,8 @@ const CreateForm = (props) => {
       />
 
       <form>
+
+
         <TextField
           floatingLabelText="Description"
           floatingLabelFixed
@@ -44,7 +46,7 @@ const CreateForm = (props) => {
           value={props.currencyCode}
           onChange={props.handleInputChange}
         />
-        <RaisedButton
+        <Button variant="raised"
           label="Submit"
           primary={true}
           onClick={props.submitForm} 

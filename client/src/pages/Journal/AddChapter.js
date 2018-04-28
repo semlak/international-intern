@@ -1,7 +1,7 @@
 import React from 'react';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+import Select from 'material-ui/Select';
+import { MenuList, MenuItem } from 'material-ui/Menu';
+import Button from 'material-ui/Button';
 // import firebase from '../../utils/firebase';
 
 const AddChapter = (props) => {
@@ -17,19 +17,29 @@ const AddChapter = (props) => {
 				<p>Date</p>
 				<input name="date" type="date" value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
 				<p>Image</p>
-		        <RaisedButton
-		          containerElement='label' label='My Label'>
+		        <Button
+		           label='My Label'>
 		          <input type="file" onChange={props.handleInputChange} />
-		        </RaisedButton>
-
+		        </Button>
 				<p>Requirement</p>
-				<DropDownMenu value={props.numReq} onChange={props.handleInputChange}>
-      				<MenuItem value={1} primaryText="1" />
-      				<MenuItem value={2} primaryText="2" />
-      				<MenuItem value={3} primaryText="3" />
-      				<MenuItem value={4} primaryText="4" />
-      				<MenuItem value={5} primaryText="5" />
-    			</DropDownMenu>
+<select>
+  <option value={1}>1</option>
+  <option value={2}>2</option>
+  <option value={3}>3</option>
+  <option value={4}>4</option>
+</select>
+
+
+        {/* <Select
+           value={props.reqNum} 
+           onChange={props.handleInputChange}
+        >
+          <MenuItem value={1}>1</MenuItem>
+          <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={3}>3</MenuItem>
+          <MenuItem value={4}>4</MenuItem>
+          <MenuItem value={5}>5</MenuItem>
+    	  </Select> */}
 				<br />
 				<button className="btn btn-primary mt-2" onClick={props.handleFormSubmit}>Add Chapter</button>
 			</form>

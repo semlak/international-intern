@@ -2,6 +2,8 @@ import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import SidebarItem from './SidebarItem';
 
+import { MenuItem, MenuList } from 'material-ui/Menu';
+
 const links = [
   {
     text: 'Journal',
@@ -28,15 +30,23 @@ const links = [
 ];
 
 const Sidebar = () => (
-  <Drawer containerStyle={{ top: '64px' }}>
+  <Drawer
+  variant="permanent"
+  >
+
+    <MenuList>
     {links.map(link => (
+
       <SidebarItem
         key={link.text}
         text={link.text}
         path={link.path}
       />
     ))}
-  </Drawer>
+    </MenuList>
+
+     </Drawer>
+
 );
 
 export default Sidebar;

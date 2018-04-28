@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MenuItem from 'material-ui/MenuItem';
+import { MenuItem, MenuList } from 'material-ui/Menu';
+// import MenuItem from 'material-ui/MenuItem';
+import List from 'material-ui/List';
 
 // inline style
 const active = {
@@ -14,11 +16,20 @@ export default class SidebarItem extends React.Component {
   render() {
     const { path, text } = this.props;
     return (
-      <MenuItem
-        style={window.location.pathname === path ? active : null}
-        primaryText={text}
-        containerElement={<Link to={path} />}
-      />
+    <Link to={path} style={{ textDecoration: 'none', display: 'block' }}>
+      <MenuItem>
+        {text}
+      </MenuItem>
+    </Link>
+
+      // <MenuItem
+      // // style={window.location.pathname === path ? active : null}
+      // // children={text}
+      // // children={}
+      // >
+      
+      // <Link to={path} />
+      // </MenuItem>
     );
   }
 }

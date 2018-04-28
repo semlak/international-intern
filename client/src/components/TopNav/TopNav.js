@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
 import API from '../../utils/API';
@@ -64,16 +63,20 @@ class TopNav extends Component {
 
   render() {
     const actions = [
-      <FlatButton
+      <Button 
+        variant="raised"
         label="Cancel"
         primary
         onClick={this.handleClose}
+        children={'Cancel'}
       />,
-      <FlatButton
+      <Button 
+        variant="raised"
         label="Submit"
         primary
         keyboardFocused
         onClick={this.submitForm}
+        children={'Submit'}
       />,
     ];
 
@@ -83,16 +86,16 @@ class TopNav extends Component {
         <AppBar
           title="International Intern"
           style={{ zIndex: '1600', position: 'fixed', top: '0' }}
-          iconElementRight={
+          children={
             <div>
               {this.props.currentUser && this.props.currentUser.email ?
                 <div>
                   <h4 style={{display: 'inline-block', paddingRight: '10px', color: '#fff'}}>
                     {this.props.currentUser.email}
                   </h4>
-                  <RaisedButton label="Logoff" onClick={this.logoff} />
+                  <Button variant="raised" label="Logoff" onClick={this.logoff} children={'Logoff'} />
                     </div> :
-                  <RaisedButton label="Login" onClick={this.handleOpen} />
+                  <Button variant="raised" label="Login" onClick={this.handleOpen} children={'Login'} />
                   }
             </div>
           }

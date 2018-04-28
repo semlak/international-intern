@@ -2,7 +2,6 @@ import React from 'react';
 import dotenv from 'dotenv';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Material UI components
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Pages
 import Journal from './pages/Journal/';
@@ -37,7 +36,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider>
+
         <Router>
           <div>
             <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} />
@@ -57,7 +56,7 @@ class App extends React.Component {
             </ContentArea>
           </div>
         </Router>
-      </MuiThemeProvider>
+
     );
   }
 }
