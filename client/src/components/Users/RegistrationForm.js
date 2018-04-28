@@ -31,8 +31,10 @@ export default class extends Component {
 			email: this.state.email,
 			password: this.state.password,
 			fullname: this.state.fullname,
-			homeLocation: this.state.homeLocation,
-			internLocation: this.state.internLocation
+			homeLocationCity: this.state.homeLocationCity,
+			homeLocationCountry: this.state.homeLocationCountry,
+			internLocationCity: this.state.internLocationCity,
+			internLocationCountry: this.state.internLocationCountry,
 		}
 		API.registerUser(data)
 			.then(response => {
@@ -77,7 +79,7 @@ export default class extends Component {
           <input name="fullname" type="text" value={this.state.fullname} onChange={this.handleInputChange} />
           <p>Home Location City</p>
           <input name="homeLocationCity" type="text" value={this.state.homeLocationCity} onChange={this.handleInputChange} />
-          <p>Home Location</p>
+          <p>Home Location Country</p>
           <input name="homeLocationCountry" type="text" value={this.state.homeLocationCountry} onChange={this.handleInputChange} />
           <p>Internship Location City</p>
           <input name="internLocationCity" type="text" value={this.state.internLocationCity} onChange={this.handleInputChange} />

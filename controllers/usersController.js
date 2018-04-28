@@ -21,7 +21,7 @@ const userController = {
   },
 
   doRegister(req, res) {
-    User.register(new User({
+    const data = {
       username: req.body.username,
       email: req.body.email,
       fullname: req.body.fullname,
@@ -30,7 +30,8 @@ const userController = {
       // internLocation: req.body.internLocation,
       internLocationCity: req.body.internLocationCity,
       internLocationCountry: req.body.internLocationCountry,
-    }), req.body.password, (err, user) => {
+    };
+    User.register(new User(data), req.body.password, (err, user) => {
       if (err) {
       // return res.render('register', { user : user });
         console.log('error', err);
