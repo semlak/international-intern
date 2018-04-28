@@ -22,7 +22,7 @@ export default class extends Component {
 
 	handleFormSubmit = (event) => {
 	  event.preventDefault();
-	  console.log('current state', this.state);
+	  // console.log('current state', this.state);
 
 	  if (this.state.chapterTitle &&
 			this.state.description &&
@@ -36,7 +36,7 @@ export default class extends Component {
 			}
 			API.addChapter(data)
 				.then(response => {
-					console.log("Response from adding chapter: ", response)
+					// console.log("Response from adding chapter: ", response)
 					this.setState({
 						chapterTitle:"",
 						description: "",
@@ -54,9 +54,9 @@ export default class extends Component {
 
 	componentDidMount() {
 		API.getCurrentUser().then(response=> {
-			console.log("response: ", response);
+			// console.log("response: ", response);
 			let currentUser = response.data.user
-			console.log("currentUser is: " , currentUser);
+			// console.log("currentUser is: " , currentUser);
 			this.setState({currentUser: currentUser});
 		}).catch(err =>{
 			console.log("Error while getting current user: ", err)

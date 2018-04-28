@@ -21,9 +21,9 @@ export default class extends Component {
   componentDidMount() {
     // fetch the user to get their location, etc...
     API.getCurrentUser().then(response=> {
-      console.log('get user: ', response);
+      // console.log('get user: ', response);
       let currentUser = response.data.user
-      console.log('currentUser is: ' , currentUser);
+      // console.log('currentUser is: ' , currentUser);
       this.setState({currentUser: currentUser});
     });
 

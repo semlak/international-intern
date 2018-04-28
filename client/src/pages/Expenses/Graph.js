@@ -19,7 +19,7 @@ export default class extends Component {
         // console.log(cumulativeExpense);
       }
 
-      console.log("EEEEEEEEEEEEEEEEEEEEEE", individualExpense);
+      // console.log("EEEEEEEEEEEEEEEEEEEEEE", individualExpense);
 
       let labels = Array.apply(null, {length: (individualExpense.length) + 1}).map((val, i) => i +1);
 
@@ -62,9 +62,9 @@ export default class extends Component {
 
   componentDidMount() {
     API.getCurrentUser().then(response=> {
-      console.log("response: ", response);
+      // console.log("response: ", response);
       let currentUser = response.data.user
-      console.log("currentUser is: " , currentUser);
+      // console.log("currentUser is: " , currentUser);
       this.setState({currentUser: currentUser});
     });
     // this.displayGraph();

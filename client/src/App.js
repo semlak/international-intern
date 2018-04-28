@@ -21,7 +21,7 @@ import ContentArea from './components/ContentArea/ContentArea';
 // read the .env file and load values into the process.env object
 // must come before any use of process.env
 dotenv.config();
-console.log('env:', process.env);
+// console.log('env:', process.env);
 // read .env.development.local
 // dotenv.config({path: './.env.development.local'})
 
