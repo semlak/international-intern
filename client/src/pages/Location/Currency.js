@@ -58,6 +58,7 @@ export default class extends Component {
       <div>
         <h2>Currency</h2>
         <p>Home Currency: {this.state.homeCurrency}</p>
+        <p>Internship Currency: {this.state.locCurrency}</p>
         <p>Exchange Rate: {this.state.exchangeRate}</p>
       </div>
     );
