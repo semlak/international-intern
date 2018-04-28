@@ -19,7 +19,7 @@ const chapterSchema = new Schema({
   }, 
   reqNum: {
     type: Number,
-    required:true
+    
   }
 });
 
