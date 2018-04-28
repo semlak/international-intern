@@ -15,6 +15,7 @@ export default class extends Component {
       windDirection: 0,
       sky: '',
     },
+    APIKey: process.env.REACT_APP_OPEN_WEATHERMAPS_API_KEY,
   }
 
   // handleInputChange = event => this.setState({[event.target.name]: event.target.value})
@@ -32,14 +33,13 @@ export default class extends Component {
     // Now get the weather...
     //
     // Internship location
-    const city = 'Saint Paul'; // hard code for now
-    const country_code = 'US';
+    // hard code for now ; TODO - get from user
+    const city = 'Toronto';
+    const country_code = 'CA';
 
-    const APIKey = process.env.REACT_APP_OPEN_WEATHERMAPS_API_KEY;
-    const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country_code}&appid=${APIKey}`;
+    const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country_code}&appid=${this.state.APIKey}`; // current
     // api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey;
     // api.openweathermap.org/data/2.5/weather?q={city name}&appid=${APIKey}
-    // or
     // api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid=${APIKey}
 
     API.getWeather(queryURL).then((response) => {
@@ -48,7 +48,6 @@ export default class extends Component {
       const tempMaxC = (response.data.main.temp_max - 273.15).toFixed(1);
       const tempMinF = ((tempMinC * 1.8) + 32).toFixed(1);
       const tempMaxF = ((tempMaxC * 1.8) + 32).toFixed(1);
-
 
       this.setState({
         weather: {
@@ -63,7 +62,20 @@ export default class extends Component {
         },
       });
       console.log('weather:', this.state.weather);
+    }).catch((error) => {
+      throw error;
+    });
+  }
 
+  forecast() {
+    // Internship location
+    // hard code for now ; TODO - get from user
+    const city = 'Toronto';
+    const country_code = 'CA';
+
+    const queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city},${country_code}&appid=${this.state.APIKey}`; // 5-day forecast
+    API.getWeather(queryURL).then((response) => {
+      console.log(`weather for ${city}, ${country_code}:`, response);
     }).catch((error) => {
       throw error;
     });
@@ -79,11 +91,11 @@ export default class extends Component {
 
     return (
       <div>
-        <h2>Weather</h2>
-        <p>Today{"'"}s Low: {this.state.weather.tempMinF}<span dangerouslySetInnerHTML={dF} /></p>
-        <p>Today{"'"}s High: {this.state.weather.tempMaxF}<span dangerouslySetInnerHTML={dF} /></p>
-        <p>Today{"'"}s Wind: {this.state.weather.windSpeed} {ordinal}</p>
-        <p>Today{"'"}s Sky: {this.state.weather.sky}</p>
+        <h2>Weather in {this.state.weather.cityName}</h2>
+        <p>Current Low: {this.state.weather.tempMinF}<span dangerouslySetInnerHTML={dF} /></p>
+        <p>Current High: {this.state.weather.tempMaxF}<span dangerouslySetInnerHTML={dF} /></p>
+        <p>Current Wind: {this.state.weather.windSpeed} {ordinal}</p>
+        <p>Current Sky: {this.state.weather.sky}</p>
       </div>
     );
   }
