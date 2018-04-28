@@ -77,20 +77,23 @@ class TopNav extends Component {
       />,
     ];
 
+    
     return (
       <div>
         <AppBar
           title="International Intern"
-          style={{ zIndex: '1600' }}
+          style={{ zIndex: '1600', position: 'fixed', top: '0' }}
           iconElementRight={
             <div>
-              <h3>{this.props.currentUser && this.props.currentUser.email ?
-              `User: ${this.props.currentUser.email}` :
-              'Not Logged in'}
-              </h3>
               {this.props.currentUser && this.props.currentUser.email ?
-                <RaisedButton label="Logoff" onClick={this.logoff} /> :
-                <RaisedButton label="Login" onClick={this.handleOpen} />}
+                <div>
+                  <h4 style={{display: 'inline-block', paddingRight: '10px', color: '#fff'}}>
+                    {this.props.currentUser.email}
+                  </h4>
+                  <RaisedButton label="Logoff" onClick={this.logoff} />
+                    </div> :
+                  <RaisedButton label="Login" onClick={this.handleOpen} />
+                  }
             </div>
           }
         />
