@@ -3,18 +3,20 @@ import {Link} from 'react-router-dom';
 import API from "../../utils/API";
 
 export default class extends Component {
-	state = {
-		currentUser: "",
-		username: "",
-		email: "",
-		password: "", 
-		passwordConfirm: "",
-		fullname: "",
-		homeLocation: "", 
-		internLocation: ""
-	}
+  state = {
+    currentUser: "",
+    username: "",
+    email: "",
+    password: "", 
+    passwordConfirm: "",
+    fullname: "",
+    homeLocationCity: "", 
+    homeLocationCountry: "", 
+    internLocationCity: "",
+    internLocationCountry: "",
+  }
 
-	handleInputChange = event => this.setState({[event.target.name]: event.target.value})
+  handleInputChange = event => this.setState({[event.target.name]: event.target.value})
 
 	submitForm = event => {
 		event.preventDefault();
@@ -54,35 +56,38 @@ export default class extends Component {
 		})
 	}
 
-	render() {
-		return (
-			<div>
-				<h1>Example Registration Form</h1>
-				<h2>{this.state.currentUser && this.state.currentUser.email ? 
-					"User: " + this.state.currentUser.email : 
-					"No User Logged in"}
-				</h2>
-				<form>
-					<p>Username</p>
-					<input name="username" type="text" value={this.state.username} onChange={this.handleInputChange} />
-					<p>Email</p>
-					<input name="email" type="text" value={this.state.email} onChange={this.handleInputChange} />
-					<p>Enter Password</p>
-					<input name="password" type="password" value={this.state.password} onChange={this.handleInputChange} />
-					<p>Confirm Password</p>
-					<input name="passwordConfirm" type="password" value={this.state.passwordConfirm} onChange={this.handleInputChange} />
-					<p>Full Name</p>
-					<input name="fullname" type="text" value={this.state.fullname} onChange={this.handleInputChange} />
-					<p>Home Location</p>
-					<input name="homeLocation" type="text" value={this.state.homeLocation} onChange={this.handleInputChange} />
-					<p>Internship Location</p>
-					<input name="internLocation" type="text" value={this.state.internLocation} onChange={this.handleInputChange} />
-					<br/>
-					<button onClick={this.submitForm}>Register</button>
-
-				</form>
-				<Link to="/login">Login</Link> 
-			</div>
-		)
-	}
+  render() {
+    return (
+      <div>
+        <h1>Example Registration Form</h1>
+    <h2>{this.state.currentUser && this.state.currentUser.email ? 
+          "User: " + this.state.currentUser.email : 
+          "No User Logged in"}
+        </h2>
+        <form>
+          <p>Username</p>
+          <input name="username" type="text" value={this.state.username} onChange={this.handleInputChange} />
+          <p>Email</p>
+          <input name="email" type="text" value={this.state.email} onChange={this.handleInputChange} />
+          <p>Enter Password</p>
+          <input name="password" type="password" value={this.state.password} onChange={this.handleInputChange} />
+          <p>Confirm Password</p>
+          <input name="passwordConfirm" type="password" value={this.state.passwordConfirm} onChange={this.handleInputChange} />
+          <p>Full Name</p>
+          <input name="fullname" type="text" value={this.state.fullname} onChange={this.handleInputChange} />
+          <p>Home Location City</p>
+          <input name="homeLocationCity" type="text" value={this.state.homeLocationCity} onChange={this.handleInputChange} />
+          <p>Home Location</p>
+          <input name="homeLocationCountry" type="text" value={this.state.homeLocationCountry} onChange={this.handleInputChange} />
+          <p>Internship Location City</p>
+          <input name="internLocationCity" type="text" value={this.state.internLocationCity} onChange={this.handleInputChange} />
+          <p>Internship Location Country</p>
+          <input name="internLocationCountry" type="text" value={this.state.internLocationCountry} onChange={this.handleInputChange} />
+          <br/>
+          <button onClick={this.submitForm}>Register</button>
+        </form>
+        <Link to="/login">Login</Link> 
+      </div>
+    )
+  }
 }

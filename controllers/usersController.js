@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const passport = require("passport");
-const User = require("../models/user");
+// const mongoose = require('mongoose');
+const passport = require('passport');
+const User = require('../models/user');
 
 // Post registration
 const userController = {
@@ -9,58 +9,62 @@ const userController = {
 
     // CHECK THE USER STORED IN SESSION FOR A CUSTOM VARIABLE
     // you can do this however you want with whatever variables you set up
-    if (req.isAuthenticated && req.isAuthenticated() === "true") {
-      if (typeof next === "function") {
+    if (req.isAuthenticated && req.isAuthenticated() === 'true') {
+      if (typeof next === 'function') {
         return next();
-      }  
-      else {
-        return res.json({user: req.user})
       }
+      return res.json({ user: req.user });
     }
 
     // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE, or atleat don't return priviledged data
-    res.json({user: null});
+    return res.json({ user: null });
   },
 
-
-
   doRegister(req, res) {
-    User.register(new User({ username: req.body.username, email: req.body.email, fullname: req.body.fullname, homeLocation: req.body.homeLocation, internLocation: req.body.internLocation }), req.body.password, (err, user) => {
+    User.register(new User({
+      username: req.body.username,
+      email: req.body.email,
+      fullname: req.body.fullname,
+      homeLocationCity: req.body.homeLocationCity,
+      homeLocationCountry: req.body.homeLocationCountry,
+      // internLocation: req.body.internLocation,
+      internLocationCity: req.body.internLocationCity,
+      internLocationCountry: req.body.internLocationCountry,
+    }), req.body.password, (err, user) => {
       if (err) {
       // return res.render('register', { user : user });
-        return res.json(err)
+        console.log('error', err);
+        return res.json(err);
       }
 
-      passport.authenticate('local')(req, res, () => {
+      return passport.authenticate('local')(req, res, () => {
         // res.redirect('/');
-        res.json({user: user})
+        res.json({ user });
       });
     });
   },
 
   // Post login
-  doLogin (req, res) {
+  doLogin(req, res) {
     passport.authenticate('local')(req, res, () => {
     // res.redirect('/');
-    res.json({user: req.user})
+      return res.json({ user: req.user });
     });
   },
 
   // logout
-  logout (req, res) {
+  logout(req, res) {
     req.logout();
-    res.json({user: null})
+    res.json({ user: null });
   },
-  getCurrentUser (req, res) {
+  getCurrentUser(req, res) {
     if (req.isAuthenticated && req.isAuthenticated()) {
     // if (req.user && req.user._id) {
-      res.json({user: req.user})
+      return res.json({ user: req.user });
     }
-    else {
-      res.json({user: null})
-    }
+    return res.json({ user: null });
   }
-}
+};
 
 
 module.exports = userController;
