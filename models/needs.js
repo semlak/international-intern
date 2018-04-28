@@ -3,14 +3,17 @@ const Schema = mongoose.Schema;
 // const User = require("./user");
 
 const needsSchema = new Schema({
+  needNumber: {
+    type: Number,
+    required: true
+  },
   needTitle: { 
   	type: String, 
   	required: true 
   },
-  needNote: { 
+  needDesc: { 
   	type: String, 
-  	required: true ,
-  	imageurl: String
+  	required: true 
   },
   needDate: { 
 	type: Date, 
