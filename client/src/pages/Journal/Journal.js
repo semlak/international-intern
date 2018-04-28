@@ -15,8 +15,7 @@ export default class extends Component {
 		chapterTitle: "",
 		description: "",
 		date: Date.now(),
-		image: "",
-		reqNum: '0',
+		requireNum: '0',
 		chapterData:[]
 	};
 
@@ -46,7 +45,7 @@ export default class extends Component {
 
 	handleFormSubmit = (event) => {
 	  event.preventDefault();
-	  // console.log('current state', this.state);
+	  console.log('current state', this.state);
 
 	  if (this.state.chapterTitle &&
 			this.state.description &&
@@ -56,21 +55,21 @@ export default class extends Component {
 				chapTitle: this.state.chapterTitle,
 				chapNote: this.state.description,
 				chapDate: this.state.date,
-				reqNum: this.state.reqNum
-			}
+				reqNum: this.state.requireNum
+			};
 			API.addChapter(data)
 				.then((response) => {
-					// console.log("Response from adding chapter: ", response)
+					console.log("Response from adding chapter: ", response)
 					this.setState({
 						chapterTitle:"",
 						description: "",
 						date: "",
-						reqNum: 0
+						requireNum: 0
 					});
 					API.getChapters().then((response) => {
 						this.setState({
 							chapterData: response.data,
-						})
+						});
 					});
 				})
 				.catch((err) => {
@@ -82,10 +81,12 @@ export default class extends Component {
 	}
 
 	render() {
-		return <div>
-	    <h1>Journal</h1>
-	    <AddChapter handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} {...this.state}/>
-	    <ChapterCard chapters={this.state.chapterData} />
-	  </div>
+		return (
+			<div>
+		    	<h1>Journal</h1>
+		    	<AddChapter handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} {...this.state}/>
+		    	<ChapterCard chapters={this.state.chapterData} />
+		  	</div>
+		);
 	}
-};
+}
