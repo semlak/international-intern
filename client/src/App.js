@@ -24,7 +24,9 @@ dotenv.config();
 // read .env.development.local
 // dotenv.config({path: './.env.development.local'})
 
+
 class App extends React.Component {
+
   state = {
     currentUser: '',
   }
@@ -35,10 +37,17 @@ class App extends React.Component {
   }
 
   render() {
+
     return (
 
         <Router>
-          <div>
+          <div style={{
+            flexGrow: 1,
+            zIndex: 1,
+            position: 'relative',
+            display: 'flex',
+          }}
+          >
             <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} />
             <Sidebar />
             <ContentArea>

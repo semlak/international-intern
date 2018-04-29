@@ -11,6 +11,13 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import API from '../../utils/API';
 
+const styles = theme => ({
+  appBar: {
+    // Make the app bar z-index always one more than the drawer z-index
+    zIndex: theme.zIndex.drawer + 1,
+  },
+});
+
 class TopNav extends Component {
   state = {
     username: '',
@@ -67,27 +74,9 @@ class TopNav extends Component {
   }
 
   render() {
-    const actions = [
-      <Button
-        variant="raised"
-        label="Cancel"
-        primary
-        onClick={this.handleClose}
-        children={'Cancel'}
-      />,
-      <Button
-        variant="raised"
-        label="Submit"
-        primary
-        keyboardFocused
-        onClick={this.submitForm}
-        children={'Submit'}
-      />,
-    ];
-
     return (
       <div>
-        <AppBar position="fixed" style={{ zIndex: '1600' }}>
+          <AppBar position="absolute" style={{ zIndex: '1600' }}>
           <Toolbar>
             <Typography variant="title" color="inherit" style={{ flex: 1 }}>International Intern</Typography>
             { this.props.currentUser && this.props.currentUser.email ? 

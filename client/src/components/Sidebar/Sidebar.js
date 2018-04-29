@@ -3,6 +3,7 @@ import Drawer from 'material-ui/Drawer';
 import SidebarItem from './SidebarItem';
 
 import { MenuItem, MenuList } from 'material-ui/Menu';
+import { withStyles } from 'material-ui/styles';
 
 const links = [
   {
@@ -29,24 +30,33 @@ const links = [
   },
 ];
 
-const Sidebar = () => (
-  <Drawer
-  variant="permanent"
-  >
+const drawerWidth = 240;
 
-    <MenuList>
-    {links.map(link => (
+const style = { 
+  position: 'relative',
+  width: drawerWidth,
+}
 
-      <SidebarItem
-        key={link.text}
-        text={link.text}
-        path={link.path}
-      />
-    ))}
-    </MenuList>
-
+const Sidebar = (props) => {
+  const { classes } = props;
+  return (
+    <div style={style}>
+    <Drawer
+    variant="permanent" 
+    style={style}
+    >
+      <MenuList style={{paddingTop: '75px'}}>
+      {links.map(link => (
+        <SidebarItem
+          key={link.text}
+          text={link.text}
+          path={link.path}
+        />
+      ))}
+      </MenuList>
      </Drawer>
-
-);
+     </div>
+  )
+};
 
 export default Sidebar;

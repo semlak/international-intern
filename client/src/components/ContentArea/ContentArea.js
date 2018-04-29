@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const style = { 
-  marginLeft: 156, 
-  marginTop: 36,
-  padding: 24, 
+  paddingTop: '100px'
 }
 
 const ContentArea = props => (
