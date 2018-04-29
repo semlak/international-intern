@@ -1,57 +1,60 @@
 import React from 'react';
-import {Card, CardHeader} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
-// import DatePicker from 'material-ui/DatePicker';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
-const CreateForm = (props) => {
-  return (
-    <Card>
-      <CardHeader
-        title="Add Expense"
+const CreateForm = props => (
+  <div>
+    <form>
+      <TextField
+        label="Description"
+        name="expenseDescription"
+        type="text"
+        value={props.expenseDescription}
+        onChange={props.handleInputChange}
+        InputLabelProps={{
+          shrink: true,
+        }}
       />
-
-      <form>
-        <TextField
-          floatingLabelText="Description"
-          floatingLabelFixed
-          name="expenseDescription"
-          type="text"
-          value={props.expenseDescription}
-          onChange={props.handleInputChange}
-        />
-        <TextField
-          floatingLabelText="Amount"
-          floatingLabelFixed
-          name="usdAmount"
-          type="number"
-          step="0.01"
-          placeholder="0.00"
-          value={props.usdAmount}
-          onChange={props.handleInputChange}
-        />
-        {/* <DatePicker
-          floatingLabelText="Date"
-          name="date"
-
-        /> */}
-        <input name="date" type="date" step='' value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
-        <TextField
-          floatingLabelText="Currency Code"
-          floatingLabelFixed
+      <TextField
+        label="Amount"
+        name="usdAmount"
+        type="number"
+        step="0.01"
+        placeholder="0.00"
+        value={props.usdAmount}
+        onChange={props.handleInputChange}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TextField
+        label="Date"
+        type="date"
+        name="date"
+        value={props.date}
+        // placeholder={Date.now()}
+        onChange={props.handleInputChange}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      {/* <input name="date" type="date" value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} /> */}
+      <TextField
+          label="Currency Code"
           name="currencyCode"
           type="text"
           value={props.currencyCode}
           onChange={props.handleInputChange}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
-        <RaisedButton
-          label="Submit"
-          primary={true}
-          onClick={props.submitForm} 
-        />
-      </form>
-    </Card>
-  );
-};
+        
+      <Button variant="raised" onClick={props.submitForm} color="primary">
+        Submit
+      </Button>
+    </form>
+  </div>
+);
 
 export default CreateForm;

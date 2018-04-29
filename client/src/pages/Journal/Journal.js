@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AddChapter from './AddChapter';
 import ChapterCard from './ChapterCard';
+import firebase from 'firebase';
 import API from '../../utils/API';
 
 // const chapterData = [
@@ -14,6 +15,7 @@ export default class extends Component {
 	state= {
 		chapterTitle: "",
 		description: "",
+		image:"",
 		date: Date.now(),
 		requireNum: '0',
 		chapterData:[]
@@ -47,6 +49,41 @@ export default class extends Component {
 	  event.preventDefault();
 	  console.log('current state', this.state);
 
+	  let file = this.state.image;
+
+
+	  //get file
+	  // let file = fileButton.files[0];
+	  // console.log(file);
+
+	  //create storage ref
+	  let storageRef = firebase.storage().ref("chapter_pics/" + Date.now() + file.name);
+
+	  //upload file
+	  let task = storageRef.put(file);
+
+	  let image = "";
+
+	  //update progress bar
+	  task.on('state_changed', 
+		function progress(snapshot) {
+			console.log(snapshot);
+		}, 
+		function error (err) {
+		}, 
+
+		function complete() {
+			console.log("COMPLETE");
+
+			storageRef.getDownloadURL().then(function(url) {
+				image = url;
+				// localSotrage.setItem('chapUrl', image);
+				console.log(image);
+		            });
+
+    	});
+
+
 	  if (this.state.chapterTitle &&
 			this.state.description &&
 			this.state.date) {
@@ -54,6 +91,7 @@ export default class extends Component {
 			const data = {
 				chapTitle: this.state.chapterTitle,
 				chapNote: this.state.description,
+				chapImage: image,
 				chapDate: this.state.date,
 				reqNum: this.state.requireNum
 			};
@@ -63,6 +101,7 @@ export default class extends Component {
 					this.setState({
 						chapterTitle:"",
 						description: "",
+						image:"",
 						date: "",
 						requireNum: 0
 					});

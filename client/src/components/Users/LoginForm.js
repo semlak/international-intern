@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import API from '../../utils/API';
 
@@ -57,28 +57,26 @@ export default class extends Component {
         </h2>
         <form>
           <TextField
-            floatingLabelText="Username"
+            label="Username"
             name="username"
             value={this.state.username}
             onChange={this.handleInputChange}
           />
           <TextField
-            floatingLabelText="Password"
-            name="password" 
-            type="password" 
+            label="Password"
+            name="password"
+            type="password"
             value={this.state.password} 
             onChange={this.handleInputChange} 
           />
           <br />
-          <RaisedButton
-            onClick={this.submitForm}
-            label="Login"
-          />
-          <br />
-          <RaisedButton
-            onClick={this.logoff}
-            label="Logoff"
-          />
+          
+          <Button variant="raised" onClick={this.submitForm} color="primary">
+            Submit
+          </Button>
+          <Button variant="raised" onClick={this.logoff} color="secondary">
+            Logoff
+          </Button>
         </form>
       </div>
     );
