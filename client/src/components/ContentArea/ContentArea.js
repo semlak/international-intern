@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const style = { 
+  marginLeft: 156, 
+  marginTop: 36,
+  padding: 24, 
+}
+
 const ContentArea = props => (
-  <div style={{ marginLeft: 256 }}>
+  <div style={style}>
     {props.children}
   </div>
 );

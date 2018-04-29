@@ -3,6 +3,8 @@ import CreateForm from './CreateForm';
 import Ledger from './Ledger';
 import Graph from './Graph';
 import API from '../../utils/API';
+import Grid from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
 
 // const expenseData = [
 //   { "_id" : ("5ade8e43e0d4991f98664483"), "expDesc" : "cat food", "expAmount" : 12, "expDate" : ("2017-12-31T00:00:00Z"), "__v" : 0 },
@@ -10,6 +12,11 @@ import API from '../../utils/API';
 //   { "_id" : ("5ade8ecde0d4991f98664485"), "expDesc" : "pizza", "expAmount" : 15, "expDate" : ("2016-11-30T00:00:00Z"), "__v" : 0 },
 //   { "_id" : ("5ade8f6ee0d4991f98664486"), "expDesc" : "soup", "expAmount" : 144, "expDate" : ("2018-12-30T00:00:00Z"), "__v" : 0 }
 // ]
+
+const style = {
+  height: 250,
+};
+
 
 export default class extends Component {
   state = {
@@ -19,6 +26,7 @@ export default class extends Component {
     currencyCode: 'KRW',
     expenseData: [],
   };
+
 
   componentDidMount() {
     API.getCurrentUser().then((response) => {
@@ -82,14 +90,28 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <h1>Expenses</h1>
-        {/* <CreateForm
-          handleInputChange={this.handleInputChange}
-          submitForm={this.submitForm}
-          {...this.state}
-        /> */}
-        <Ledger expenses={this.state.expenseData} />
-        <Graph expenses={this.state.expenseData} />
+        <Grid container spacing={24}>
+          <Grid item xs={12} sm={4}>
+            <Paper style={style}>
+              <CreateForm
+                handleInputChange={this.handleInputChange}
+                submitForm={this.submitForm}
+                {...this.state}
+              />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={8}>
+            <Paper style={style}>
+              <Graph expenses={this.state.expenseData} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper>
+              <Ledger expenses={this.state.expenseData} />
+            </Paper>
+          </Grid>
+
+        </Grid>
       </div>
     );
   }
