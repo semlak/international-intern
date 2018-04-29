@@ -1,9 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import Select from 'material-ui/Select';
-// import DropDownMenu from 'material-ui/DropDownMenu';
 import Button from 'material-ui/Button';
-// import RaisedButton from 'material-ui/RaisedButton';
 // import firebase from '../../utils/firebase';
 import { MenuItem } from 'material-ui/Menu';
 import Input, { InputLabel } from 'material-ui/Input';
@@ -51,6 +49,7 @@ const AddChapter = (props) => {
       </form>
     </div>
   )
+
 }
 
 export default AddChapter;

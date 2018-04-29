@@ -83,6 +83,7 @@ export default class extends Component {
 
     	});
 
+
 	  if (this.state.chapterTitle &&
 			this.state.description &&
 			this.state.date) {
