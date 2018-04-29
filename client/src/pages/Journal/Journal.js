@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AddChapter from './AddChapter';
 import ChapterCard from './ChapterCard';
+import firebase from 'firebase';
 import API from '../../utils/API';
 
 // const chapterData = [
@@ -14,9 +15,9 @@ export default class extends Component {
 	state= {
 		chapterTitle: "",
 		description: "",
+		image:"",
 		date: Date.now(),
-		image: "",
-		reqNum: '1',
+		requireNum: '0',
 		chapterData:[]
 	};
 
@@ -41,12 +42,46 @@ export default class extends Component {
 	}
 
 	handleInputChange = (event) => this.setState({
-      [event.target.name]: event.target.value,
+    	[event.target.name]: event.target.value,
  	})
 
 	handleFormSubmit = (event) => {
 	  event.preventDefault();
-	  // console.log('current state', this.state);
+	  console.log('current state', this.state);
+
+	  let file = this.state.image;
+
+
+	  //get file
+	  // let file = fileButton.files[0];
+	  // console.log(file);
+
+	  //create storage ref
+	  let storageRef = firebase.storage().ref("chapter_pics/" + Date.now() + file.name);
+
+	  //upload file
+	  let task = storageRef.put(file);
+
+	  let image = "";
+
+	  //update progress bar
+	  task.on('state_changed', 
+		function progress(snapshot) {
+			console.log(snapshot);
+		}, 
+		function error (err) {
+		}, 
+
+		function complete() {
+			console.log("COMPLETE");
+
+			storageRef.getDownloadURL().then(function(url) {
+				image = url;
+				// localSotrage.setItem('chapUrl', image);
+				console.log(image);
+		            });
+
+    	});
 
 	  if (this.state.chapterTitle &&
 			this.state.description &&
@@ -55,22 +90,24 @@ export default class extends Component {
 			const data = {
 				chapTitle: this.state.chapterTitle,
 				chapNote: this.state.description,
+				chapImage: image,
 				chapDate: this.state.date,
-				reqNum: this.state.reqNum
-			}
+				reqNum: this.state.requireNum
+			};
 			API.addChapter(data)
 				.then((response) => {
-					// console.log("Response from adding chapter: ", response)
+					console.log("Response from adding chapter: ", response)
 					this.setState({
 						chapterTitle:"",
 						description: "",
+						image:"",
 						date: "",
-						reqNum: 0
+						requireNum: 0
 					});
 					API.getChapters().then((response) => {
 						this.setState({
 							chapterData: response.data,
-						})
+						});
 					});
 				})
 				.catch((err) => {
@@ -82,10 +119,12 @@ export default class extends Component {
 	}
 
 	render() {
-		return <div>
-	    <h1>Journal</h1>
-	    <AddChapter handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} {...this.state}/>
-	    <ChapterCard chapters={this.state.chapterData} />
-	  </div>
+		return (
+			<div>
+		    	<h1>Journal</h1>
+		    	<AddChapter handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} {...this.state}/>
+		    	<ChapterCard chapters={this.state.chapterData} />
+		  	</div>
+		);
 	}
-};
+}

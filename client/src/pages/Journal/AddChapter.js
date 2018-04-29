@@ -1,49 +1,56 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
 import Select from 'material-ui/Select';
-import { MenuList, MenuItem } from 'material-ui/Menu';
+// import DropDownMenu from 'material-ui/DropDownMenu';
 import Button from 'material-ui/Button';
+// import RaisedButton from 'material-ui/RaisedButton';
 // import firebase from '../../utils/firebase';
+import { MenuItem } from 'material-ui/Menu';
+import Input, { InputLabel } from 'material-ui/Input';
 
 const AddChapter = (props) => {
 
-	return (
-		<div>
-			<h3> Add New Chapter</h3>
-			<form>
-				<p>Title</p>
-				<input name="chapterTitle" type="text" value={props.chapterTitle} onChange={props.handleInputChange} />
-				<p>Description</p>
-				<input namme="description" tyoe="text" defaultValue={props.description} onChange={props.handleInputChange} />
-				<p>Date</p>
-				<input name="date" type="date" value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
-				<p>Image</p>
-		        <Button
-		           label='My Label'>
-		          <input type="file" onChange={props.handleInputChange} />
-		        </Button>
-				<p>Requirement</p>
-<select>
-  <option value={1}>1</option>
-  <option value={2}>2</option>
-  <option value={3}>3</option>
-  <option value={4}>4</option>
-</select>
-
-
-        {/* <Select
-           value={props.reqNum} 
-           onChange={props.handleInputChange}
+  return (
+    <div>
+      <h3>Add New Chapter</h3>
+      <form>
+        <TextField
+          label="Title"
+          name="chapterTitle"
+          type="text"
+          value={props.chapterTitle}
+          onChange={props.handleInputChange}
+        />
+        <br />
+        <TextField
+          label="Description"
+          name="description"
+          type="text"
+          value={props.description}
+          onChange={props.handleInputChange}
+        />
+        <br />
+        <input name="date" type="date" step='' value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
+        <br />
+        <input type="file" onChange={props.handleInputChange} />
+        <br />
+        <p>Requirement</p>
+        <select
+          value={props.reqNum}
+          onChange={props.handleInputChange}
         >
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
-          <MenuItem value={4}>4</MenuItem>
-          <MenuItem value={5}>5</MenuItem>
-    	  </Select> */}
-				<br />
-				<button className="btn btn-primary mt-2" onClick={props.handleFormSubmit}>Add Chapter</button>
-			</form>
-		</div>
-	)
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <br />
+        <Button variant="raised" onClick={props.handleFormSubmit} color="secondary">
+          Add Journal
+        </Button>
+      </form>
+    </div>
+  )
 }
+
 export default AddChapter;
