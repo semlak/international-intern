@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
+import Card, { CardHeader } from 'material-ui/Card';
 import AddIcon from '@material-ui/icons/Add';
 
 const CreateForm = props => (
