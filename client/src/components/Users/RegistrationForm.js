@@ -88,7 +88,7 @@ export default class extends Component {
           <br/>
           <button onClick={this.submitForm}>Register</button>
         </form>
-        <Link to="/login">Login</Link> 
+        {/* <Link to="/login">Login</Link>  */}
       </div>
     )
   }

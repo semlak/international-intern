@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import Grid from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
 import CreateForm from './CreateForm';
 import Ledger from './Ledger';
 import Graph from './Graph';
 import API from '../../utils/API';
-import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
 
 // const expenseData = [
 //   { "_id" : ("5ade8e43e0d4991f98664483"), "expDesc" : "cat food", "expAmount" : 12, "expDate" : ("2017-12-31T00:00:00Z"), "__v" : 0 },
@@ -110,7 +110,6 @@ export default class extends Component {
               <Ledger expenses={this.state.expenseData} />
             </Paper>
           </Grid>
-
         </Grid>
       </div>
     );

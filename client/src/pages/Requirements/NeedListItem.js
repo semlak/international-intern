@@ -1,6 +1,6 @@
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
-import Card, { CardHeader, CardActions, CardContent } from 'material-ui/Card';
+import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
 const NeedListItem = props => (
