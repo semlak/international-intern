@@ -16,8 +16,15 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 
 // initialize passport
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+// Connect to the Mongo DB
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/internshipAppDB');
+
 app.use(require('express-session')({
   secret: 'keyboard cat',
+  maxAge: new Date(Date.now() + 36000000),
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
   resave: false,
   saveUninitialized: false,
 }));
@@ -38,8 +45,7 @@ app.use(express.static('client/build'));
 // Add routes, both API and view
 app.use(routes);
 
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/internshipAppDB');
+
 
 // Start the API server
 app.listen(PORT, () => {
