@@ -19,14 +19,8 @@ const links = [
     text: 'Requirements',
     path: '/requirements',
   }, {
-    text: 'temp - Login',
-    path: '/login',
-  }, {
     text: 'temp - Register',
     path: '/register',
-  }, {
-    text: 'temp - New Need',
-    path: '/newNeed',
   },
 ];
 
