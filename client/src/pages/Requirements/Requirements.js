@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
-import CreateForm from './CreateForm';
-import Listing from './Listing';
+import ReqForm from './ReqForm';
+import ReqList from './ReqList';
 import API from '../../utils/API';
 
 export default class extends Component {
@@ -79,7 +79,7 @@ export default class extends Component {
         <Grid container spacing={24}>
           <Grid item xs={12} sm={6}>
             <Typography variant="title" gutterBottom>Add Requirement</Typography>
-            <CreateForm
+            <ReqForm
               handleInputChange={this.handleInputChange}
               submitForm={this.submitForm}
               {...this.state}
@@ -87,7 +87,7 @@ export default class extends Component {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography variant="title" gutterBottom>Requirements</Typography>
-            <Listing needs={this.state.needsData} />
+            <ReqList needs={this.state.needsData} />
           </Grid>
         </Grid>
       </div>

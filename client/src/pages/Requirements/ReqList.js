@@ -1,10 +1,10 @@
 import React from 'react';
 import ReqListItem from './ReqListItem';
 
-const Listing = props => (
+const ReqList = props => (
   <div>
     {props.needs.map(need => <ReqListItem key={need._id} {...need}/>)}
   </div>
 );
 
-export default Listing;
+export default ReqList;

@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 
-const CreateForm = props => (
+const ReqForm = props => (
   <Card>   
     <CardHeader
       avatar={<Avatar>{props.requirementNumber}</Avatar>}
@@ -48,4 +48,4 @@ const CreateForm = props => (
   </Card>
 );
 
-export default CreateForm;
+export default ReqForm;
