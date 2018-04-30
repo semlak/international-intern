@@ -1,6 +1,3 @@
-import Expenses from "./Expenses";
-// import CreateForm from "./CreateForm"
+import Expenses from './Expenses';
 
-// export default {Expenses, CreateForm}
 export default Expenses;
-

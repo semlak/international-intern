@@ -1,5 +1,20 @@
 import React from 'react';
+import Avatar from 'material-ui/Avatar';
+import Card, { CardHeader, CardContent } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
 
-const NeedListItem = props => <div><p>{props.needNumber}</p><p>{props.needTitle}</p><p>{props.needDesc}</p><hr></hr></div>
+const NeedListItem = props => (
+  <Card>
+    <CardHeader
+      avatar={<Avatar>{props.needNumber}</Avatar>}
+      title={props.needTitle}
+    />
+    <CardContent>
+      <Typography component="p">
+        {props.needDesc}
+      </Typography>
+    </CardContent>
+  </Card>
+);
 
 export default NeedListItem;

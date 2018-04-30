@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 import AddChapter from './AddChapter';
 import ChapterCard from './ChapterCard';
-import firebase from 'firebase';
 import API from '../../utils/API';
 
 // const chapterData = [

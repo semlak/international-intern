@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MenuItem, MenuList } from 'material-ui/Menu';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+// import { MenuItem, MenuList } from 'material-ui/Menu';
+import { ListItem, ListItemText } from 'material-ui/List';
 // import Map from '@material-ui/icons/Map';
 
 const style = {

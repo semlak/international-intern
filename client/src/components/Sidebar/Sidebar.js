@@ -1,9 +1,9 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
+import { MenuList } from 'material-ui/Menu';
 import SidebarItem from './SidebarItem';
 
-import { MenuItem, MenuList } from 'material-ui/Menu';
-import { withStyles } from 'material-ui/styles';
+// import { withStyles } from 'material-ui/styles';
 
 const links = [
   {
@@ -32,7 +32,7 @@ const style = {
 }
 
 const Sidebar = (props) => {
-  const { classes } = props;
+  // const { classes } = props;
   return (
     <div style={style}>
     <Drawer

@@ -1,6 +1,6 @@
 import React from 'react';
-import ChapterContent from "./ChapterContent";
-import "./ChapterCard.css";
+import ChapterContent from './ChapterContent';
+import './ChapterCard.css';
 
 const ChapterCard = (props) => (
 	<div className="chapters">

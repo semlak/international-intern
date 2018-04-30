@@ -1,6 +1,3 @@
-import Requirements from "./Requirements";
-// import CreateForm from "./CreateForm"
+import Requirements from './Requirements';
 
-// export default {Expenses, CreateForm}
 export default Requirements;
-

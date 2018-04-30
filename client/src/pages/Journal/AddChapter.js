@@ -1,10 +1,10 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import Select from 'material-ui/Select';
+// import Select from 'material-ui/Select';
 import Button from 'material-ui/Button';
 // import firebase from '../../utils/firebase';
-import { MenuItem } from 'material-ui/Menu';
-import Input, { InputLabel } from 'material-ui/Input';
+// import { MenuItem } from 'material-ui/Menu';
+// import Input, { InputLabel } from 'material-ui/Input';
 
 const AddChapter = (props) => {
 
