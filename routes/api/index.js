@@ -1,17 +1,18 @@
-const router = require("express").Router();
-// const bookRoutes = require("./books");
-const userRoutes = require("./users");
-const needRoutes = require("./needs");
-const expenseRoutes = require("./expense");
-const chapterRoutes = require("./chapters");
+const router = require('express').Router();
+// const bookRoutes = require('./books');
+const userRoutes = require('./users');
+const needRoutes = require('./needs');
+const expenseRoutes = require('./expense');
+const chapterRoutes = require('./chapters');
+const userController = require('../../controllers/usersController');
 // Book routes
-// router.use("/books", bookRoutes);
+// router.use('/books', bookRoutes);
 
 // User API routes
-router.use("/users", userRoutes);
+router.use('/users', userRoutes);
 
-router.use("/needs", needRoutes);
-router.use("/expenses", expenseRoutes);
-router.use("/chapters", chapterRoutes);
+router.use('/needs', userController.isLoggedIn, needRoutes);
+router.use('/expenses', userController.isLoggedIn, expenseRoutes);
+router.use('/chapters', userController.isLoggedIn, chapterRoutes);
 
 module.exports = router;

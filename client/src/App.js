@@ -11,8 +11,6 @@ import Requirements from './pages/Requirements/';
 import NoMatch from './pages/NoMatch';
 // Components
 import RegistrationForm from './components/Users/RegistrationForm';
-import LoginForm from './components/Users/LoginForm';
-import NewNeed from './components/Needs/NewNeed';
 import Sidebar from './components/Sidebar/Sidebar';
 import TopNav from './components/TopNav/TopNav';
 import ContentArea from './components/ContentArea/ContentArea';
@@ -58,8 +56,6 @@ class App extends React.Component {
                 <Route exact path="/location" component={UserLocation} />
                 <Route exact path="/requirements" component={Requirements} />
                 <Route exact path="/register" component={RegistrationForm} />
-                <Route exact path="/login" component={LoginForm} />
-                <Route exact path="/newNeed" component={NewNeed} />
                 <Route component={NoMatch} />
               </Switch>
             </ContentArea>

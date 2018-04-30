@@ -50,19 +50,20 @@ export default class extends Component {
 	  console.log('current state', this.state);
 
 	  let file = this.state.image;
-
+    let image = "";
 
 	  //get file
 	  // let file = fileButton.files[0];
 	  // console.log(file);
 
 	  //create storage ref
-	  let storageRef = firebase.storage().ref("chapter_pics/" + Date.now() + file.name);
+    try {
+	    let storageRef = firebase.storage().ref("chapter_pics/" + Date.now() + file.name);
 
 	  //upload file
 	  let task = storageRef.put(file);
 
-	  let image = "";
+	  image = "";
 
 	  //update progress bar
 	  task.on('state_changed', 
@@ -82,6 +83,9 @@ export default class extends Component {
 		            });
 
     	});
+    } catch (err) {
+      console.log("error setting local storage")
+    }
 
 
 	  if (this.state.chapterTitle &&
