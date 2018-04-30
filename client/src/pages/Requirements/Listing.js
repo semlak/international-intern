@@ -1,9 +1,9 @@
 import React from 'react';
-import NeedListItem from './NeedListItem';
+import ReqListItem from './ReqListItem';
 
 const Listing = props => (
   <div>
-    {props.needs.map(need => <NeedListItem key={need._id} {...need}/>)}
+    {props.needs.map(need => <ReqListItem key={need._id} {...need}/>)}
   </div>
 );
 
