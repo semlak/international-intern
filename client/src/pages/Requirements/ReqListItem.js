@@ -3,8 +3,8 @@ import Avatar from 'material-ui/Avatar';
 import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
-const NeedListItem = props => (
-  <Card>
+const ReqListItem = props => (
+  <Card style={{marginBottom: 10}}>
     <CardHeader
       avatar={<Avatar>{props.needNumber}</Avatar>}
       title={props.needTitle}
@@ -17,4 +17,4 @@ const NeedListItem = props => (
   </Card>
 );
 
-export default NeedListItem;
+export default ReqListItem;

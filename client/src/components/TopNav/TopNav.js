@@ -76,7 +76,7 @@ class TopNav extends Component {
   render() {
     return (
       <div>
-          <AppBar position="absolute" style={{ zIndex: '1600' }}>
+          <AppBar position="fixed" style={{ zIndex: '1600' }}>
           <Toolbar>
             <Typography variant="title" color="inherit" style={{ flex: 1 }}>International Intern</Typography>
             { this.props.currentUser && this.props.currentUser.email ? 
