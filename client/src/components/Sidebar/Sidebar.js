@@ -39,7 +39,7 @@ const Sidebar = (props) => {
     variant="permanent" 
     style={style}
     >
-      <MenuList style={{paddingTop: '75px'}}>
+      <MenuList style={{paddingTop: '64px'}}>
       {links.map(link => (
         <SidebarItem
           key={link.text}
