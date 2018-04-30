@@ -1,24 +1,24 @@
 // const mongoose = require('mongoose');
 const passport = require('passport');
 const User = require('../models/user');
-const db = require('../models/');
 
 // Post registration
 const userController = {
-  isAuthenticated(req, res, next) {
+  isLoggedIn(req, res, next) {
     // do any checks you want to in here
 
     // CHECK THE USER STORED IN SESSION FOR A CUSTOM VARIABLE
     // you can do this however you want with whatever variables you set up
-    if (req.isAuthenticated && req.isAuthenticated() === 'true') {
+    if (req.isAuthenticated && req.isAuthenticated()) {
       if (typeof next === 'function') {
         return next();
       }
       return res.json({ user: req.user });
     }
 
-    // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE, or atleat don't return priviledged data
-    return res.json({ user: null });
+    // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE,
+    // or atleat don't return priviledged data
+    return res.status(401).json({ user: null });
   },
 
   doRegister(req, res) {
@@ -54,11 +54,7 @@ const userController = {
         .populate('expRef')
         .populate('needsRef')
         .populate('chapterRef')
-        .then(result => {
-          console.log("result after populate: ", result);
-          return res.json({ user: result});
-        })
-          //return res.json({ user: req.user });
+        .then(result => res.json({ user: result }));
     });
   },
 

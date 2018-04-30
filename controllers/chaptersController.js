@@ -1,37 +1,29 @@
-const db = require("../models");
+const db = require('../models');
 
 // Defining methods for the chaptersController
 module.exports = {
-  findAll: function(req, res) {
-    db.Chapter
-      .find(req.query)
-      .sort({ date: -1 })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  findById: function(req, res) {
-    db.Chapter
-      .findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  create: function(req, res) {
-    db.Chapter
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  update: function(req, res) {
-    db.Chapter
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  remove: function(req, res) {
-    db.Chapter
-      .findById({ _id: req.params.id })
-      .then(dbModel => dbModel.remove())
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  }
+  findAll: (req, res) => db.Chapter
+    .find()
+    .sort({ date: -1 })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err)),
+  findById: (req, res) => db.Chapter
+    .findById(req.params.id)
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err)),
+  create: (req, res) => db.Chapter
+    .create(req.body)
+    .then(dbModel =>
+      db.User.update({ _id: req.user._id }, { $push: { chapterRef: dbModel._id } })
+        .then(() => res.json(dbModel))
+        .catch(err => res.status(422).json(err))),
+  update: (req, res) => db.Chapter
+    .findOneAndUpdate({ _id: req.params.id }, req.body)
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err)),
+  remove: (req, res) => db.Chapter
+    .findById({ _id: req.params.id })
+    .then(dbModel => dbModel.remove())
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err))
 };

@@ -1,18 +1,14 @@
-const router = require("express").Router();
-const needsController = require("../../controllers/needsController")
-const isAuthenticated = require("../../controllers/usersController").isAuthenticated;
+const router = require('express').Router();
+const needsController = require('../../controllers/needsController');
 
+router.route('/')
+  .get(needsController.findAll)
+  .post(needsController.create);
 
-
-
-router.route("/", isAuthenticated)
-	.get(needsController.findAll)
-	.post(needsController.create);
-
-router.route("/:id", isAuthenticated)
-	.get(needsController.findById)
-	.put(needsController.update)
-	.delete(needsController.remove);
+router.route('/:id')
+  .get(needsController.findById)
+  .put(needsController.update)
+  .delete(needsController.remove);
 
 
 module.exports = router;
