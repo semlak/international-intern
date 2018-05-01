@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 export default {
   registerUser: data => axios.post('/api/users/register', data),
   loginUser: data => axios.post('/api/users/login', data),
@@ -35,4 +36,11 @@ export default {
   //images
   addImage: data => axios.post('/api/images/', data),
   getImages: () => axios.get('/api/images/')
+
+  // NYT search
+  search: function(query) {
+  // console.log("full query again: " + query);
+  return axios.get(query);
+  },
+
 };
