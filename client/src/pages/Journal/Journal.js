@@ -4,11 +4,16 @@ import AddChapter from './AddChapter';
 import ChapterCard from './ChapterCard';
 import API from '../../utils/API';
 
-// const chapterData = [
-//   { "_id" : ("1"), "chapDate" : "2018/04/27", "chapTitle" : "Australia Arrival", "chapNote" : "Arrived in Australia. Everything is great!", "reqNum" : 1,  "__v" : 0 },
-//   { "_id" : ("2"), "chapDate" : "2018/04/28", "chapTitle" : "Snorkling", "chapNote" : "Snorkled the Great Barrier Reef! WOOOOO!", "reqNum" : 2,  "__v" : 0 },
-//   { "_id" : ("3"), "chapDate" : "2018/04/29", "chapTitle" : "Shopping", "chapNote" : "Shopped at the QVB today!", "reqNum" : 3,  "__v" : 0 }
-// ]
+var config = {
+	apiKey: "AIzaSyCSuecWnnFJo55VAuiEzvSfR1xLNRuwwkI",
+	authDomain: "intern-project-4b679.firebaseapp.com",
+	databaseURL: "https://intern-project-4b679.firebaseio.com",
+	projectId: "intern-project-4b679",
+	storageBucket: "",
+	messagingSenderId: "1037796012544"
+};
+
+firebase.initializeApp(config);
 
 export default class extends Component {
   
@@ -50,7 +55,7 @@ export default class extends Component {
 	  console.log('current state', this.state);
 
 	  let file = this.state.image;
-    let image = "";
+      let image = "";
 
 	  //get file
 	  // let file = fileButton.files[0];
@@ -58,12 +63,12 @@ export default class extends Component {
 
 	  //create storage ref
     try {
-	    let storageRef = firebase.storage().ref("chapter_pics/" + Date.now() + file.name);
+	  let storageRef = firebase.storage().ref("chapter_pics/" + Date.now() + file.name);
 
 	  //upload file
 	  let task = storageRef.put(file);
 
-	  image = "";
+	  // image = "";
 
 	  //update progress bar
 	  task.on('state_changed', 
