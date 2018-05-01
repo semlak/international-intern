@@ -1,24 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 // import { MenuItem, MenuList } from 'material-ui/Menu';
-import { ListItem, ListItemText } from 'material-ui/List';
-// import Map from '@material-ui/icons/Map';
+import { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
+import Place from '@material-ui/icons/Place';
 
 const style = {
   active: {
-    background: "#3f51b5",
+    background: '#3f51b5',
   }
 };
 
 export default class SidebarItem extends React.Component {
   render() {
-    const { path, text } = this.props;
+    const { path, text, icon } = this.props;
     return (
-      <Link to={path} style={{textDecoration: 'none'}}>      
+      <Link to={path} style={{ textDecoration: 'none' }}>
         <ListItem button style={window.location.pathname === path ? style.active : null}>
-          {/* <ListItemIcon>
-            <Map />
-          </ListItemIcon> */}
+          <ListItemIcon>{icon}</ListItemIcon>
           <ListItemText primary={text} />
         </ListItem>
       </Link>

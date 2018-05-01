@@ -2,7 +2,7 @@ import React from 'react';
 import dotenv from 'dotenv';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Material UI components
-
+import CssBaseline from 'material-ui/CssBaseline';
 // Pages
 import Journal from './pages/Journal/';
 import Expenses from './pages/Expenses/';
@@ -35,9 +35,9 @@ class App extends React.Component {
   }
 
   render() {
-
     return (
-
+      <React.Fragment>
+        <CssBaseline />
         <Router>
           <div style={{
             flexGrow: 1,
@@ -61,7 +61,7 @@ class App extends React.Component {
             </ContentArea>
           </div>
         </Router>
-
+      </React.Fragment>
     );
   }
 }
