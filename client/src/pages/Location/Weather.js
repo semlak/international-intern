@@ -32,10 +32,13 @@ export default class extends Component {
     //
     // Internship location
     // hard code for now ; TODO - get from user
-    const city = 'Toronto';
+    const city = this.state.currentUser.internLocationCity;
+    // const country_code = this.state.currentUser.internLocationCountryCode;
+    // TODO - get countrycode from google
     const country_code = 'CA';
 
-    const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country_code}&appid=${this.state.APIKey}`; // current
+    // current weather -- (forcast query is a pay-for feature)
+    const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country_code}&appid=${this.state.APIKey}`;
     // api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey;
     // api.openweathermap.org/data/2.5/weather?q={city name}&appid=${APIKey}
     // api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid=${APIKey}
@@ -66,18 +69,14 @@ export default class extends Component {
   }
 
   render() {
-    // html escape for 'degree celcius' : &#x2103;
-    const dC = { __html: '&#x2103;' };
-    // html escape for 'degree fahrenheight' : &#x2109;
-    const dF = { __html: '&#x2109;' };
     // convert the wind direction (degrees) to a well-known ordinal
     const ordinal = util.convertWind(this.state.weather.windDirection);
 
     return (
       <div>
         <h2>Weather in {this.state.weather.cityName}</h2>
-        <p>Current Low: {this.state.weather.tempMinF}<span dangerouslySetInnerHTML={dF} /></p>
-        <p>Current High: {this.state.weather.tempMaxF}<span dangerouslySetInnerHTML={dF} /></p>
+        <p>Current Low: {this.state.weather.tempMinF}&#x2109; ({this.state.weather.tempMinC}&#x2103;)</p>
+        <p>Current High: {this.state.weather.tempMaxF}&#x2109; ({this.state.weather.tempMaxC}&#x2103;)</p>
         <p>Current Wind: {this.state.weather.windSpeed} {ordinal}</p>
         <p>Current Sky: {this.state.weather.sky}</p>
       </div>

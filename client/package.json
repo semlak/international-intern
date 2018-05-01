@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "@firebase/app-types": "0.x",
     "@google/maps": "^0.4.6",
     "@material-ui/icons": "^1.0.0-beta.43",
     "axios": "^0.16.2",

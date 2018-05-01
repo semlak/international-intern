@@ -32,6 +32,7 @@
     "one-var-declaration-per-line": 0,
     "no-restricted-syntax": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "max-len": 0,
     "comma-dangle": 0
   }
 }

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import API from '../../utils/API';
 import Weather from './Weather';
 import Currency from './Currency';
 
@@ -16,14 +17,34 @@ googleMapsClient.geocode({ address: 'Toronto, Canada' })
     console.log(err);
   });
 
-const Location = () => (
-  <div>
-    <h1>Location</h1>
-    <hr />
-    <Weather />
-    <hr />
-    <Currency />
-  </div>
-);
+export default class extends Component {
+  state = {
+    chapterTitle: '',
+    description: '',
+    image: '',
+    date: Date.now(),
+    requireNum: '0',
+    chapterData: []
+  };
 
-export default Location;
+  componentDidMount() {
+    API.getCurrentUser().then((response) => {
+      let currentUser = response.data.user
+      this.setState({currentUser: currentUser});
+    }).catch((err) => {
+      console.log('Error while getting current user: ', err);
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Location</h1>
+        <hr />
+        <Weather />
+        <hr />
+        <Currency />
+      </div>
+    );
+  }
+}
