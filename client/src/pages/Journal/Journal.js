@@ -5,12 +5,12 @@ import ChapterCard from './ChapterCard';
 import API from '../../utils/API';
 
 var config = {
-	apiKey: "AIzaSyCSuecWnnFJo55VAuiEzvSfR1xLNRuwwkI",
-	authDomain: "intern-project-4b679.firebaseapp.com",
-	databaseURL: "https://intern-project-4b679.firebaseio.com",
-	projectId: "intern-project-4b679",
-	storageBucket: "",
-	messagingSenderId: "1037796012544"
+	apiKey: process.env.REACT_APP_FIREBASE_apikey,
+	authDomain: process.env.REACT_APP_FIREBASE_authDomain,
+	databaseURL: process.env.REACT_APP_FIREBASE_databaseURL,
+	projectId: process.env.EACT_APP_FIREBASE_projectId,
+	storageBucket: process.env.REACT_APP_FIREBASE_storageBucket,
+	messagingSenderId: process.envREACT_APP_FIREBASE_messagingSenderId
 };
 
 firebase.initializeApp(config);
