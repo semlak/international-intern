@@ -11,7 +11,7 @@ const chapterSchema = new Schema({
     type: String,
     required: true,
   },
-  imgURL: {
+  chapImg: {
     type: String
   },
   chapDate: {
