@@ -18,8 +18,6 @@ export default class extends Component {
     APIKey: process.env.REACT_APP_OPEN_WEATHERMAPS_API_KEY,
   }
 
-  // handleInputChange = event => this.setState({[event.target.name]: event.target.value})
-
   componentDidMount() {
     // fetch the user to get their location, etc...
     API.getCurrentUser().then((response) => {
@@ -62,20 +60,6 @@ export default class extends Component {
         },
       });
       console.log('weather:', this.state.weather);
-    }).catch((error) => {
-      throw error;
-    });
-  }
-
-  forecast() {
-    // Internship location
-    // hard code for now ; TODO - get from user
-    const city = 'Toronto';
-    const country_code = 'CA';
-
-    const queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city},${country_code}&appid=${this.state.APIKey}`; // 5-day forecast
-    API.getWeather(queryURL).then((response) => {
-      console.log(`weather for ${city}, ${country_code}:`, response);
     }).catch((error) => {
       throw error;
     });

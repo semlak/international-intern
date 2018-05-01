@@ -43,7 +43,9 @@ export default class extends Component {
       // }
       const quoteCode = `${this.state.homeCurrency}${this.state.locCurrency}`;
       let quote;
-      for (const key in json.data.quotes) {
+      const keys_arr = Object.keys(json.data.quotes);
+      for (let i = 0; i < keys_arr.length; i++) {
+        const key = keys_arr[i];
         if (key === quoteCode) {
           quote = json.data.quotes[key];
         }
