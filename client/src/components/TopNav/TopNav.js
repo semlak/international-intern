@@ -78,7 +78,7 @@ class TopNav extends Component {
       <div>
           <AppBar position="fixed" style={{ zIndex: '1600' }}>
           <Toolbar>
-            <Typography variant="title" color="inherit" style={{ flex: 1 }}>International Intern</Typography>
+            <Typography variant="headline" color="inherit" style={{ flex: 1 }}>Intl.Intern</Typography>
             { this.props.currentUser && this.props.currentUser.email ? 
               <div>
                 <Typography color="inherit" variant="subheading" style={{display: 'inline-block', paddingRight: '10px'}}>
@@ -96,6 +96,7 @@ class TopNav extends Component {
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          // style={{width: '325px'}}
         >
           <DialogTitle id="alert-dialog-title">Login</DialogTitle>
           <DialogContent>
