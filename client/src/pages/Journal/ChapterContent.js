@@ -7,7 +7,7 @@ const ChapterContent = props => (
   <Card>
     <CardMedia
       style={{ height: 0, paddingTop: '56.25%' }}
-      image="https://upload.wikimedia.org/wikipedia/commons/2/21/Adams_The_Tetons_and_the_Snake_River.jpg"
+      image={props.chapImg}
     />
     <CardContent>
       <p>{props.chapDate}</p>
