@@ -74,57 +74,54 @@ export default class extends Component {
 
  	  let state = this.state;
 	  //update progress bar
-	if (this.state.chapterTitle &&
-	  this.state.description &&
-	  this.state.date) {
-		  task.on('state_changed', 
-			function progress(snapshot) {
-				console.log(snapshot);
-			}, 
-			function error (err) {
-			},
-			function complete() {
-				console.log("COMPLETE");
+	  if (this.state.chapterTitle && this.state.description &&this.state.date) {
+		task.on('state_changed', 
+		  function progress(snapshot) {
+			console.log(snapshot);
+		  }, 
+		  function error (err) {
+		  },
+		  function complete() {
+			console.log("COMPLETE");
 
-				storageRef.getDownloadURL().then(function(url) {
-					image = url;
-
-					console.log(image);
+			storageRef.getDownloadURL().then(function(url) {
+			  image = url;
+			  console.log(image);
 				
-					let data = {
-						chapTitle: state.chapterTitle,
-						chapNote: state.description,
-						chapImg: image,
-						chapDate: state.date,
-						reqNum: state.requireNum
-					};
-					console.log(data)
+			  let data = {
+				chapTitle: state.chapterTitle,
+				chapNote: state.description,
+				chapImg: image,
+				chapDate: state.date,
+				reqNum: state.requireNum
+			  };
+			  console.log(data);
+			  console.log(state);
 
-					API.addChapter(data)
-					.then((response) => {
-						console.log("Response from adding chapter: ", response)
-						state.setState({
-							chapterTitle:"",
-							description: "",
-							image:"",
-							date: "",
-							requireNum: 0
-						});
-						API.getChapters().then((response) => {
-							state.setState({
-								chapterData: response.data,
-							});
-						});
-					})
-					.catch((err) => {
-						console.log('Error while adding chapter: ', err);
-					});
+			  API.addChapter(data).then((response) => {
+				console.log("Response from adding chapter: ", response)
+				state.reset({
+				  chapterTitle:"",
+				  description: "",
+				  image:"",
+				  date: "",
+				  requireNum: 0
 				});
-	    	})
-	} else {
+				API.getChapters().then((response) => {
+				  this.setState({
+				    chapterData: response.data,
+				  });
+			  	});
+			  })
+			  .catch((err) => {
+		  	  	console.log('Error while adding chapter: ', err);
+			  });
+	  		});
+	      })
+	  } else {
 		console.log("Unable to add chapter.")
+	  }
 	}
-}
 
 	render() {
 		return (
