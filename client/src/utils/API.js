@@ -35,12 +35,10 @@ export default {
 
   //images
   addImage: data => axios.post('/api/images/', data),
-  getImages: () => axios.get('/api/images/')
+  getImages: () => axios.get('/api/images/'),
 
   // NYT search
-  search: function(query) {
-  // console.log("full query again: " + query);
-  return axios.get(query);
-  },
+  search: query => axios.get(query),
+
 
 };
