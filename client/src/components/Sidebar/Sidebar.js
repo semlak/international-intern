@@ -1,19 +1,20 @@
 import React from 'react';
+// material-ui
 import Drawer from 'material-ui/Drawer';
+import Divider from 'material-ui/Divider';
+import Typography from 'material-ui/Typography';
 import { MenuList } from 'material-ui/Menu';
-
+import { withStyles } from 'material-ui/styles';
 // icons
 import Place from '@material-ui/icons/Place';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import AssignmentTurnedIn from '@material-ui/icons/AssignmentTurnedIn';
 import Create from '@material-ui/icons/Create';
 import Book from '@material-ui/icons/Book';
-
+// components
 import SidebarItem from './SidebarItem';
-import Divider from 'material-ui/Divider';
-import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles';
 
+// side bar links
 const links = [
   {
     text: 'Journal',
@@ -39,7 +40,7 @@ const links = [
 ];
 
 const drawerWidth = 240;
-
+// gets passed in when exported (withStyles(styles))
 const styles = theme => ({
   drawerPaper: {
     position: 'relative',
@@ -54,11 +55,9 @@ const styles = theme => ({
   },
 });
 
-
 const Sidebar = (props) => {
   const { classes } = props;
   return (
-
     <Drawer
       variant="permanent"
       classes={{ paper: classes.drawerPaper }}
@@ -80,27 +79,7 @@ const Sidebar = (props) => {
       <Divider />
       requirements here
     </Drawer>
-
-  
-    // <div style={style}>
-  //   <Drawer
-  //   variant="permanent" 
-  //  //  style={style}
-  //   >
-  //     <MenuList>
-  //     {links.map(link => (
-  //       <SidebarItem
-  //         key={link.text}
-  //         text={link.text}
-  //         path={link.path}
-  //         icon={link.icon}
-  //       />
-  //     ))}
-  //     </MenuList>
-  //     </Drawer>
-    //  </div>
-  )
+  );
 };
 
 export default withStyles(styles)(Sidebar);
-// export default Sidebar;
