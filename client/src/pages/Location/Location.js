@@ -24,13 +24,13 @@ export default class extends Component {
     image: '',
     date: Date.now(),
     requireNum: '0',
-    chapterData: []
+    chapterData: [],
   };
 
   componentDidMount() {
     API.getCurrentUser().then((response) => {
-      let currentUser = response.data.user
-      this.setState({currentUser: currentUser});
+      let currentUser = response.data.user;
+      this.setState({ currentUser });
     }).catch((err) => {
       console.log('Error while getting current user: ', err);
     });

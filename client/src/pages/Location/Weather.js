@@ -77,7 +77,7 @@ export default class extends Component {
         <h2>Weather in {this.state.weather.cityName}</h2>
         <p>Current Low: {this.state.weather.tempMinF}&#x2109; ({this.state.weather.tempMinC}&#x2103;)</p>
         <p>Current High: {this.state.weather.tempMaxF}&#x2109; ({this.state.weather.tempMaxC}&#x2103;)</p>
-        <p>Current Wind: {this.state.weather.windSpeed} {ordinal}</p>
+        <p>Current Wind: {this.state.weather.windSpeed}m/s {ordinal}</p>
         <p>Current Sky: {this.state.weather.sky}</p>
       </div>
     );
