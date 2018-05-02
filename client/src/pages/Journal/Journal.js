@@ -29,7 +29,7 @@ export default class extends Component {
 		description: "",
 		image:"",
 		date: Date.now(),
-		requireNum: '0',
+		requireNum: 0,
 		chapterData:[]
 	};
 
@@ -59,65 +59,66 @@ export default class extends Component {
 
 	handleFormSubmit = (event) => {
 	  event.preventDefault();
-	  console.log('current state', this.state);
-	  let fileButton = document.getElementById("fileButton");
-	  console.log("FILEBUTTON: ", fileButton);
-	  let file = fileButton.files[0];
-	  console.log("FILE: ", file);
-      let image = "";
+	  if (this.state.chapterTitle && this.state.description && this.state.date != "") {
+	    console.log('current state', this.state);
+	    let fileButton = document.getElementById("fileButton");
+	    console.log("FILEBUTTON: ", fileButton);
+	    let file = fileButton.files[0];
+	    console.log("FILE: ", file);
+        let image = "";
 
-	  //create storage ref
-	  let storageRef = firebase.storage().ref("chapImg/" + Date.now() + file.name);
-	  //upload file
-	  let task = storageRef.put(file);
-	  console.log(task);
+	    //create storage ref
+	    let storageRef = firebase.storage().ref("chapImg/" + Date.now() + file.name);
+	    //upload file
+	    let task = storageRef.put(file);
+	    console.log(task);
 
- 	  let state = this.state;
-	  //update progress bar
-	  if (this.state.chapterTitle && this.state.description &&this.state.date) {
-		task.on('state_changed', 
+ 	    let state = this.state;
+	    console.log(this);
+	    task.on('state_changed', 
 		  function progress(snapshot) {
-			console.log(snapshot);
+		    console.log("SNAPSHOT:", snapshot);
 		  }, 
-		  function error (err) {
+		  function error(err) {
 		  },
 		  function complete() {
-			console.log("COMPLETE");
-
-			storageRef.getDownloadURL().then(function(url) {
+		    console.log("COMPLETE");
+		    storageRef.getDownloadURL().then(function(url) {
 			  image = url;
 			  console.log(image);
-				
+			
 			  let data = {
-				chapTitle: state.chapterTitle,
-				chapNote: state.description,
-				chapImg: image,
-				chapDate: state.date,
-				reqNum: state.requireNum
+			  	chapTitle: state.chapterTitle,
+			  	chapNote: state.description,
+			  	chapImg: image,
+			  	chapDate: state.date,
+			  	reqNum: state.requireNum
 			  };
 			  console.log(data);
 			  console.log(state);
-
+			  console.log(this);
 			  API.addChapter(data).then((response) => {
-				console.log("Response from adding chapter: ", response)
-				state.reset({
-				  chapterTitle:"",
-				  description: "",
-				  image:"",
-				  date: "",
-				  requireNum: 0
-				});
-				API.getChapters().then((response) => {
-				  this.setState({
-				    chapterData: response.data,
-				  });
-			  	});
+			  	console.log("Response from adding chapter: ", response);
+			  	// this.setState({
+				  // chapterData:response.data
+			  	// });
+			    
 			  })
 			  .catch((err) => {
 		  	  	console.log('Error while adding chapter: ', err);
 			  });
-	  		});
+	  	    });
 	      })
+ 		  API.getChapters().then((response) => {
+			this.setState({
+			  chapterTitle:"",
+			  description: "",
+			  image:"",
+			  date: "",
+			  requireNum: 0,
+			});
+		  });
+
 	  } else {
 		console.log("Unable to add chapter.")
 	  }
@@ -127,7 +128,10 @@ export default class extends Component {
 		return (
 			<div>
 		    	<h1>Journal</h1>
-		    	<AddChapter handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} {...this.state}/>
+		    	<AddChapter 
+		    	  handleInputChange={this.handleInputChange} 
+		    	  handleFormSubmit={this.handleFormSubmit} 
+		    	  {...this.state}/>
 		    	<ChapterCard chapters={this.state.chapterData} />
 		  	</div>
 		);
