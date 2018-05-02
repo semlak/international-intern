@@ -11,13 +11,6 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import API from '../../utils/API';
 
-// const styles = theme => ({
-//   appBar: {
-//     // Make the app bar z-index always one more than the drawer z-index
-//     zIndex: theme.zIndex.drawer + 1,
-//   },
-// });
-
 class TopNav extends Component {
   state = {
     username: '',
