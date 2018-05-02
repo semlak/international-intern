@@ -36,22 +36,24 @@ const links = [
   },
 ];
 
-const drawerWidth = 240;
+// const drawerWidth = 240;
 
 // const style = { 
 //   position: 'relative',
 //   width: drawerWidth,
 // }
 
+// style={{paddingTop: '64px'}}
+
 const Sidebar = (props) => {
-  // const { classes } = props;
+  const { classes } = props;
   return (
     // <div style={style}>
-  //   <Drawer
-  //   variant="permanent" 
-  //  //  style={style}
-  //   >
-      <MenuList style={{paddingTop: '64px'}}>
+    <Drawer
+    variant="permanent" 
+   //  style={style}
+    >
+      <MenuList>
       {links.map(link => (
         <SidebarItem
           key={link.text}
@@ -61,7 +63,7 @@ const Sidebar = (props) => {
         />
       ))}
       </MenuList>
-    //  </Drawer>
+      </Drawer>
     //  </div>
   )
 };

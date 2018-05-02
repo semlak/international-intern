@@ -30,6 +30,42 @@ import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 
+// icons
+import Place from '@material-ui/icons/Place';
+import AttachMoney from '@material-ui/icons/AttachMoney';
+import AssignmentTurnedIn from '@material-ui/icons/AssignmentTurnedIn';
+import Create from '@material-ui/icons/Create';
+import Book from '@material-ui/icons/Book';
+// import SidebarItem from './SidebarItem';
+import { MenuList } from 'material-ui/Menu';
+
+import SidebarItem from './components/Sidebar/SidebarItem';
+
+
+const links = [
+  {
+    text: 'Journal',
+    path: '/journal',
+    icon: <Book />,
+  }, {
+    text: 'Expenses',
+    path: '/expenses',
+    icon: <AttachMoney />,
+  }, {
+    text: 'Location',
+    path: '/location',
+    icon: <Place />,
+  }, {
+    text: 'Requirements',
+    path: '/requirements',
+    icon: <AssignmentTurnedIn />,
+  }, {
+    text: 'temp - Register',
+    path: '/register',
+    icon: <Create />,
+  },
+];
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -86,6 +122,7 @@ class App extends React.Component {
     const { classes } = this.props;
 
     return (
+      <Router>
       <React.Fragment>
         <CssBaseline />
         <div className={classes.root}>
@@ -133,25 +170,57 @@ class App extends React.Component {
               variant="permanent"
               classes={{ paper: classes.drawerPaper }}
             >
-              <div className={classes.drawerHeader}>                
+             <div className={classes.drawerHeader}>                
                 <Typography variant="title" color="inherit" noWrap>
                     Intl.Intern
                 </Typography>
               </div>
-  
+
+
+<Divider />
+      <MenuList>
+      {links.map(link => (
+        <SidebarItem
+          key={link.text}
+          text={link.text}
+          path={link.path}
+          icon={link.icon}
+        />
+      ))}
+      </MenuList>
+
+              {/* <Sidebar /> */}
+
               <Divider />
               <List>hello</List>
               <Divider />
               <List>hello</List>
+
             </Drawer>
+            
             <main className={classes.content}>
               <div className={classes.toolbar} />
-              <Typography>You think water moves fast? You should see ice.</Typography>
+        
+              <ContentArea>
+                <Switch>
+                  <Route exact path="/" component={Journal} />
+                  <Route exact path="/journal" component={Journal} />
+                  <Route exact path="/expenses" component={Expenses} />
+                  <Route exact path="/location" component={UserLocation} />
+                  <Route exact path="/requirements" component={Requirements} />
+                  <Route exact path="/register" component={RegistrationForm} />
+                  <Route component={NoMatch} />
+                </Switch>
+              </ContentArea>
+
             </main>
+
+             
           </div>
         </div>
       </React.Fragment>
-
+      </Router>
+      
     // <React.Fragment>
     //   <CssBaseline />
     //   <Router>
