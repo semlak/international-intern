@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import API from '../../utils/API';
 import Weather from './Weather';
 import Currency from './Currency';
+import News from './News';
 
 const googleMapsClient = require('@google/maps').createClient({
   key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -44,7 +45,10 @@ export default class extends Component {
         <Weather />
         <hr />
         <Currency />
+        <hr />
+        <News />
       </div>
     );
   }
 }
+
