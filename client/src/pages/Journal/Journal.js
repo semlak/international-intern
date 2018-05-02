@@ -60,17 +60,16 @@ export default class extends Component {
 	handleFormSubmit = (event) => {
 	  event.preventDefault();
 	  console.log('current state', this.state);
-
-	  let blob = new Blob ([event.target.result], {type:"image/jpg"});
-	  // let file = this.state.image;
-	  // console.log(file);
-	  console.log(blob);
+	  let fileButton = document.getElementById("fileButton");
+	  console.log("FILEBUTTON: ", fileButton);
+	  let file = fileButton.files[0];
+	  console.log("FILE: ", file);
       let image = "";
 
 	  //create storage ref
-	  let storageRef = firebase.storage().ref("chapImg/" + Date.now());
+	  let storageRef = firebase.storage().ref("chapImg/" + Date.now() + file.name);
 	  //upload file
-	  let task = storageRef.put(blob);
+	  let task = storageRef.put(file);
 	  console.log(task);
 
  	  let state = this.state;
@@ -104,7 +103,7 @@ export default class extends Component {
 					API.addChapter(data)
 					.then((response) => {
 						console.log("Response from adding chapter: ", response)
-						this.setState({
+						state.setState({
 							chapterTitle:"",
 							description: "",
 							image:"",
@@ -112,7 +111,7 @@ export default class extends Component {
 							requireNum: 0
 						});
 						API.getChapters().then((response) => {
-							this.setState({
+							state.setState({
 								chapterData: response.data,
 							});
 						});
