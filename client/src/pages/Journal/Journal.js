@@ -85,7 +85,6 @@ export default class extends Component {
 		    console.log("COMPLETE");
 		    storageRef.getDownloadURL().then(function(url) {
 			  image = url;
-			  console.log(image);
 			
 			  let data = {
 			  	chapTitle: state.chapterTitle,
