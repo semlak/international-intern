@@ -28,6 +28,7 @@ import Toolbar from 'material-ui/Toolbar';
 
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
 
 const drawerWidth = 240;
 
@@ -90,20 +91,28 @@ class App extends React.Component {
         <div className={classes.root}>
           <div className={classes.appFrame}>
           
+
+          {/* <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} /> */}
+          
             <AppBar
               position="absolute"
               className={classNames(classes.appBar)}
             >
 
-              <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} />
-
-
               <Toolbar>
-                <Typography variant="title" color="inherit" noWrap>
-                Page Title
-                </Typography>
-              </Toolbar>
+                <Typography variant="title" color="inherit" style={{ flex: 1 }} noWrap> page title here </Typography>
 
+                { this.props.currentUser && this.props.currentUser.email ? 
+                  <div>
+                    <Typography color="inherit" variant="subheading" style={{display: 'inline-block', paddingRight: '10px'}}>
+                      {this.props.currentUser.email}
+                    </Typography>
+                    <Button color="inherit" onClick={this.logoff}>Logoff</Button>
+                  </div> :
+                  <Button color="inherit" onClick={this.handleClickOpen}>Login</Button>
+                }
+
+              </Toolbar>
 
             </AppBar>
 
