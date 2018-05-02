@@ -30,7 +30,7 @@ const AddChapter = (props) => {
         <br />
         <input name="date" type="date" step='' value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
         <br />
-        <input type="file" id="imgFile" ref={imgFile => this.imgFile = imgFile} onChange={props.handleInputChange} />
+        <input type="file" name="image" value={props.image} id="imgFile" ref={imgFile => this.imgFile = imgFile} onChange={props.handleInputChange} />
         <br />
         <p>Requirement</p>
         <select
