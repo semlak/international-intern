@@ -41,31 +41,6 @@ import { MenuList } from 'material-ui/Menu';
 
 import SidebarItem from './components/Sidebar/SidebarItem';
 
-
-const links = [
-  {
-    text: 'Journal',
-    path: '/journal',
-    icon: <Book />,
-  }, {
-    text: 'Expenses',
-    path: '/expenses',
-    icon: <AttachMoney />,
-  }, {
-    text: 'Location',
-    path: '/location',
-    icon: <Place />,
-  }, {
-    text: 'Requirements',
-    path: '/requirements',
-    icon: <AssignmentTurnedIn />,
-  }, {
-    text: 'temp - Register',
-    path: '/register',
-    icon: <Create />,
-  },
-];
-
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -79,10 +54,11 @@ const styles = theme => ({
     display: 'flex',
     width: '100%',
   },
-  appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-  },
+  // appBar: {
+  //   width: `calc(100% - ${drawerWidth}px)`,
+  //   marginLeft: drawerWidth,
+  // },
+  
   toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
@@ -112,64 +88,29 @@ class App extends React.Component {
 
     return (
       <Router>
-      <React.Fragment>
-        <CssBaseline />
-        <div className={classes.root}>
-          <div className={classes.appFrame}>
-          
-          {/* <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} /> */}
-          
-            <AppBar
-              position="absolute"
-              className={classNames(classes.appBar)}
-            >
-
-              <Toolbar>
-                <Typography variant="title" color="inherit" style={{ flex: 1 }} noWrap> page title here </Typography>
-
-                { this.props.currentUser && this.props.currentUser.email ? 
-                  <div>
-                    <Typography color="inherit" variant="subheading" style={{display: 'inline-block', paddingRight: '10px'}}>
-                      {this.props.currentUser.email}
-                    </Typography>
-                    <Button color="inherit" onClick={this.logoff}>Logoff</Button>
-                  </div> :
-                  <Button color="inherit" onClick={this.handleClickOpen}>Login</Button>
-                }
-
-              </Toolbar>
-
-            </AppBar>
-
-            {/* <AppBar
-              position="absolute"
-              className={classNames(classes.appBar)}
-            >
-              <Toolbar>
-                <Typography variant="title" color="inherit" noWrap>
-                Page Title
-                </Typography>
-              </Toolbar>
-            </AppBar> */}
-            
-            <Sidebar />
-            <main className={classes.content}>
-              <div className={classes.toolbar} />
-              <ContentArea>
-                <Switch>
-                  <Route exact path="/" component={Journal} />
-                  <Route exact path="/journal" component={Journal} />
-                  <Route exact path="/expenses" component={Expenses} />
-                  <Route exact path="/location" component={UserLocation} />
-                  <Route exact path="/requirements" component={Requirements} />
-                  <Route exact path="/register" component={RegistrationForm} />
-                  <Route component={NoMatch} />
-                </Switch>
-              </ContentArea>
-            </main>
+        <React.Fragment>
+          <CssBaseline />
+          <div className={classes.root}>
+            <div className={classes.appFrame}>
+              <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} />            
+              <Sidebar />
+              <main className={classes.content}>
+                <div className={classes.toolbar} />
+                <ContentArea>
+                  <Switch>
+                    <Route exact path="/" component={Journal} />
+                    <Route exact path="/journal" component={Journal} />
+                    <Route exact path="/expenses" component={Expenses} />
+                    <Route exact path="/location" component={UserLocation} />
+                    <Route exact path="/requirements" component={Requirements} />
+                    <Route exact path="/register" component={RegistrationForm} />
+                    <Route component={NoMatch} />
+                  </Switch>
+                </ContentArea>
+              </main>
+            </div>
           </div>
-        </div>
-      </React.Fragment>
+        </React.Fragment>
       </Router>
       
     // <React.Fragment>

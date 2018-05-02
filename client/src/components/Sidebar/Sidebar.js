@@ -41,9 +41,11 @@ const links = [
 
 const drawerWidth = 240;
 // gets passed in when exported (withStyles(styles))
+
+
 const styles = theme => ({
   drawerPaper: {
-    position: 'relative',
+    position: 'fixed',
     width: drawerWidth,
   },
   drawerHeader: {

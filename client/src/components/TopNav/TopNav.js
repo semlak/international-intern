@@ -10,6 +10,37 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 import API from '../../utils/API';
+import { withStyles } from 'material-ui/styles';
+import classNames from 'classnames';
+
+const drawerWidth = 240;
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  appFrame: {
+    zIndex: 1,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex',
+    width: '100%',
+  },
+  appBar: {
+    position: 'fixed',
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+  },
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3,
+  },
+});
+
+
+
 
 class TopNav extends Component {
   state = {
@@ -67,9 +98,34 @@ class TopNav extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
-        <AppBar position="fixed" style={{ zIndex: '1600' }}>
+
+            <AppBar
+              position="absolute"
+              className={classNames(classes.appBar)}
+            >
+
+              <Toolbar>
+                <Typography variant="title" color="inherit" style={{ flex: 1 }} noWrap> page title here </Typography>
+
+                { this.props.currentUser && this.props.currentUser.email ? 
+                  <div>
+                    <Typography color="inherit" variant="subheading" style={{display: 'inline-block', paddingRight: '10px'}}>
+                      {this.props.currentUser.email}
+                    </Typography>
+                    <Button color="inherit" onClick={this.logoff}>Logoff</Button>
+                  </div> :
+                  <Button color="inherit" onClick={this.handleClickOpen}>Login</Button>
+                }
+
+              </Toolbar>
+
+            </AppBar>
+
+
+        {/* <AppBar position="fixed" style={{ zIndex: '1600' }}>
           <Toolbar>
             <Typography variant="headline" color="inherit" style={{ flex: 1 }}>Intl.Intern</Typography>
             { this.props.currentUser && this.props.currentUser.email ? 
@@ -82,7 +138,7 @@ class TopNav extends Component {
               <Button color="inherit" onClick={this.handleClickOpen}>Login</Button>
             }
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
 
         <Dialog
           open={this.state.open}
@@ -123,4 +179,4 @@ class TopNav extends Component {
   }
 }
 
-export default TopNav;
+export default withStyles(styles)(TopNav);
