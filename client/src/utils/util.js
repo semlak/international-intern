@@ -57,7 +57,7 @@ export default {
     // initialize return value array
     const rv = [];
 
-    console.log('countries:', countries);
+    // console.log('countries:', countries);
     let i, j;
     // pre-initialize the return vaules with 'not found'
     for (j = 0; j < countries.length; j++) {
@@ -72,7 +72,7 @@ export default {
         }
       }
     }
-    console.log('currency codes found:', rv);
+    // console.log('currency codes found:', rv);
     return rv;
   },
 };
