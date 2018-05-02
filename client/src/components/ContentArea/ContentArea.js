@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const style = { 
-  paddingTop: '100px'
-}
-
 const ContentArea = props => (
-  <div style={style}>
+  <div>
     {props.children}
   </div>
 );

@@ -10,7 +10,9 @@ import Create from '@material-ui/icons/Create';
 import Book from '@material-ui/icons/Book';
 
 import SidebarItem from './SidebarItem';
-
+import Divider from 'material-ui/Divider';
+import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
 
 const links = [
   {
@@ -36,36 +38,69 @@ const links = [
   },
 ];
 
-// const drawerWidth = 240;
+const drawerWidth = 240;
 
-// const style = { 
-//   position: 'relative',
-//   width: drawerWidth,
-// }
+const styles = theme => ({
+  drawerPaper: {
+    position: 'relative',
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    padding: '0 24px',
+    ...theme.mixins.toolbar,
+  },
+});
 
-// style={{paddingTop: '64px'}}
 
 const Sidebar = (props) => {
   const { classes } = props;
   return (
-    // <div style={style}>
+
     <Drawer
-    variant="permanent" 
-   //  style={style}
+      variant="permanent"
+      classes={{ paper: classes.drawerPaper }}
     >
+      <div className={classes.drawerHeader}>                
+        <Typography variant="title" color="inherit" noWrap>Intl.Intern</Typography>
+      </div>
+      <Divider />
       <MenuList>
-      {links.map(link => (
-        <SidebarItem
-          key={link.text}
-          text={link.text}
-          path={link.path}
-          icon={link.icon}
-        />
-      ))}
+        {links.map(link => (
+          <SidebarItem
+            key={link.text}
+            text={link.text}
+            path={link.path}
+            icon={link.icon}
+          />
+        ))}
       </MenuList>
-      </Drawer>
+      <Divider />
+      requirements here
+    </Drawer>
+
+  
+    // <div style={style}>
+  //   <Drawer
+  //   variant="permanent" 
+  //  //  style={style}
+  //   >
+  //     <MenuList>
+  //     {links.map(link => (
+  //       <SidebarItem
+  //         key={link.text}
+  //         text={link.text}
+  //         path={link.path}
+  //         icon={link.icon}
+  //       />
+  //     ))}
+  //     </MenuList>
+  //     </Drawer>
     //  </div>
   )
 };
 
-export default Sidebar;
+export default withStyles(styles)(Sidebar);
+// export default Sidebar;

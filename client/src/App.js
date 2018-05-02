@@ -83,17 +83,17 @@ const styles = theme => ({
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
   },
-  drawerPaper: {
-    position: 'relative',
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    padding: '0 24px',
-    ...theme.mixins.toolbar,
-  },
+  // drawerPaper: {
+  //   position: 'relative',
+  //   width: drawerWidth,
+  // },
+  // drawerHeader: {
+  //   display: 'flex',
+  //   alignItems: 'center',
+  //   justifyContent: 'flex-start',
+  //   padding: '0 24px',
+  //   ...theme.mixins.toolbar,
+  // },
   toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
@@ -128,7 +128,6 @@ class App extends React.Component {
         <div className={classes.root}>
           <div className={classes.appFrame}>
           
-
           {/* <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} /> */}
           
             <AppBar
@@ -163,44 +162,32 @@ class App extends React.Component {
                 </Typography>
               </Toolbar>
             </AppBar> */}
+            
+            <Sidebar />
 
-
-
-            <Drawer
+            {/* <Drawer
               variant="permanent"
               classes={{ paper: classes.drawerPaper }}
             >
-             <div className={classes.drawerHeader}>                
-                <Typography variant="title" color="inherit" noWrap>
-                    Intl.Intern
-                </Typography>
+              <div className={classes.drawerHeader}>                
+                <Typography variant="title" color="inherit" noWrap>Intl.Intern</Typography>
               </div>
-
-
-<Divider />
-      <MenuList>
-      {links.map(link => (
-        <SidebarItem
-          key={link.text}
-          text={link.text}
-          path={link.path}
-          icon={link.icon}
-        />
-      ))}
-      </MenuList>
-
-              {/* <Sidebar /> */}
-
               <Divider />
-              <List>hello</List>
-              <Divider />
-              <List>hello</List>
-
-            </Drawer>
-            
+              <MenuList>
+                {links.map(link => (
+                  <SidebarItem
+                    key={link.text}
+                    text={link.text}
+                    path={link.path}
+                    icon={link.icon}
+                  />
+                ))}
+              </MenuList>
+            <Divider />
+              requirement list here
+            </Drawer> */}
             <main className={classes.content}>
               <div className={classes.toolbar} />
-        
               <ContentArea>
                 <Switch>
                   <Route exact path="/" component={Journal} />
@@ -212,10 +199,7 @@ class App extends React.Component {
                   <Route component={NoMatch} />
                 </Switch>
               </ContentArea>
-
             </main>
-
-             
           </div>
         </div>
       </React.Fragment>
