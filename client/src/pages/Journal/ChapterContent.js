@@ -8,6 +8,7 @@ const ChapterContent = props => (
     <CardMedia
       style={{ height: 0, paddingTop: '56.25%' }}
       image={props.chapImg}
+      src="image"
     />
     <CardContent>
       <p>{props.chapDate}</p>
