@@ -9,10 +9,14 @@ const style = {
 };
 
 export default class SidebarItem extends React.Component {
+
+  // when a sidebar item is clicked, pass 'text' (page title) on to Sidebar
+  changePage = () => {this.props.updateTitle(this.props.text)}
+
   render() {
     return (
       <Link to={this.props.path} style={{ textDecoration: 'none' }}>
-        <ListItem button style={window.location.pathname === this.props.path ? style.active : null}>
+        <ListItem button onClick={this.changePage} style={window.location.pathname === this.props.path ? style.active : null}>
           <ListItemIcon>{this.props.icon}</ListItemIcon>
           <ListItemText primary={this.props.text} />
         </ListItem>

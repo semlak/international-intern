@@ -49,14 +49,24 @@ dotenv.config();
 class App extends React.Component {
   state = {
     currentUser: '',
+    currentPage: '',
   };
 
   componentDidMount() {
 
   }
 
+
+  // passed to TopNav component
   handleLogin = (currentUser) => {
     this.setState({ currentUser });
+  }
+  // passed to Sidebar component
+  handlePageChange = (currentPage) => {
+    this.setState({ currentPage });
+
+    // console.log('step 3');
+    // console.log(this.state.currentPage);
   }
 
   render() {
@@ -68,16 +78,16 @@ class App extends React.Component {
           <CssBaseline />
           <div className={classes.root}>
             <div className={classes.appFrame}>
-              <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} />            
-              <Sidebar />
+              <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} pageTitle={this.state.currentPage}/>            
+              <Sidebar pageChange={this.handlePageChange} />
               <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Switch>
-                  <Route exact path="/" render={() => <Journal { ...this.state } /> } />
+                  <Route exact path="/" render={() => <Journal { ...this.state} />} />
                   <Route exact path="/journal" render={() => <Journal {...this.state} />} />
                   <Route exact path="/expenses" render={() => <Expenses {...this.state} />} />
                   <Route exact path="/location" render={() => <UserLocation {...this.state} />} />
-                  <Route exact path="/requirements" render={() => <Requirements {...this.state } />} />
+                  <Route exact path="/requirements" render={() => <Requirements {...this.state} />} />
                   <Route exact path="/register" component={RegistrationForm} />
                   <Route component={NoMatch} />
                 </Switch>
