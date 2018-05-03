@@ -100,12 +100,15 @@ export default class extends Component {
         </div>
       );
     }
+    // '&#x2109;' is the HTML code for 'degrees Farenheight'
+    // '&#x2103;' is the HTML code for 'degrees Celcius'
     const dC = <span>&#x2103;</span>;
-    // html escape for 'degree fahrenheight' : &#x2109;
     const dF = <span>&#x2109;</span>;
+    // html escape for 'degree fahrenheight' : &#x2109;
     // convert the wind direction (degrees) to a well-known ordinal
     const ordinal = util.convertWind(this.state.weather.windDirection);
-    const useImperialUnits = !this.props.currentUser ? true : this.props.currentUser.preferredUnits !== 'metric';
+    const useImperialUnits = !this.props.currentUser ?
+      true : this.props.currentUser.preferredUnits !== 'metric';
 
     const mphWind = `${this.state.weather.windSpeedMPH} mph`;
     const mpsWind = `${this.state.weather.windSpeedMetersPerSec} mps`;
@@ -115,9 +118,17 @@ export default class extends Component {
       // '&#x2109;' is the HTML code for 'degrees Farenheight'
       // '&#x2103;' is the HTML code for 'degrees Celcius'
       <div>
-        <h2>Weather in {this.state.weather.city} {this.props.currentUser.internLocationCountry}</h2>
-        <p>Current High: {useImperialUnits ? this.state.weather.tempMaxF : this.state.weather.tempMaxC} {useImperialUnits ? dF : dC}</p>
-        <p>Current Low: {useImperialUnits ? this.state.weather.tempMinF : this.state.weather.tempMinC} {useImperialUnits ? dF : dC}</p>
+        <h2>Weather in {this.state.weather.city}, {this.props.currentUser.internLocationCountry}</h2>
+        <p>Current High: {useImperialUnits ?
+            this.state.weather.tempMaxF :
+            this.state.weather.tempMaxC
+          } {useImperialUnits ? dF : dC}
+        </p>
+        <p>Current Low: {useImperialUnits ?
+          this.state.weather.tempMinF :
+          this.state.weather.tempMinC
+          } {useImperialUnits ? dF : dC}
+        </p>
         <p>Current Wind: {currentWind}</p>
         <p>Current Sky: { this.state.weather.sky }</p>
       </div>
