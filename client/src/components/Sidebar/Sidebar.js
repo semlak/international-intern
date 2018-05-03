@@ -59,10 +59,10 @@ const Sidebar = (props) => {
   const { classes } = props;
   return (
     <Drawer
-      variant="permanent"     
+      variant="permanent"
       classes={{ paper: classes.drawerPaper }}
     >
-      <div className={classes.drawerHeader}>                
+      <div className={classes.drawerHeader}>
         <Typography variant="title" color="inherit" noWrap>Intl.Intern</Typography>
       </div>
       <Divider />

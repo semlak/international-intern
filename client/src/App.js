@@ -73,16 +73,11 @@ class App extends React.Component {
               <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Switch>
-                  {/*<Route exact path="/" component={Journal} /> */}
-                  <Route exact path="/" render={ () => <Journal { ...this.state } /> } />
-                  {/* <Route exact path="/journal" component={Journal} /> */}
-                  <Route exact path="/journal" render={ () => <Journal { ...this.state } /> } />
-                  {/* <Route exact path="/expenses" component={Expenses} /> */}
-                  <Route exact path="/expenses" render={ () => <Expenses { ...this.state } /> } />
-                  {/* <Route exact path="/location" component={UserLocation} /> */}
-                  <Route exact path="/location" render={ () => <UserLocation { ...this.state } /> } />
-                  {/* <Route exact path="/requirements" component={Requirements} /> */}
-                  <Route exact path="/requirements" render={ () => <Requirements { ...this.state } /> } />
+                  <Route exact path="/" render={() => <Journal { ...this.state } /> } />
+                  <Route exact path="/journal" render={() => <Journal {...this.state} />} />
+                  <Route exact path="/expenses" render={() => <Expenses {...this.state} />} />
+                  <Route exact path="/location" render={() => <UserLocation {...this.state} />} />
+                  <Route exact path="/requirements" render={() => <Requirements {...this.state } />} />
                   <Route exact path="/register" component={RegistrationForm} />
                   <Route component={NoMatch} />
                 </Switch>
