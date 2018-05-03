@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Material UI components
 import CssBaseline from 'material-ui/CssBaseline';
+// from Material, used to inject an array of styles into the DOM
 import { withStyles } from 'material-ui/styles';
 // Pages
 import Journal from './pages/Journal/';
@@ -67,49 +68,20 @@ class App extends React.Component {
               <Sidebar />
               <main className={classes.content}>
                 <div className={classes.toolbar} />
-                {/* <ContentArea> */}
-                  <Switch>
-                    <Route exact path="/" component={Journal} />
-                    <Route exact path="/journal" component={Journal} />
-                    <Route exact path="/expenses" component={Expenses} />
-                    <Route exact path="/location" component={UserLocation} />
-                    <Route exact path="/requirements" component={Requirements} />
-                    <Route exact path="/register" component={RegistrationForm} />
-                    <Route component={NoMatch} />
-                  </Switch>
-                {/* </ContentArea> */}
+                <Switch>
+                  <Route exact path="/" component={Journal} />
+                  <Route exact path="/journal" component={Journal} />
+                  <Route exact path="/expenses" component={Expenses} />
+                  <Route exact path="/location" component={UserLocation} />
+                  <Route exact path="/requirements" component={Requirements} />
+                  <Route exact path="/register" component={RegistrationForm} />
+                  <Route component={NoMatch} />
+                </Switch>
               </main>
             </div>
           </div>
         </React.Fragment>
       </Router>
-      
-    // <React.Fragment>
-    //   <CssBaseline />
-    //   <Router>
-    //     <div style={{
-    //       flexGrow: 1,
-    //       zIndex: 1,
-    //       position: 'relative',
-    //       display: 'flex',
-    //     }}
-    //     >
-    //       <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} />
-    //       <Sidebar />
-    //       <ContentArea>
-    //         <Switch>
-    //           <Route exact path="/" component={Journal} />
-    //           <Route exact path="/journal" component={Journal} />
-    //           <Route exact path="/expenses" component={Expenses} />
-    //           <Route exact path="/location" component={UserLocation} />
-    //           <Route exact path="/requirements" component={Requirements} />
-    //           <Route exact path="/register" component={RegistrationForm} />
-    //           <Route component={NoMatch} />
-    //         </Switch>
-    //       </ContentArea>
-    //     </div>
-    //   </Router>
-    // </React.Fragment>
     );
   }
 }
