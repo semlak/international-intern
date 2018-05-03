@@ -9,32 +9,41 @@ const googleMapsClient = require('@google/maps').createClient({
   Promise,
 });
 
-googleMapsClient.geocode({ address: 'Toronto, Canada' })
-  .asPromise()
-  .then((response) => {
-    console.log(response.json.results);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 export default class extends Component {
   state = {
-    chapterTitle: '',
-    description: '',
-    image: '',
-    date: Date.now(),
-    requireNum: '0',
-    chapterData: [],
+    place_id: '',
+    lat: '',
+    lng: '',
+    country_code: '',
   };
 
   componentDidMount() {
     API.getCurrentUser().then((response) => {
-      let currentUser = response.data.user;
+      const currentUser = response.data.user;
       this.setState({ currentUser });
     }).catch((err) => {
       console.log('Error while getting current user: ', err);
     });
+
+    // TODO - move this location loookup to the registration/profile page(s)
+    googleMapsClient.geocode({ address: `${this.state.currentUser.internLocationCity}, ${this.state.currentUser.internLocationCountry}` }).asPromise().then((geo) => {
+      const place_obj = {
+        place_id: geo.results[0].place_id,
+        lat: geo.results[0].geometry.location.lat,
+        lng: geo.results[0].geometry.location.lng,
+      };
+      for (let i = 0; i < geo.data.results[0].address_components.length; i++) {
+        if (geo.data.results[0].address_components[i].types[0] === 'country') {
+          place_obj.country_code = geo.data.results[0].address_components[i].short_name;
+          break;
+        }
+      }
+      this.setState(place_obj);
+    }).catch((err) => {
+      console.log(err);
+    });
+
+
   }
 
   render() {
