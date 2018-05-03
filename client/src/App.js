@@ -18,7 +18,7 @@ import ContentArea from './components/ContentArea/ContentArea';
 // test
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
-import Drawer from 'material-ui/Drawer';
+//import Drawer from 'material-ui/Drawer';
 import List from 'material-ui/List';
 import { MenuItem } from 'material-ui/Menu';
 import Divider from 'material-ui/Divider';
@@ -54,13 +54,10 @@ const styles = theme => ({
     display: 'flex',
     width: '100%',
   },
-  // appBar: {
-  //   width: `calc(100% - ${drawerWidth}px)`,
-  //   marginLeft: drawerWidth,
-  // },
-  
   toolbar: theme.mixins.toolbar,
   content: {
+    position: 'relative',
+    marginLeft: drawerWidth,
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
@@ -96,7 +93,7 @@ class App extends React.Component {
               <Sidebar />
               <main className={classes.content}>
                 <div className={classes.toolbar} />
-                <ContentArea>
+                {/* <ContentArea> */}
                   <Switch>
                     <Route exact path="/" component={Journal} />
                     <Route exact path="/journal" component={Journal} />
@@ -106,7 +103,7 @@ class App extends React.Component {
                     <Route exact path="/register" component={RegistrationForm} />
                     <Route component={NoMatch} />
                   </Switch>
-                </ContentArea>
+                {/* </ContentArea> */}
               </main>
             </div>
           </div>

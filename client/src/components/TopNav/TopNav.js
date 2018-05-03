@@ -39,9 +39,6 @@ const styles = theme => ({
   },
 });
 
-
-
-
 class TopNav extends Component {
   state = {
     username: '',
@@ -103,7 +100,7 @@ class TopNav extends Component {
       <div>
 
             <AppBar
-              position="absolute"
+              //position="absolute"
               className={classNames(classes.appBar)}
             >
 

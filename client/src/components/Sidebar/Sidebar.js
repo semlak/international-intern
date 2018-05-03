@@ -40,8 +40,6 @@ const links = [
 ];
 
 const drawerWidth = 240;
-// gets passed in when exported (withStyles(styles))
-
 
 const styles = theme => ({
   drawerPaper: {
@@ -61,7 +59,7 @@ const Sidebar = (props) => {
   const { classes } = props;
   return (
     <Drawer
-      variant="permanent"
+      variant="permanent"     
       classes={{ paper: classes.drawerPaper }}
     >
       <div className={classes.drawerHeader}>                
