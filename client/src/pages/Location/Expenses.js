@@ -6,6 +6,13 @@ import Ledger from './Ledger';
 import Graph from './Graph';
 import API from '../../utils/API';
 
+// const expenseData = [
+//   { "_id" : ("5ade8e43e0d4991f98664483"), "expDesc" : "cat food", "expAmount" : 12, "expDate" : ("2017-12-31T00:00:00Z"), "__v" : 0 },
+//   { "_id" : ("5ade8e8ce0d4991f98664484"), "expDesc" : "pizza", "expAmount" : 15, "expDate" : ("2016-11-30T00:00:00Z"), "__v" : 0},
+//   { "_id" : ("5ade8ecde0d4991f98664485"), "expDesc" : "pizza", "expAmount" : 15, "expDate" : ("2016-11-30T00:00:00Z"), "__v" : 0 },
+//   { "_id" : ("5ade8f6ee0d4991f98664486"), "expDesc" : "soup", "expAmount" : 144, "expDate" : ("2018-12-30T00:00:00Z"), "__v" : 0 }
+// ]
+
 const style = {
   height: 250,
 };
@@ -22,32 +29,41 @@ export default class extends Component {
 
 
   componentDidMount() {
-    this.updateExpenses(this.props);
+    //API.getCurrentUser().then((response) => {
+      //// console.log('response: ', response);
+      //const currentUser = response.data.user;
+      //// console.log('currentUser is: ', currentUser);
+      //this.setState({
+        //currentUser,
+      //});
+    //});
+//    API.getExpenses().then((response) => {
+      //// console.log('API expense response: ', response);
+      //this.setState({
+        //expenseData: response.data,
+      //});
+    //});
   }
-
-  componentWillReceiveProps(props) {
-    this.updateExpenses(props);
-  }
-
 
   handleInputChange = event => this.setState({
     [event.target.name]: event.target.value,
   })
 
-  updateExpenses(props) {
+  componentWillReceiveProps(props) {
     if (props.currentUser) {
-      // console.log("in componentWillReceiveProps. New props are: " , props);
-      // this is signaling that user is now logged in. so, use the expenses if provided,
-      // otherwise retrieve via api
+      //console.log("in componentWillReceiveProps. New props are: " , props);
+      // this is signaling that user is now logged in. so, use the expenses if provided, otherwise retrieve via api
+      //if (props.currentUser.expRef && props.currentUser.expRef[0] && Object.is(props.currentUser.expRef[0])) {
       if (props.currentUser.expRef && props.currentUser.expRef[0] && props.currentUser.expRef[0].expDesc) {
-        // console.log("using expenses provided in user");
+        //console.log("using expenses provided in user");
         this.setState({ expenseData: props.currentUser.expRef });
       } else {
-        // console.log("using API to retrieve expenses");
+        //console.log("using API to retrieve expenses");
         API.getExpenses().then(response => this.setState({ expenseData: response.data }));
       }
     }
   }
+
 
   submitForm = (event) => {
     event.preventDefault();
@@ -63,7 +79,7 @@ export default class extends Component {
       };
 
       API.newExpense(data)
-        .then(() => {
+        .then((response) => {
           // console.log('Response from submitting expense: ', response);
           this.setState({
             expenseDescription: '',
@@ -71,10 +87,10 @@ export default class extends Component {
             date: '',
 
           });
-          API.getExpenses().then((res) => {
-            // console.log('API expense response: ', res);
+          API.getExpenses().then((response) => {
+            // console.log('API expense response: ', response);
             this.setState({
-              expenseData: res.data,
+              expenseData: response.data,
             });
           });
         })
