@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
+// from Material, used to inject an array of styles into the DOM
+import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
@@ -11,12 +13,31 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import API from '../../utils/API';
 
-// const styles = theme => ({
-//   appBar: {
-//     // Make the app bar z-index always one more than the drawer z-index
-//     zIndex: theme.zIndex.drawer + 1,
-//   },
-// });
+const drawerWidth = 240;
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  appFrame: {
+    zIndex: 1,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex',
+    width: '100%',
+  },
+  appBar: {
+    position: 'fixed',
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+  },
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3,
+  },
+});
 
 class TopNav extends Component {
   state = {
@@ -32,27 +53,25 @@ class TopNav extends Component {
     });
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
+  // open login modal
+  handleClickOpen = () => { this.setState({ open: true }); };
+  // close login modal
+  handleClose = () => { this.setState({ open: false }); };
+  // update username / password state on input change
   handleInputChange = event => this.setState({ [event.target.name]: event.target.value })
-
+  // click 'login' form button
   submitForm = (event) => {
     event.preventDefault();
+    // sample error handling, make sure username and password are present
     if (this.state.password.length < 1 && this.state.username.length < 1) {
       throw new Error('Bad login info. This is a crappy error message');
     }
-
+    // create object containing username/password from the components state
     const data = {
       username: this.state.username,
       password: this.state.password,
     };
-
+    // attempt login
     API.loginUser(data)
       .then((response) => {
         // get user from response
@@ -70,15 +89,17 @@ class TopNav extends Component {
   logoff = (event) => {
     event.preventDefault();
     API.logoutUser().then(this.props.onLogin('null'));
-    // API.logoutUser().then(response => this.setState({ currentUser: null }));
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
-          <AppBar position="fixed" style={{ zIndex: '1600' }}>
+        <AppBar
+          className={classes.appBar}
+        >
           <Toolbar>
-            <Typography variant="title" color="inherit" style={{ flex: 1 }}>International Intern</Typography>
+            <Typography variant="title" color="inherit" style={{ flex: 1 }} noWrap> page title here </Typography>
             { this.props.currentUser && this.props.currentUser.email ? 
               <div>
                 <Typography color="inherit" variant="subheading" style={{display: 'inline-block', paddingRight: '10px'}}>
@@ -90,7 +111,7 @@ class TopNav extends Component {
             }
           </Toolbar>
         </AppBar>
-
+        {/* login modal begin */}
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -129,4 +150,4 @@ class TopNav extends Component {
   }
 }
 
-export default TopNav;
+export default withStyles(styles)(TopNav);
