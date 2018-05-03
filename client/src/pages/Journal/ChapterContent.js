@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-
+import Card, { CardContent, CardMedia } from 'material-ui/Card';
 
 const ChapterContent = props => (
   <Card>
