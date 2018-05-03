@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
+import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
@@ -10,8 +11,7 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 import API from '../../utils/API';
-import { withStyles } from 'material-ui/styles';
-import classNames from 'classnames';
+
 
 const drawerWidth = 240;
 
@@ -100,8 +100,7 @@ class TopNav extends Component {
       <div>
 
             <AppBar
-              //position="absolute"
-              className={classNames(classes.appBar)}
+              className={classes.appBar}
             >
 
               <Toolbar>
