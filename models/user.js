@@ -51,6 +51,10 @@ const UserSchema = new Schema({
   internLocationCurrencyCode: {
     type: String,
   },
+  preferredUnits: {
+    type: String,
+    default: 'Imperial'
+  },
 
 
   // `chapterRef` is an object that stores a Chapter id
