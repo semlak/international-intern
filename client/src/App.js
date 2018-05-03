@@ -3,37 +3,13 @@ import dotenv from 'dotenv';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Material UI components
 import CssBaseline from 'material-ui/CssBaseline';
+import { withStyles } from 'material-ui/styles';
 // Pages
 import Journal from './pages/Journal/';
 import Expenses from './pages/Expenses/';
 import UserLocation from './pages/Location';
 import Requirements from './pages/Requirements/';
 import NoMatch from './pages/NoMatch';
-
-// test
-
-import { withStyles } from 'material-ui/styles';
-//import Drawer from 'material-ui/Drawer';
-import List from 'material-ui/List';
-import { MenuItem } from 'material-ui/Menu';
-import Divider from 'material-ui/Divider';
-
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-
-import TextField from 'material-ui/TextField';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-
-// icons
-import Place from '@material-ui/icons/Place';
-import AttachMoney from '@material-ui/icons/AttachMoney';
-import AssignmentTurnedIn from '@material-ui/icons/AssignmentTurnedIn';
-import Create from '@material-ui/icons/Create';
-import Book from '@material-ui/icons/Book';
-// import SidebarItem from './SidebarItem';
-import { MenuList } from 'material-ui/Menu';
-
 // Components
 import RegistrationForm from './components/Users/RegistrationForm';
 import Sidebar from './components/Sidebar/Sidebar';
