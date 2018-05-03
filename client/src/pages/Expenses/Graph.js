@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Chartist from 'chartist';
 import API from '../../utils/API';
+import chartistpluginaxistitle from 'chartist-plugin-axistitle';
 
 export default class extends Component {
   state = {}
@@ -35,16 +36,43 @@ export default class extends Component {
       // Naming the series with the series object array notation
       series: [{
         name: 'series-1',
-        data: individualExpense,
+        data: individualExpense
       }, {
         name: 'series-2',
-        data: cumulativeExpense,
+        data: cumulativeExpense
       }],
     }, {
+      height: '250px',
       fullWidth: true,
       chartPadding: {
-        right: 50,
+        top: 40,
+        right: 40,
+        bottom: 30,
+        left: 50
       },
+        plugins: [
+          Chartist.plugins.ctAxisTitle({
+            axisX: {
+              axisTitle: 'Item',
+              axisClass: 'ct-axis-title',
+              offset: {
+                x: 0,
+                y: 30
+              },
+              textAnchor: 'middle'
+            },
+            axisY: {
+              axisTitle: 'Expense USD',
+              axisClass: 'ct-axis-title',
+              offset: {
+                x: 0,
+                y: 55
+              },
+              textAnchor: 'middle',
+              flipTitle: true
+            }
+          })
+        ],
       series: {
         'series-1': {
           showLine: false,
