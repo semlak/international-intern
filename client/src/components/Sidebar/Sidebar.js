@@ -55,31 +55,42 @@ const styles = theme => ({
   },
 });
 
-const Sidebar = (props) => {
-  const { classes } = props;
-  return (
-    <Drawer
-      variant="permanent"     
-      classes={{ paper: classes.drawerPaper }}
-    >
-      <div className={classes.drawerHeader}>                
-        <Typography variant="title" color="inherit" noWrap>Intl.Intern</Typography>
-      </div>
-      <Divider />
-      <MenuList>
-        {links.map(link => (
-          <SidebarItem
-            key={link.text}
-            text={link.text}
-            path={link.path}
-            icon={link.icon}
-          />
-        ))}
-      </MenuList>
-      <Divider />
-      requirements here
-    </Drawer>
-  );
+// onst Sidebar = (props) => {
+class Sidebar extends React.Component {
+  //const { classes } = props;
+  state = {
+    title: '',
+  }
+
+  // function passed to SidebarItem component, passes title on to App.js
+  updateTitle = (title) => { this.props.pageChange(title) };
+
+  render() {
+    return (
+      <Drawer
+        variant="permanent"
+        classes={{ paper: this.props.classes.drawerPaper }}
+      >
+        <div className={this.props.classes.drawerHeader}>
+          <Typography variant="title" color="inherit" noWrap>Intl.Intern</Typography>
+        </div>
+        <Divider />
+        <MenuList>
+          {links.map(link => (
+            <SidebarItem
+              key={link.text}
+              text={link.text}
+              path={link.path}
+              icon={link.icon}
+              updateTitle={this.updateTitle}
+            />
+          ))}
+        </MenuList>
+        <Divider />
+        requirements here
+      </Drawer>
+    );
+  };
 };
 
 export default withStyles(styles)(Sidebar);

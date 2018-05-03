@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { MenuItem, MenuList } from 'material-ui/Menu';
 import { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
-import Place from '@material-ui/icons/Place';
 
 const style = {
   active: {
@@ -11,13 +9,16 @@ const style = {
 };
 
 export default class SidebarItem extends React.Component {
+
+  // when a sidebar item is clicked, pass 'text' (page title) on to Sidebar
+  changePage = () => {this.props.updateTitle(this.props.text)}
+
   render() {
-    const { path, text, icon } = this.props;
     return (
-      <Link to={path} style={{ textDecoration: 'none' }}>
-        <ListItem button style={window.location.pathname === path ? style.active : null}>
-          <ListItemIcon>{icon}</ListItemIcon>
-          <ListItemText primary={text} />
+      <Link to={this.props.path} style={{ textDecoration: 'none' }}>
+        <ListItem button onClick={this.changePage} style={window.location.pathname === this.props.path ? style.active : null}>
+          <ListItemIcon>{this.props.icon}</ListItemIcon>
+          <ListItemText primary={this.props.text} />
         </ListItem>
       </Link>
     );

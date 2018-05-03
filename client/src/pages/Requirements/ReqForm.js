@@ -4,8 +4,6 @@ import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
 import Card, { CardActions, CardHeader, CardContent } from 'material-ui/Card';
 import AddIcon from '@material-ui/icons/Add';
-import IconButton from 'material-ui/IconButton';
-import Typography from 'material-ui/Typography';
 
 const ReqForm = props => (
   <Card>   

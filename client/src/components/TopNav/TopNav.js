@@ -99,7 +99,7 @@ class TopNav extends Component {
           className={classes.appBar}
         >
           <Toolbar>
-            <Typography variant="title" color="inherit" style={{ flex: 1 }} noWrap> page title here </Typography>
+            <Typography variant="title" color="inherit" style={{ flex: 1 }} noWrap>{this.props.pageTitle}</Typography>
             { this.props.currentUser && this.props.currentUser.email ? 
               <div>
                 <Typography color="inherit" variant="subheading" style={{display: 'inline-block', paddingRight: '10px'}}>
