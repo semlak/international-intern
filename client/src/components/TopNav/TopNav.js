@@ -12,7 +12,6 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import API from '../../utils/API';
 
-
 const drawerWidth = 240;
 
 const styles = theme => ({

@@ -9,14 +9,9 @@ import Expenses from './pages/Expenses/';
 import UserLocation from './pages/Location';
 import Requirements from './pages/Requirements/';
 import NoMatch from './pages/NoMatch';
-// Components
-import RegistrationForm from './components/Users/RegistrationForm';
-import Sidebar from './components/Sidebar/Sidebar';
-import TopNav from './components/TopNav/TopNav';
-import ContentArea from './components/ContentArea/ContentArea';
 
 // test
-import classNames from 'classnames';
+
 import { withStyles } from 'material-ui/styles';
 //import Drawer from 'material-ui/Drawer';
 import List from 'material-ui/List';
@@ -39,7 +34,10 @@ import Book from '@material-ui/icons/Book';
 // import SidebarItem from './SidebarItem';
 import { MenuList } from 'material-ui/Menu';
 
-import SidebarItem from './components/Sidebar/SidebarItem';
+// Components
+import RegistrationForm from './components/Users/RegistrationForm';
+import Sidebar from './components/Sidebar/Sidebar';
+import TopNav from './components/TopNav/TopNav';
 
 const drawerWidth = 240;
 
