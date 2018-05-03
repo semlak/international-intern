@@ -18,83 +18,71 @@ export default class extends Component {
     APIKey: process.env.REACT_APP_OPEN_WEATHERMAPS_API_KEY,
   }
 
-  // handleInputChange = event => this.setState({[event.target.name]: event.target.value})
-
   componentDidMount() {
     // fetch the user to get their location, etc...
-    API.getCurrentUser().then((response) => {
-      // console.log('get user: ', response);
-      const currentUser = response.data.user;
-      // console.log('currentUser is: ', currentUser);
-      this.setState({ currentUser });
-    });
+    // API.getCurrentUser().then((the_user) => {
+    //   // console.log('get user: ', response);
+    //   const currentUser = the_user.data.user;
+    //   console.log('currentUser is: ', currentUser);
+    //   this.setState({ currentUser });
+      // Internship location
+      const city = this.state.currentUser.internLocationCity;
+      // const country_code = this.state.currentUser.internLocationCountryCode;
+      // TODO - get countrycode from google
+      const country_code = 'CA';
 
-    //
-    // Now get the weather...
-    //
-    // Internship location
-    // hard code for now ; TODO - get from user
-    const city = 'Toronto';
-    const country_code = 'CA';
+      //
+      // Now get the weather...
+      //
 
-    const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country_code}&appid=${this.state.APIKey}`; // current
-    // api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey;
-    // api.openweathermap.org/data/2.5/weather?q={city name}&appid=${APIKey}
-    // api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid=${APIKey}
+      // current weather -- (forcast query is a pay-for feature)
+      const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country_code}&units=imperial&appid=${this.state.APIKey}`;
+      // api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey;
+      // api.openweathermap.org/data/2.5/weather?q={city name}&appid=${APIKey}
+      // api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid=${APIKey}
 
-    API.getWeather(queryURL).then((response) => {
-      // console.log(`weather for ${city}, ${country_code}:`, response);
-      const tempMinC = (response.data.main.temp_min - 273.15).toFixed(1);
-      const tempMaxC = (response.data.main.temp_max - 273.15).toFixed(1);
-      const tempMinF = ((tempMinC * 1.8) + 32).toFixed(1);
-      const tempMaxF = ((tempMaxC * 1.8) + 32).toFixed(1);
+      API.getWeather(queryURL).then((response) => {
+        console.log(`weather for ${city}, ${country_code}:`, response);
+        // next 4 lines for default units (Kelvin) / wind in m/s
+        // const tempMinC = (response.data.main.temp_min - 273.15).toFixed(1);
+        // const tempMaxC = (response.data.main.temp_max - 273.15).toFixed(1);
+        // const tempMinF = ((tempMinC * 1.8) + 32).toFixed(1);
+        // const tempMaxF = ((tempMaxC * 1.8) + 32).toFixed(1);
+        // next 2 lines for Imperial units / wind in mph
+        const tempMinF = response.data.main.temp_min;
+        const tempMaxF = response.data.main.temp_max;
 
-      this.setState({
-        weather: {
-          cityName: response.data.name,
-          tempMinC,
-          tempMaxC,
-          tempMinF,
-          tempMaxF,
-          windSpeed: response.data.wind.speed,
-          windDirection: response.data.wind.deg,
-          sky: response.data.weather[0].main,
-        },
+        this.setState({
+          weather: {
+            cityName: response.data.name,
+            // tempMinC,
+            // tempMaxC,
+            tempMinF,
+            tempMaxF,
+            windSpeed: response.data.wind.speed,
+            windDirection: response.data.wind.deg,
+            sky: response.data.weather[0].main,
+          },
+        });
+        // console.log('weather:', this.state.weather);
+      }).catch((error) => {
+        throw error;
       });
-      console.log('weather:', this.state.weather);
-    }).catch((error) => {
-      throw error;
-    });
-  }
-
-  forecast() {
-    // Internship location
-    // hard code for now ; TODO - get from user
-    const city = 'Toronto';
-    const country_code = 'CA';
-
-    const queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city},${country_code}&appid=${this.state.APIKey}`; // 5-day forecast
-    API.getWeather(queryURL).then((response) => {
-      console.log(`weather for ${city}, ${country_code}:`, response);
-    }).catch((error) => {
-      throw error;
-    });
+    // });
   }
 
   render() {
-    // html escape for 'degree celcius' : &#x2103;
-    const dC = { __html: '&#x2103;' };
-    // html escape for 'degree fahrenheight' : &#x2109;
-    const dF = { __html: '&#x2109;' };
     // convert the wind direction (degrees) to a well-known ordinal
     const ordinal = util.convertWind(this.state.weather.windDirection);
 
     return (
+      // '&#x2109;' is the HTML code for 'degrees Farenheight'
+      // '&#x2103;' is the HTML code for 'degrees Celcius'
       <div>
         <h2>Weather in {this.state.weather.cityName}</h2>
-        <p>Current Low: {this.state.weather.tempMinF}<span dangerouslySetInnerHTML={dF} /></p>
-        <p>Current High: {this.state.weather.tempMaxF}<span dangerouslySetInnerHTML={dF} /></p>
-        <p>Current Wind: {this.state.weather.windSpeed} {ordinal}</p>
+        <p>Current Low: {this.state.weather.tempMinF}&#x2109;</p>
+        <p>Current High: {this.state.weather.tempMaxF}&#x2109;</p>
+        <p>Current Wind: {this.state.weather.windSpeed} mph {ordinal}</p>
         <p>Current Sky: {this.state.weather.sky}</p>
       </div>
     );

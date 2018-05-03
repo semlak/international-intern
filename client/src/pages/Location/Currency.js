@@ -13,9 +13,7 @@ export default class extends Component {
   componentDidMount() {
     // fetch the user to get their location, etc...
     API.getCurrentUser().then((response) => {
-      console.log('get user: ', response);
       const currentUser = response.data.user;
-      console.log('currentUser is: ', currentUser);
       this.setState({ currentUser });
     });
     // hard code countries for now
@@ -26,10 +24,10 @@ export default class extends Component {
     // const queryURL = `http://data.fixer.io/api/latest?access_key=${API_KEY}&base=${this.state.homeCurrency}&symbols=${this.state.locCurrency}callback=MY_FUNCTION`;
     const API_KEY = process.env.REACT_APP_CURRENCYLAYER_API_KEY;
     const queryURL = `http://apilayer.net/api/live?access_key=${API_KEY}&source=${this.state.homeCurrency}&currencies=${this.state.locCurrency}&format=1`;
-    console.log('currency query:', queryURL);
+    // console.log('currency query:', queryURL);
 
     API.getCurrency(queryURL).then((json) => {
-      console.log('currency:', json);
+      // console.log('currency:', json);
       // sample data
       // {
       //   "success": true,
@@ -43,7 +41,9 @@ export default class extends Component {
       // }
       const quoteCode = `${this.state.homeCurrency}${this.state.locCurrency}`;
       let quote;
-      for (const key in json.data.quotes) {
+      const keys_arr = Object.keys(json.data.quotes);
+      for (let i = 0; i < keys_arr.length; i++) {
+        const key = keys_arr[i];
         if (key === quoteCode) {
           quote = json.data.quotes[key];
         }

@@ -55,10 +55,9 @@ export default {
     // return: rv is an array of strings of the currency_codes - in the same order of countries
 
     // initialize return value array
-    // eslint incorrectly flags the following line with the 'prefer-const' rule
-    let rv = [];
+    const rv = [];
 
-    console.log('countries:', countries);
+    // console.log('countries:', countries);
     let i, j;
     // pre-initialize the return vaules with 'not found'
     for (j = 0; j < countries.length; j++) {
@@ -73,7 +72,7 @@ export default {
         }
       }
     }
-    console.log('currency codes found:', rv);
+    // console.log('currency codes found:', rv);
     return rv;
   },
 };

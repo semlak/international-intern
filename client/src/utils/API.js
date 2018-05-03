@@ -33,7 +33,7 @@ export default {
   updateChapter: data => axios.put(`/api/chapters/${data._id}`, data),
   deleteChapter: id => axios.delete(`/api/chapters/${id}`),
 
-  //images
+  // images
   addImage: data => axios.post('/api/images/', data),
   getImages: () => axios.get('/api/images/'),
 
