@@ -20,13 +20,12 @@ export default class extends Component {
 
   componentDidMount() {
     // fetch the user to get their location, etc...
-    API.getCurrentUser().then((the_user) => {
-      // console.log('get user: ', response);
-      const currentUser = the_user.data.user;
-      console.log('currentUser is: ', currentUser);
-      this.setState({ currentUser });
+    // API.getCurrentUser().then((the_user) => {
+    //   // console.log('get user: ', response);
+    //   const currentUser = the_user.data.user;
+    //   console.log('currentUser is: ', currentUser);
+    //   this.setState({ currentUser });
       // Internship location
-      // hard code for now ; TODO - get from user
       const city = this.state.currentUser.internLocationCity;
       // const country_code = this.state.currentUser.internLocationCountryCode;
       // TODO - get countrycode from google
@@ -69,7 +68,7 @@ export default class extends Component {
       }).catch((error) => {
         throw error;
       });
-    });
+    // });
   }
 
   render() {

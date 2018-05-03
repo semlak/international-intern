@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
+import Map from './Map';
 import Weather from './Weather';
 import Currency from './Currency';
 import News from './News';
@@ -11,6 +12,7 @@ const googleMapsClient = require('@google/maps').createClient({
 
 export default class extends Component {
   state = {
+    currentUser: {},
     place_id: '',
     lat: '',
     lng: '',
@@ -35,6 +37,8 @@ export default class extends Component {
       for (let i = 0; i < geo.data.results[0].address_components.length; i++) {
         if (geo.data.results[0].address_components[i].types[0] === 'country') {
           place_obj.country_code = geo.data.results[0].address_components[i].short_name;
+          // TODO - the updateUser route and functions
+          // API.updateUser();
           break;
         }
       }
@@ -42,20 +46,19 @@ export default class extends Component {
     }).catch((err) => {
       console.log(err);
     });
-
-
   }
 
   render() {
     return (
       <div>
         <h1>Location</h1>
+        <Map _state={this.state} />
         <hr />
-        <Weather />
+        <Weather _state={this.state} />
         <hr />
-        <Currency />
+        <Currency _state={this.state} />
         <hr />
-        <News />
+        <News _state={this.state} />
       </div>
     );
   }
