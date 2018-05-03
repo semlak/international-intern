@@ -53,27 +53,25 @@ class TopNav extends Component {
     });
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
+  // open login modal
+  handleClickOpen = () => { this.setState({ open: true }); };
+  // close login modal
+  handleClose = () => { this.setState({ open: false }); };
+  // update username / password state on input change
   handleInputChange = event => this.setState({ [event.target.name]: event.target.value })
-
+  // click 'login' form button
   submitForm = (event) => {
     event.preventDefault();
+    // sample error handling, make sure username and password are present
     if (this.state.password.length < 1 && this.state.username.length < 1) {
       throw new Error('Bad login info. This is a crappy error message');
     }
-
+    // create object containing username/password from the components state
     const data = {
       username: this.state.username,
       password: this.state.password,
     };
-
+    // attempt login
     API.loginUser(data)
       .then((response) => {
         // get user from response
@@ -91,39 +89,17 @@ class TopNav extends Component {
   logoff = (event) => {
     event.preventDefault();
     API.logoutUser().then(this.props.onLogin('null'));
-    // API.logoutUser().then(response => this.setState({ currentUser: null }));
   }
 
   render() {
     const { classes } = this.props;
     return (
       <div>
-
-            <AppBar
-              className={classes.appBar}
-            >
-
-              <Toolbar>
-                <Typography variant="title" color="inherit" style={{ flex: 1 }} noWrap> page title here </Typography>
-
-                { this.props.currentUser && this.props.currentUser.email ? 
-                  <div>
-                    <Typography color="inherit" variant="subheading" style={{display: 'inline-block', paddingRight: '10px'}}>
-                      {this.props.currentUser.email}
-                    </Typography>
-                    <Button color="inherit" onClick={this.logoff}>Logoff</Button>
-                  </div> :
-                  <Button color="inherit" onClick={this.handleClickOpen}>Login</Button>
-                }
-
-              </Toolbar>
-
-            </AppBar>
-
-
-        {/* <AppBar position="fixed" style={{ zIndex: '1600' }}>
+        <AppBar
+          className={classes.appBar}
+        >
           <Toolbar>
-            <Typography variant="headline" color="inherit" style={{ flex: 1 }}>Intl.Intern</Typography>
+            <Typography variant="title" color="inherit" style={{ flex: 1 }} noWrap> page title here </Typography>
             { this.props.currentUser && this.props.currentUser.email ? 
               <div>
                 <Typography color="inherit" variant="subheading" style={{display: 'inline-block', paddingRight: '10px'}}>
@@ -134,14 +110,13 @@ class TopNav extends Component {
               <Button color="inherit" onClick={this.handleClickOpen}>Login</Button>
             }
           </Toolbar>
-        </AppBar> */}
-
+        </AppBar>
+        {/* login modal begin */}
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
-          // style={{width: '325px'}}
         >
           <DialogTitle id="alert-dialog-title">Login</DialogTitle>
           <DialogContent>
