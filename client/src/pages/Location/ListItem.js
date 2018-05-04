@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const ListItem = props => (
 	<div>
@@ -11,4 +11,3 @@ const ListItem = props => (
 );
 
 export default ListItem;
-

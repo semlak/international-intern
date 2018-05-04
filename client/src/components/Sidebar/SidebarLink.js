@@ -8,7 +8,6 @@ const style = {
   }
 };
 
-// export default class SidebarItem extends Component {
 const SidebarLink = (props) => {
   return (
     <Link to={props.path} style={{ textDecoration: 'none' }}>

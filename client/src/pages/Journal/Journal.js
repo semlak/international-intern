@@ -28,7 +28,7 @@ export default class extends Component {
 		chapterTitle: "",
 		description: "",
 		image:"",
-		date: Date.now(),
+		date: "",
 		chapterData:[],
 		needsData: [],
 	};
@@ -43,7 +43,7 @@ export default class extends Component {
 
 		API.getChapters().then(response=> {
 			// console.log("API chapter response: " , response);
-			console.log('response is: ', response)
+			// console.log('response is: ', response)
 			this.setState({
 				chapterData: response.data
 			})
@@ -122,7 +122,6 @@ export default class extends Component {
 	render() {
 		return (
 			<div>
-		    	<h1>Journal</h1>
 		    	<AddChapter 
 		    	  needs={this.state.needsData}
 		    	  handleInputChange={this.handleInputChange} 
