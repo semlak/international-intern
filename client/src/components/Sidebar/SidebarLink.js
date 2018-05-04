@@ -9,7 +9,7 @@ const style = {
 };
 
 // export default class SidebarItem extends Component {
-const App = (props) => {
+const SidebarLink = (props) => {
   return (
     <Link to={props.path} style={{ textDecoration: 'none' }}>
       <ListItem button onClick={() => props.pageChange(props.text)} style={window.location.pathname === props.path ? style.active : null}>
@@ -19,4 +19,4 @@ const App = (props) => {
     </Link>
   );
 }
-export default App;
+export default SidebarLink;

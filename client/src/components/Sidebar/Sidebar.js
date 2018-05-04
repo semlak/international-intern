@@ -12,7 +12,8 @@ import AssignmentTurnedIn from '@material-ui/icons/AssignmentTurnedIn';
 import Create from '@material-ui/icons/Create';
 import Book from '@material-ui/icons/Book';
 // components
-import SidebarItem from './SidebarItem';
+import SidebarLink from './SidebarLink';
+import SidebarReqs from './SidebarReqs';
 
 // side bar links
 const links = [
@@ -56,6 +57,7 @@ const styles = theme => ({
 });
 
 const Sidebar = (props) => {
+
   return (
     <Drawer
       variant="permanent"
@@ -67,7 +69,7 @@ const Sidebar = (props) => {
       <Divider />
       <MenuList>
         {links.map(link => (
-          <SidebarItem
+          <SidebarLink
             key={link.text}
             text={link.text}
             path={link.path}
@@ -77,7 +79,18 @@ const Sidebar = (props) => {
         ))}
       </MenuList>
       <Divider />
-      requirements here
+      <div style={{overflowY: 'auto', height: '100%'}}>
+        {/* dont break if no user is logged in, or user has no reqs  */}
+        {props.currentUser && props.currentUser.needsRef ?
+          props.currentUser.needsRef.map(need => (
+            <SidebarReqs
+              key={need.needDesc}
+              text={need.needDesc}
+              title={need.needTitle}
+              number={need.needNumber}
+            />
+          )) : null }
+      </div>
     </Drawer>
   );
 };
