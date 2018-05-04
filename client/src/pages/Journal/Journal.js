@@ -29,6 +29,7 @@ export default class extends Component {
 		description: "",
 		image:"",
 		date: "",
+		requireNum: 0,
 		chapterData:[],
 		needsData: [],
 	};
@@ -52,7 +53,7 @@ export default class extends Component {
 		})
 
 		API.getNeeds().then(res => {
-			console.log('NEEDS: ', res)
+			// console.log('NEEDS: ', res)
 			this.setState({
 			  needsData:res.data
 			})
@@ -91,6 +92,7 @@ export default class extends Component {
 			  	chapTitle: this.state.chapterTitle,
 			  	chapNote: this.state.description,
 			  	chapImg: image,
+			  	reqNum: this.state.requireNum,
 			  	chapDate: this.state.date,
 			  };
 
@@ -100,6 +102,8 @@ export default class extends Component {
 			  	  chapterTitle:"",
 			  	  description: "",
 			  	  image:"",
+
+
 			  	  date: "",
 				});
 			  })
