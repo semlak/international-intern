@@ -1,10 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-// import Select from 'material-ui/Select';
 import Button from 'material-ui/Button';
-// import firebase from '../../utils/firebase';
-// import { MenuItem } from 'material-ui/Menu';
-// import Input, { InputLabel } from 'material-ui/Input';
+import DropDownContent from './DropDown';
 
 const AddChapter = (props) => {
 
@@ -20,6 +17,7 @@ const AddChapter = (props) => {
           onChange={props.handleInputChange}
         />
         <br />
+
         <TextField
           label="Description"
           name="description"
@@ -28,10 +26,13 @@ const AddChapter = (props) => {
           onChange={props.handleInputChange}
         />
         <br />
-        <input name="date" type="date" step=''  placeholder={Date.now()} onChange={props.handleInputChange} />
+
+        <input name="date" type="date" step='' value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
         <br />
+
         <input type="file" name="image" value={props.image} id="fileButton" onChange={props.handleInputChange} />
         <br />
+
         <p>Requirement</p>
         <select
           name="requireNum"
@@ -39,19 +40,17 @@ const AddChapter = (props) => {
           value={props.requireNum}
           onChange={props.handleInputChange}
         >
-          <option value="0">0</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
+        {props.needs.map(need=>
+          <DropDownContent key={need._id}{...need} />)}
         </select>
         <br />
+
         <Button variant="raised" onClick={props.handleFormSubmit} color="secondary">
           Add Journal
         </Button>
       </form>
     </div>
   )
-
 }
 
 export default AddChapter;

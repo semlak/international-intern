@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
 
 const ChapterContent = props => (
@@ -17,4 +16,5 @@ const ChapterContent = props => (
     </CardContent>
   </Card>
 );
+
 export default ChapterContent;
