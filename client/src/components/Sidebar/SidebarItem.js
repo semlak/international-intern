@@ -8,19 +8,15 @@ const style = {
   }
 };
 
-export default class SidebarItem extends React.Component {
-
-  // when a sidebar item is clicked, pass 'text' (page title) on to Sidebar
-  changePage = () => {this.props.updateTitle(this.props.text)}
-
-  render() {
-    return (
-      <Link to={this.props.path} style={{ textDecoration: 'none' }}>
-        <ListItem button onClick={this.changePage} style={window.location.pathname === this.props.path ? style.active : null}>
-          <ListItemIcon>{this.props.icon}</ListItemIcon>
-          <ListItemText primary={this.props.text} />
-        </ListItem>
-      </Link>
-    );
-  }
+// export default class SidebarItem extends Component {
+const App = (props) => {
+  return (
+    <Link to={props.path} style={{ textDecoration: 'none' }}>
+      <ListItem button onClick={() => props.pageChange(props.text)} style={window.location.pathname === props.path ? style.active : null}>
+        <ListItemIcon>{props.icon}</ListItemIcon>
+        <ListItemText primary={props.text} />
+      </ListItem>
+    </Link>
+  );
 }
+export default App;
