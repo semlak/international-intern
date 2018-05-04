@@ -12,12 +12,13 @@ class News extends Component {
   };
 
   componentWillReceiveProps(props) {
+    // console.log("PROPS: ", props, "MORE PROPS", this.props);
     if (props.currentUser) {
       this.setState({
         cityName: props.currentUser.internLocationCity,
         countryName: props.currentUser.internLocationCountry
       });
-      this.searchAPI();
+      this.searchAPI(props);
     }
   }
 
@@ -27,20 +28,20 @@ class News extends Component {
         cityName: this.props.currentUser.internLocationCity,
         countryName: this.props.currentUser.internLocationCountry
       });
-      this.searchAPI();
+      this.searchAPI(this.props);
     }
   }
 
-  searchAPI = () => {
+  searchAPI = (props) => {
     // console.log('this.state: ', this.state);
     const query =
       ('https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key='
         + this.state.NYTAPIKey
-        + '&q=' + this.state.cityName
+        + '&q=' + props.currentUser.internLocationCity
         + ' '
-        + this.state.countryName
+        + props.currentUser.internLocationCountry
         + '&sort=newest');
-    // console.log('query: ' + query);
+    console.log('query: ' + query);
 
     API.search(query)
       .then(res => this.setState({ results: res.data.response.docs }, () => {}))
