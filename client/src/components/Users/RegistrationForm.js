@@ -4,67 +4,71 @@ import API from '../../utils/API';
 
 export default class extends Component {
   state = {
-    currentUser: "",
-    username: "",
-    email: "",
-    password: "", 
-    passwordConfirm: "",
-    fullname: "",
-    homeLocationCity: "", 
-    homeLocationCountry: "", 
-    internLocationCity: "",
-    internLocationCountry: "",
+    currentUser: '',
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    fullname: '',
+    homeLocationCity: '',
+    homeLocationCountry: '',
+    internLocationCity: '',
+    internLocationCountry: '',
   }
 
-  handleInputChange = event => this.setState({[event.target.name]: event.target.value})
+  componentDidMount() {
+    API.getCurrentUser().then((response) => {
+      // console.log('response: ', response);
+      const currentUser = response.data.user;
+      // console.log('currentUser is: ' , currentUser);
+      this.setState({ currentUser });
+    });
+  }
 
-	submitForm = event => {
-		event.preventDefault();
-		if (this.state.password !== this.state.passwordConfirm && 
-			this.state.password.length < 1 &&
-			this.state.username.length < 1 && 
-			this.state.email.length < 1) {
-				throw new Error("Bad login info. This is a crappy error message")
-		}
-		const data = {
-			username: this.state.username,
-			email: this.state.email,
-			password: this.state.password,
-			fullname: this.state.fullname,
-			homeLocationCity: this.state.homeLocationCity,
-			homeLocationCountry: this.state.homeLocationCountry,
-			internLocationCity: this.state.internLocationCity,
-			internLocationCountry: this.state.internLocationCountry,
-		}
-		API.registerUser(data)
-			.then(response => {
-				let newUser = response.data.user;
-				//console.log("newUser: ", newUser);
-				this.setState({
-					currentUser: newUser,
-					email: "", password: "", passwordConfirm: "",
-					fullname: "", homeLocation: "", internLocation: ""
-				});
-			})
-			.catch(err => console.log("error on registration", err));
-	}
+  handleInputChange = event => this.setState({ [event.target.name]: event.target.value })
 
-	componentDidMount() {
-		API.getCurrentUser().then(response=> {
-			//console.log("response: ", response);
-			let currentUser = response.data.user
-			//console.log("currentUser is: " , currentUser);
-			this.setState({currentUser: currentUser});
-		})
-	}
+  submitForm = (event) => {
+    event.preventDefault();
+    if (this.state.password !== this.state.passwordConfirm &&
+      this.state.password.length < 1 &&
+      this.state.username.length < 1 &&
+      this.state.email.length < 1) {
+      throw new Error('Bad login info. This is a crappy error message')
+    }
+    const data = {
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+      fullname: this.state.fullname,
+      homeLocationCity: this.state.homeLocationCity,
+      homeLocationCountry: this.state.homeLocationCountry,
+      internLocationCity: this.state.internLocationCity,
+      internLocationCountry: this.state.internLocationCountry,
+    };
+    API.registerUser(data)
+      .then((response) => {
+        const newUser = response.data.user;
+        // console.log('newUser: ', newUser);
+        this.setState({
+          currentUser: newUser,
+          email: '',
+          password: '',
+          passwordConfirm: '',
+          fullname: '',
+          homeLocation: '',
+          internLocation: '',
+        });
+      })
+      .catch(err => console.log('error on registration', err));
+  }
 
   render() {
     return (
       <div>
         <h1>Example Registration Form</h1>
-    <h2>{this.state.currentUser && this.state.currentUser.email ? 
-          "User: " + this.state.currentUser.email : 
-          "No User Logged in"}
+        <h2>{this.state.currentUser && this.state.currentUser.email ?
+          'User: ' + this.state.currentUser.email : 
+          'No User Logged in'}
         </h2>
         <form>
           <p>Username</p>
@@ -85,11 +89,11 @@ export default class extends Component {
           <input name="internLocationCity" type="text" value={this.state.internLocationCity} onChange={this.handleInputChange} />
           <p>Internship Location Country</p>
           <input name="internLocationCountry" type="text" value={this.state.internLocationCountry} onChange={this.handleInputChange} />
-          <br/>
+          <br />
           <button onClick={this.submitForm}>Register</button>
         </form>
         {/* <Link to="/login">Login</Link>  */}
       </div>
-    )
+    );
   }
 }

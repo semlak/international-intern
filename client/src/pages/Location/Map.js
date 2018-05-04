@@ -1,13 +1,8 @@
 import React from 'react';
 import { compose, withProps } from 'recompose';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
-import API from '../../utils/API';
-import util from '../../utils/util';
-
-const googleMapsClient = require('@google/maps').createClient({
-  key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  Promise,
-});
+// import API from '../../utils/API';
+// import util from '../../utils/util';
 
 const MapComponent = compose(
   withProps({
@@ -20,10 +15,10 @@ const MapComponent = compose(
   withGoogleMap
 )(props => (
   <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+    defaultZoom={14}
+    defaultCenter={{ lat: props.lat, lng: props.lng }}
   >
-    {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} onClick={props.onMarkerClick} />}
+    {props.isMarkerShown && <Marker position={{ lat: props.lat, lng: props.lng }} onClick={props.onMarkerClick} />}
   </GoogleMap>
 ));
 
@@ -34,6 +29,12 @@ export default class extends React.PureComponent {
 
   componentDidMount() {
     this.delayedShowMarker();
+  }
+
+  componentWillReceiveProps(props) {
+    // this.doMap(props);
+    // TODO - fix this setState when lat/lng come in props
+    this.setState({ lat: 37.566535, lng: 126.9779692 });
   }
 
   delayedShowMarker = () => {
@@ -52,6 +53,8 @@ export default class extends React.PureComponent {
       <MapComponent
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
+        lat={this.state.lat}
+        lng={this.state.lng}
       />
     );
   }

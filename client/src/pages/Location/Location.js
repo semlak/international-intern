@@ -64,6 +64,9 @@ import News from './News';
 //     );
 //   }
 // }
+
+// in the call below, I'm hardcoding lat/lng for now
+// TODO - get lat/lng into the props
 const Location = props => (
   <div>
     <h1>Location</h1>
