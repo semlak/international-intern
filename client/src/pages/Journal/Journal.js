@@ -72,18 +72,18 @@ export default class extends Component {
 	    //upload file
 	    let task = storageRef.put(file);
 	    console.log(task);
-
+	 
  	    let state = this.state;
 	    console.log(this);
 	    task.on('state_changed', 
-		  function progress(snapshot) {
+		  (snapshot) => {
 		    console.log("SNAPSHOT:", snapshot);
 		  }, 
-		  function error(err) {
+		  (err) => {
 		  },
-		  function complete() {
+		  () => {
 		    console.log("COMPLETE");
-		    storageRef.getDownloadURL().then(function(url) {
+		    storageRef.getDownloadURL().then((url) => {
 			  image = url;
 			
 			  let data = {
@@ -98,26 +98,29 @@ export default class extends Component {
 			  console.log(this);
 			  API.addChapter(data).then((response) => {
 			  	console.log("Response from adding chapter: ", response);
-			  	// this.setState({
-				  // chapterData:response.data
-			  	// });
+			  	console.log(this.state);
+			  	console.log(response.data);
+			  	this.setState({
+			  	  chapterTitle:"",
+			  	  description: "",
+			  	  image:"",
+			  	  date: "",
+			  	  requireNum: 0,
+				});
+			  	
 			    
 			  })
 			  .catch((err) => {
 		  	  	console.log('Error while adding chapter: ', err);
-			  });
+			  })
+
+			  API.getChapters().then((response) => {
+				this.setState({
+			  	  chapterData:response.data
+				});
+		  	  });
 	  	    });
 	      })
- 		  API.getChapters().then((response) => {
-			this.setState({
-			  chapterTitle:"",
-			  description: "",
-			  image:"",
-			  date: "",
-			  requireNum: 0,
-			});
-		  });
-
 	  } else {
 		console.log("Unable to add chapter.")
 	  }
