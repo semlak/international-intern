@@ -8,9 +8,9 @@ var config = {
 	// apiKey: process.env.REACT_APP_FIREBASE_apikey,
 	// authDomain: process.env.REACT_APP_FIREBASE_authDomain,
 	// databaseURL: process.env.REACT_APP_FIREBASE_databaseURL,
-	// projectId: process.env.EACT_APP_FIREBASE_projectId,
+	// projectId: process.env.REACT_APP_FIREBASE_projectId,
 	// storageBucket: process.env.REACT_APP_FIREBASE_storageBucket,
-	// messagingSenderId: process.envREACT_APP_FIREBASE_messagingSenderId
+	// messagingSenderId: process.env.REACT_APP_FIREBASE_messagingSenderId,
 
 apikey: "AIzaSyCSuecWnnFJo55VAuiEzvSfR1xLNRuwwkI",
 authDomain: "intern-project-4b679.firebaseapp.com",
@@ -29,20 +29,18 @@ export default class extends Component {
 		description: "",
 		image:"",
 		date: Date.now(),
-		requireNum: 0,
 		chapterData:[],
 		needsData: [],
 	};
 
 	componentDidMount() {
 		API.getCurrentUser().then(response=> {
-			// console.log("response: ", response);
 			let currentUser = response.data.user
-			// console.log("currentUser is: " , currentUser);
 			this.setState({currentUser: currentUser});
 		}).catch(err =>{
 			console.log("Error while getting current user: ", err)
 		})
+
 		API.getChapters().then(response=> {
 			// console.log("API chapter response: " , response);
 			console.log('response is: ', response)
@@ -52,6 +50,7 @@ export default class extends Component {
 		}).catch(err =>{
 			console.log("Error while getting chapters: ", err)
 		})
+
 		API.getNeeds().then(res => {
 			console.log('NEEDS: ', res)
 			this.setState({
@@ -71,19 +70,13 @@ export default class extends Component {
 	  if (this.state.chapterTitle && this.state.description && this.state.date !== "") {
 	    console.log('current state', this.state);
 	    let fileButton = document.getElementById("fileButton");
-	    console.log("FILEBUTTON: ", fileButton);
 	    let file = fileButton.files[0];
-	    console.log("FILE: ", file);
         let image = "";
-
 	    //create storage ref
 	    let storageRef = firebase.storage().ref("chapImg/" + Date.now() + file.name);
 	    //upload file
 	    let task = storageRef.put(file);
-	    console.log(task);
-	 
- 	    let state = this.state;
-	    console.log(this);
+	   
 	    task.on('state_changed', 
 		  (snapshot) => {
 		    console.log("SNAPSHOT:", snapshot);
@@ -94,30 +87,21 @@ export default class extends Component {
 		    console.log("COMPLETE");
 		    storageRef.getDownloadURL().then((url) => {
 			  image = url;
-			
 			  let data = {
-			  	chapTitle: state.chapterTitle,
-			  	chapNote: state.description,
+			  	chapTitle: this.state.chapterTitle,
+			  	chapNote: this.state.description,
 			  	chapImg: image,
-			  	chapDate: state.date,
-			  	reqNum: state.requireNum
+			  	chapDate: this.state.date,
 			  };
-			  console.log(data);
-			  console.log(state);
-			  console.log(this);
+
 			  API.addChapter(data).then((response) => {
 			  	console.log("Response from adding chapter: ", response);
-			  	console.log(this.state);
-			  	console.log(response.data);
 			  	this.setState({
 			  	  chapterTitle:"",
 			  	  description: "",
 			  	  image:"",
 			  	  date: "",
-			  	  requireNum: 0,
 				});
-			  	
-			    
 			  })
 			  .catch((err) => {
 		  	  	console.log('Error while adding chapter: ', err);
