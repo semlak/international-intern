@@ -9,21 +9,26 @@ export default class extends Component {
   };
 
   componentDidMount() {
-    if (this.props.currentUser) {
+    if (this.props.currentUser && typeof this.props.currentUser === 'object') {
       this.updateExchangeRate(this.props);
     }
   }
 
   componentWillReceiveProps(props) {
-    this.updateExchangeRate(props);
+    if (props.currentUser && typeof props.currentUser === 'object') {
+      this.updateExchangeRate(props);
+    }
   }
 
   updateExchangeRate(props) {
+    if (!props.currentUser.homeLocationCurrencyCode) {
+      return console.error('unable to retrieve all required props from currentUser. You may need to ensure that the fields \'internLocationCountry\' and \'internLocationCity\' are populated.');
+    }
     // console.log("in updateExchangeRate, props: " , props);
-    const currentUser = props.currentUser || this.props.currentUser;
+    const currentUser = props.currentUser;
     const [homeCurrency, locCurrency] = [
-      currentUser.homeLocationCurrencyCode,
-      currentUser.internLocationCurrencyCode,
+      currentUser.homeLocationCurrencyCode || 'USD',
+      currentUser.internLocationCurrencyCode || 'CAD'
     ];
 
     const API_KEY = process.env.REACT_APP_CURRENCYLAYER_API_KEY;
@@ -32,7 +37,7 @@ export default class extends Component {
     const queryURL = `http://apilayer.net/api/live?access_key=${API_KEY}&source=${homeCurrency}&currencies=${locCurrency}&format=1`;
     console.log('currency query:', queryURL);
 
-    API.getCurrency(queryURL).then((json) => {
+    return API.getCurrency(queryURL).then((json) => {
       console.log('currency:', json);
       // sample data
       // {
