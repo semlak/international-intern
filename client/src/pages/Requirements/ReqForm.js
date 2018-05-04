@@ -39,7 +39,7 @@ const ReqForm = props => (
       />
     </CardContent>
     <CardActions>
-      <Button variant="fab" mini style={{marginLeft: 'auto'}} variant="fab" color="primary" aria-label="add" onClick={props.submitForm} disabled={props.formDisabled}>
+      <Button variant="fab" mini style={{marginLeft: 'auto'}} color="primary" aria-label="add" onClick={props.submitForm} disabled={props.formDisabled}>
         <AddIcon />
       </Button>
     </CardActions>

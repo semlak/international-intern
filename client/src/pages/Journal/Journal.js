@@ -28,7 +28,7 @@ export default class extends Component {
 		chapterTitle: "",
 		description: "",
 		image:"",
-		date: Date.now(),
+		date: "",
 		requireNum: 0,
 		chapterData:[]
 	};
@@ -44,7 +44,7 @@ export default class extends Component {
 		})
 		API.getChapters().then(response=> {
 			// console.log("API chapter response: " , response);
-			console.log('response is: ', response)
+			// console.log('response is: ', response)
 			this.setState({
 				chapterData: response.data
 			})
@@ -59,7 +59,7 @@ export default class extends Component {
 
 	handleFormSubmit = (event) => {
 	  event.preventDefault();
-	  if (this.state.chapterTitle && this.state.description && this.state.date != "") {
+	  if (this.state.chapterTitle && this.state.description && this.state.date !== "") {
 	    console.log('current state', this.state);
 	    let fileButton = document.getElementById("fileButton");
 	    console.log("FILEBUTTON: ", fileButton);

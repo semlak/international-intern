@@ -28,7 +28,7 @@ const AddChapter = (props) => {
           onChange={props.handleInputChange}
         />
         <br />
-        <input name="date" type="date" step='' value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
+        <input name="date" type="date" step=''  placeholder={Date.now()} onChange={props.handleInputChange} />
         <br />
         <input type="file" name="image" value={props.image} id="fileButton" onChange={props.handleInputChange} />
         <br />

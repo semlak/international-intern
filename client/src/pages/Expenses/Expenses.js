@@ -14,7 +14,7 @@ const style = {
 export default class extends Component {
   state = {
     expenseDescription: '',
-    date: Date.now(),
+    date: '', // '', Date.now(), now working currenlty
     usdAmount: '0.00',
     currencyCode: 'KRW',
     expenseData: [],
