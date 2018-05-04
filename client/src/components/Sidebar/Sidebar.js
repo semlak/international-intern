@@ -14,7 +14,6 @@ import Book from '@material-ui/icons/Book';
 // components
 import SidebarLink from './SidebarLink';
 import SidebarReqs from './SidebarReqs';
-import ReqList from '../../pages/Requirements/ReqList';
 
 // side bar links
 const links = [

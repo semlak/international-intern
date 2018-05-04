@@ -63,11 +63,8 @@ class SidebarReqs extends React.Component {
       <div className={classes.root}>
         <ExpansionPanel className={classes.panel} expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
           <ExpansionPanelSummary className={classes.summary}>
-            {/* <Typography className={classes.heading}>General settings</Typography> */}
             <Avatar className={classes.avatar}>{this.props.number}</Avatar>
             <Typography className={classes.secondaryHeading} >{this.props.title}</Typography> 
-
-
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>
             <Typography>
