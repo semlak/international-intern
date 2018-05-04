@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import API from '../../utils/API';
-// import Map from './Map';
+import Map from './Map';
 import Weather from './Weather';
 import Currency from './Currency';
 import News from './News';
@@ -67,6 +67,8 @@ import News from './News';
 const Location = props => (
   <div>
     <h1>Location</h1>
+    <hr />
+    <Map {...props} />
     <hr />
     <Weather {...props} />
     <hr />

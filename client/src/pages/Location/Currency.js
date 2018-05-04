@@ -23,7 +23,7 @@ export default class extends Component {
     const currentUser = props.currentUser || this.props.currentUser;
     const [homeCurrency, locCurrency] = [
       currentUser.homeLocationCurrencyCode,
-      currentUser.internLocationCurrencyCode
+      currentUser.internLocationCurrencyCode,
     ];
 
     const API_KEY = process.env.REACT_APP_CURRENCYLAYER_API_KEY;
@@ -34,6 +34,17 @@ export default class extends Component {
 
     API.getCurrency(queryURL).then((json) => {
       console.log('currency:', json);
+      // sample data
+      // {
+      //   "success": true,
+      //   "terms": "https://currencylayer.com/terms",
+      //   "privacy": "https://currencylayer.com/privacy",
+      //   "timestamp": 1524873843,
+      //   "source": "USD",
+      //   "quotes": {
+      //     "USDCAD": 1.282104,
+      //   }
+      // }
       const quoteCode = `${homeCurrency}${locCurrency}`;
       let quote;
       const keys_arr = Object.keys(json.data.quotes);
@@ -48,6 +59,7 @@ export default class extends Component {
       throw error;
     });
   }
+
   render() {
     return (
       <div>
