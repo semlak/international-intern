@@ -30,7 +30,8 @@ export default class extends Component {
 		image:"",
 		date: Date.now(),
 		requireNum: 0,
-		chapterData:[]
+		chapterData:[],
+		needsData: [],
 	};
 
 	componentDidMount() {
@@ -51,6 +52,14 @@ export default class extends Component {
 		}).catch(err =>{
 			console.log("Error while getting chapters: ", err)
 		})
+		API.getNeeds().then(res => {
+			console.log('NEEDS: ', res)
+			this.setState({
+			  needsData:res.data
+			})
+		}).catch(err=>{
+			console.log("Error while getting needs: ", err)
+		});
 	}
 
 	handleInputChange = (event) => this.setState({
@@ -59,7 +68,7 @@ export default class extends Component {
 
 	handleFormSubmit = (event) => {
 	  event.preventDefault();
-	  if (this.state.chapterTitle && this.state.description && this.state.date != "") {
+	  if (this.state.chapterTitle && this.state.description && this.state.date !== "") {
 	    console.log('current state', this.state);
 	    let fileButton = document.getElementById("fileButton");
 	    console.log("FILEBUTTON: ", fileButton);
@@ -131,6 +140,7 @@ export default class extends Component {
 			<div>
 		    	<h1>Journal</h1>
 		    	<AddChapter 
+		    	  needs={this.state.needsData}
 		    	  handleInputChange={this.handleInputChange} 
 		    	  handleFormSubmit={this.handleFormSubmit} 
 		    	  {...this.state}/>
