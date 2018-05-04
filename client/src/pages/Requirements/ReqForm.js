@@ -6,22 +6,22 @@ import Card, { CardActions, CardHeader, CardContent } from 'material-ui/Card';
 import AddIcon from '@material-ui/icons/Add';
 
 const ReqForm = props => (
-  <Card>   
+  <Card>
     <CardHeader
       avatar={<Avatar>{props.requirementNumber}</Avatar>}
       title={
         <div>
-        <TextField
-          label="Requirement"
-          disabled={props.formDisabled}
-          name="requirementTitle"
-          type="text"
-          value={props.requirementTitle}
-          onChange={props.handleInputChange}
-          InputLabelProps={{
+          <TextField
+            label="Requirement"
+            disabled={props.formDisabled}
+            name="requirementTitle"
+            type="text"
+            value={props.requirementTitle}
+            onChange={props.handleInputChange}
+            InputLabelProps={{
             shrink: true,
           }}
-        />
+          />
         </div>
       }
     />
@@ -39,7 +39,7 @@ const ReqForm = props => (
       />
     </CardContent>
     <CardActions>
-      <Button variant="fab" mini style={{marginLeft: 'auto'}} color="primary" aria-label="add" onClick={props.submitForm} disabled={props.formDisabled}>
+      <Button variant="fab" mini style={{ marginLeft: 'auto' }} color="primary" aria-label="add" onClick={props.submitForm} disabled={props.formDisabled}>
         <AddIcon />
       </Button>
     </CardActions>

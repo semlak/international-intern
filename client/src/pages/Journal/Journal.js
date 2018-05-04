@@ -129,7 +129,6 @@ export default class extends Component {
 	render() {
 		return (
 			<div>
-		    	<h1>Journal</h1>
 		    	<AddChapter 
 		    	  handleInputChange={this.handleInputChange} 
 		    	  handleFormSubmit={this.handleFormSubmit} 
