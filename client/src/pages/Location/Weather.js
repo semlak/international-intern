@@ -22,8 +22,11 @@ export default class extends Component {
   }
 
   handleWeatherUpdate(props) {
-    const city = props.currentUser && props.currentUser.internLocationCity ? props.currentUser.internLocationCity : '';
-    const country_code = props.currentUser && props.currentUser.internLocationCountryCode ? props.currentUser.internLocationCountryCode : '';
+    if (!props.currentUser || !props.currentUser.internLocationCity || !props.currentUser.internLocationCountry) {
+      return console.error('unable to retrieve all required props from currentUser. You may need to ensure that the fields \'internLocationCountry\' and \'internLocationCity\' are populated.');
+    }
+    const city = props.currentUser.internLocationCity;
+    const country_code = props.currentUser.internLocationCountryCode;
 
     if (city && country_code) {
       const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country_code}&appid=${this.state.APIKey}`; // current
