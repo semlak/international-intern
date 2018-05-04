@@ -51,6 +51,12 @@ const UserSchema = new Schema({
   internLocationCurrencyCode: {
     type: String,
   },
+  internLocationLatitude: {
+    type: Number,
+  },
+  internLocationLongitude: {
+    type: Number,
+  },
   preferredUnits: {
     type: String,
     default: 'Imperial'
