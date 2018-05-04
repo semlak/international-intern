@@ -56,11 +56,11 @@ class App extends React.Component {
 
   }
 
-  // passed to TopNav component
+  // pass to TopNav component
   handleLogin = (currentUser) => {
     this.setState({ currentUser });
   }
-  // passed to Sidebar component
+  // pass to Sidebar component
   pageChange = (currentPage) => {
     this.setState({ currentPage });
   }
@@ -74,7 +74,7 @@ class App extends React.Component {
           <div className={classes.root}>
             <div className={classes.appFrame}>
               <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} pageTitle={this.state.currentPage}/>            
-              <Sidebar pageChange={this.pageChange} />
+              <Sidebar pageChange={this.pageChange} currentUser={this.state.currentUser}  />
               <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Switch>
