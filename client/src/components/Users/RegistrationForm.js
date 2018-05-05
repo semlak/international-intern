@@ -7,6 +7,7 @@ import { FormControl, FormHelperText } from 'material-ui/Form';
 
 import IntegrationReactSelect from '../../components/Forms/IntegrationReactSelect';
 import API from '../../utils/API';
+import util from '../../utils/util';
 // import {Link} from 'react-router-dom';
 
 export default class extends Component {
@@ -21,10 +22,14 @@ export default class extends Component {
     homeLocationCountry: '',
     homeLocationCountryCode: '',
     homeLocationCurrencyCode: '',
+    homeLocationTimezone: '',
     internLocationCity: '',
     internLocationCountry: '',
     internLocationCountryCode: '',
     internLocationCurrencyCode: '',
+    internLocationTimezone: '',
+    internLocationLatitude: '',
+    internLocationLongitude: '',
     preferredUnits: 'imperial',
     openWeatherCityCode: '',
     countryCodeData: {},
@@ -60,6 +65,62 @@ export default class extends Component {
 
   }
 
+  getCurrencyCode = (countryName, h_or_i) => {
+    // parameters:
+    //   countryName: array of one string - long name of country
+    //   h_or_i:   boolean - true for intern, false for home
+    util.getCurrencyCodes(countryName)
+      .then((response) => {
+        const { data } = response;
+        const { currencyCodes } = data;
+        const { countryCodes } = data;
+
+        console.log('resonse from getting currency codes:', response);
+        if (h_or_i) {
+          if (!countryCodes[this.state.internLocationCountry] &&
+              !currencyCodes[this.state.internLocationCountry]) {
+            return console.error('Error retrieving currency/country code data');
+          }
+          this.setState({
+            internLocationCurrencyCode: data.currencyCodes[this.state.internLocationCountry],
+            // internLocationCountryCode: data.countryCodes[this.state.internLocationCountry],
+          });
+        } else {
+          if (!countryCodes[this.state.homeLocationCountry] &&
+              !currencyCodes[this.state.homeLocationCountry]) {
+            return console.error('Error retrieving currency/country code data');
+          }
+          this.setState({
+            homeLocationCurrencyCode: data.currencyCodes[this.state.homeLocationCountry],
+            // homeLocationCountryCode: data.countryCodes[this.state.homeLocationCountry],
+          });
+        }
+        return true;
+      })
+      .catch(err => console.error('error when gettin currency codes: ', err));
+  };
+
+  pullInCurrencyAndCountryCodes = (event) => {
+    event.preventDefault();
+    // get/set intern location
+    let place = `${this.state.internLocationCity}, ${this.state.internLocationCountry}`;
+    util.getGeoLocation(place).then((json) => {
+      this.setState({
+        internLocationCountryCode: json.cc,
+        internLocationLatitude: json.lat,
+        internLocationLongitude: json.lng,
+      });
+      this.getCurrencyCode([this.state.internLocationCountry]);
+    });
+    // get/set home location
+    place = `${this.state.homeLocationCity}, ${this.state.homeLocationCountry}`;
+    util.getGeoLocation(place, false).then((json) => {
+      this.setState({
+        internLocationCountryCode: json.cc,
+      });
+      this.getCurrencyCode([this.state.homeLocationCountry]);
+    });
+  }
 
   sendRegistrationData = () => {
     console.log('state: ', this.state);
@@ -148,7 +209,6 @@ export default class extends Component {
     event.preventDefault();
     this.sendRegistrationData();
   }
-
 
   render() {
     // console.log('state upon rendering: ', this.state);
