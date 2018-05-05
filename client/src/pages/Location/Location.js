@@ -7,6 +7,7 @@ import News from './News';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
 
 // move to registration page
 // const googleMapsClient = require('@google/maps').createClient({
@@ -68,36 +69,47 @@ import Typography from 'material-ui/Typography';
 //   }
 // }
 
+const styles = theme => ({
+  paper: theme.mixins.gutters({
+    paddingTop: 16,
+    paddingBottom: 16,
+    height: 170,
+  }),
+});
+
 // in the call below, I'm hardcoding lat/lng for now
 // TODO - get lat/lng into the props
 const Location = (props) => {
   if (props.currentUser && props.currentUser.username) {
-    return (<Grid container spacing={24}>
-      <Grid item xs={12}>
-        <Paper>
-          <Map {...props} />
-        </Paper>
+    return (
+      <Grid container spacing={24}>
+        <Grid item xs={12}>
+          <Paper>
+            <Map {...props} />
+          </Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={props.classes.paper}>
+            <Weather {...props} />
+          </Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={props.classes.paper}>
+            <Currency {...props} />
+          </Paper>
+        </Grid>
+        <News {...props} />
       </Grid>
-      <Grid item xs={6}>
-        <Paper>
-          <Weather {...props} />
-        </Paper>
-      </Grid>
-      <Grid item xs={6}>
-        <Paper>
-          <Currency {...props} />
-        </Paper>
-      </Grid>
-      <News {...props} />
-    </Grid>);
-  } else {
-    return (<Grid container spacing={24}>
+    );
+  }
+  return (
+    <Grid container spacing={24}>
       <Grid item xs={12}>
         <h1>Location</h1>
         <p>Loading...</p>
       </Grid>
-    </Grid>);
-  }
+    </Grid>
+  );
 };
 
-export default Location;
+export default withStyles(styles)(Location);
