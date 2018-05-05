@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { Button, TextField, Typography, Paper } from 'material-ui';
+import { Button, TextField, Typography, Select,  } from 'material-ui';
 
+import Input, { InputLabel } from 'material-ui/Input';
+import { MenuItem } from 'material-ui/Menu';
+import { FormControl, FormHelperText } from 'material-ui/Form';
+
+import IntegrationReactSelect from '../../components/Forms/IntegrationReactSelect';
 import API from '../../utils/API';
 // import {Link} from 'react-router-dom';
 
@@ -22,6 +27,9 @@ export default class extends Component {
     internLocationCurrencyCode: '',
     preferredUnits: 'imperial',
     openWeatherCityCode: '',
+    countryCodeData: {},
+    countryCurrencyCodeData: {},
+    countryNameSuggestions: [],
   }
 
   componentDidMount() {
@@ -29,6 +37,27 @@ export default class extends Component {
     //   const currentUser = response.data.user;
     //   this.setState({ currentUser });
     // });
+    this.loadCountryData();
+  }
+
+  loadCountryData() {
+    API.getAllCountryData()
+      .then(response => {
+        console.log(response);
+        const countryCodeData = response.data.countryCodes || {};
+        const countryNameSuggestions = Object.keys(countryCodeData)
+          .map(suggestion => ({
+            value: suggestion,
+            label: suggestion,
+          }));
+        console.log('countryCodeData', countryCodeData, 'suggestions', countryNameSuggestions);
+        this.setState({
+          countryNameSuggestions,
+          countryCodeData,
+          countryCurrencyCodeData: response.data.countryCurrencyCodes
+        });
+      });
+
   }
 
 
@@ -65,6 +94,7 @@ export default class extends Component {
       internLocationCountry: this.state.internLocationCountry,
       internLocationCountryCode: this.state.internLocationCountryCode,
       internLocationCurrencyCode: this.state.internLocationCurrencyCode,
+      preferredUnits: this.state.preferredUnits,
     };
     return API.registerUser(data)
       .then((response) => {
@@ -90,42 +120,35 @@ export default class extends Component {
       .catch(err => console.log('error on registration', err));
   }
 
-  getCurrencyCodes = (countryNames, callback) => {
-    API.getCurrencyCodes(countryNames)
-      .then((response) => {
-        const data = response.data;
-        const currencyCodes = data.currencyCodes;
-        const countryCodes = data.countryCodes;
-        if (!countryCodes[this.state.homeLocationCountry] ||
-          countryCodes[this.state.internLocationCountry] ||
-          currencyCodes[this.state.homeLocationCountry] ||
-          currencyCodes[this.state.internLocationCountry]
-        ) {
-          return console.error("Error retrieving currency/country code data");
-        }
-        console.log('resonse from getting currency codes:', response);
-        this.setState({
-          homeLocationCurrencyCode: data.currencyCodes[this.state.homeLocationCountry],
-          internLocationCurrencyCode: data.currencyCodes[this.state.internLocationCountry],
-          homeLocationCountryCode: data.countryCodes[this.state.homeLocationCountry],
-          internLocationCountryCode: data.countryCodes[this.state.internLocationCountry],
-        }, console.log(this.state));
-      })
-      .catch(err => console.error('error when gettin currency codes: ', err));
-  };
-
   handleInputChange = event => this.setState({ [event.target.name]: event.target.value });
+
+  handleInputChangeForAutoCompleteField = name => value => {
+    console.log('name, value', name, value);
+    const dataToSet = {};
+    dataToSet[name] = value;
+    const countryCodeName = name === 'homeLocationCountry' ? 'homeLocationCountryCode' :
+      name === 'internLocationCountry' ? 'internLocationCountryCode' :
+      '';
+    const currencyCodeName = name === 'homeLocationCountry' ? 'homeLocationCurrencyCode' :
+      name === 'internLocationCountry' ? 'internLocationCurrencyCode' :
+      '';
+    if (this.state.countryCodeData && countryCodeName) {
+      const countryCode = this.state.countryCodeData[value] || '';
+      if (countryCode) dataToSet[countryCodeName] = countryCode;
+    } 
+    if (this.state.countryCurrencyCodeData && currencyCodeName) {
+      const currencyCode = this.state.countryCurrencyCodeData[value] || '';
+      if (currencyCode) dataToSet[currencyCodeName] = currencyCode;
+    }
+    console.log('new state data to set', dataToSet);
+    this.setState(dataToSet);
+  }
 
   submitForm = (event) => {
     event.preventDefault();
     this.sendRegistrationData();
   }
 
-
-  pullInCurrencyAndCountryCodes = (event) => {
-    event.preventDefault();
-    this.getCurrencyCodes([this.state.homeLocationCountry, this.state.internLocationCountry]);
-  }
 
   render() {
     // console.log('state upon rendering: ', this.state);
@@ -134,26 +157,44 @@ export default class extends Component {
         <h1>Registration Form</h1>
         <form>
           <TextField label="Username" name="username" type="text" required value={this.state.username} onChange={this.handleInputChange} />
-          <br/>
+          <br />
           <TextField label="Email" name="email" type="text" required value={this.state.email} onChange={this.handleInputChange} />
-          <br/>
+          <br />
           <TextField label="Password" name="password" type="password" required value={this.state.password} onChange={this.handleInputChange} />
           <TextField label="PasswordConfirm" name="passwordConfirm" required type="password" value={this.state.passwordConfirm} onChange={this.handleInputChange} />
-          <br/>
+          <br />
           <TextField label="Fullname" name="fullname" type="text" required value={this.state.fullname} onChange={this.handleInputChange} />
-          <br/>
+          <br />
           <TextField label="HomeLocationCity" name="homeLocationCity" required type="text" value={this.state.homeLocationCity} onChange={this.handleInputChange} />
-          <TextField label="HomeLocationCountry" name="homeLocationCountry" required type="text" value={this.state.homeLocationCountry} onChange={this.handleInputChange} />
+          <br />
+          <IntegrationReactSelect label="Home Country" value={this.state.homeLocationCountry} handleInputChange={() => this.handleInputChangeForAutoCompleteField('homeLocationCountry')} placeholder={'Home Location Country'} selectSuggestions={this.state.countryNameSuggestions} />
+          <br />
           <TextField label="Country Code" name="homeLocationCountryCode" required type="text" value={this.state.homeLocationCountryCode} onChange={this.handleInputChange} />
           <TextField label="Home Currency" name="homeLocationCurrencyCode" type="text" value={this.state.homeLocationCurrencyCode} onChange={this.handleInputChange} />
-          <br/>
+          <br />
           <TextField label="InternLocationCity" name="internLocationCity" required type="text" value={this.state.internLocationCity} onChange={this.handleInputChange} />
-          <TextField label="InternLocationCountry" name="internLocationCountry" required type="text" value={this.state.internLocationCountry} onChange={this.handleInputChange} />
+          <IntegrationReactSelect label="Intern Country" name="internLocationCountry" required type="text" value={this.state.internLocationCountry} handleInputChange={(value) => this.handleInputChangeForAutoCompleteField('internLocationCountry')} selectSuggestions={this.state.countryNameSuggestions} placeholder="Intern Location Country" />
           <TextField label="Country Code" name="internLocationCountryCode" required type="text" value={this.state.internLocationCountryCode} onChange={this.handleInputChange} />
           <TextField label="Intern Location Currency" name="internLocationCurrencyCode" type="text" value={this.state.internLocationCurrencyCode} onChange={this.handleInputChange} />
           <br />
+
+          <FormControl >
+            <InputLabel htmlFor="preferredUnits-helper">Preferred Units</InputLabel>
+            <Select
+              value={this.state.preferredUnits}
+              onChange={this.handleInputChange}
+              input={<Input name="preferredUnits" id="age-helper" />}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value='imperial'>Imperial</MenuItem>
+              <MenuItem value='metric'>Metric</MenuItem>
+            </Select>
+            <FormHelperText>Units for retrieved weather data</FormHelperText>
+          </FormControl>
+          <br />
           <Button variant="raised" color="primary" onClick={this.submitForm}>Register</Button>
-          <Button variant="raised" color="secondary" onClick={this.pullInCurrencyAndCountryCodes}>Fill In Currency Data</Button>
         </form>
         {/* <Link to="/login">Login</Link>  */}
       </div>
