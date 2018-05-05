@@ -19,46 +19,6 @@ import Chip from 'material-ui/Chip';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-const suggestions = [
-  { label: 'Afghanistan' },
-  { label: 'Aland Islands' },
-  { label: 'Albania' },
-  { label: 'Algeria' },
-  { label: 'American Samoa' },
-  { label: 'Andorra' },
-  { label: 'Angola' },
-  { label: 'Anguilla' },
-  { label: 'Antarctica' },
-  { label: 'Antigua and Barbuda' },
-  { label: 'Argentina' },
-  { label: 'Armenia' },
-  { label: 'Aruba' },
-  { label: 'Australia' },
-  { label: 'Austria' },
-  { label: 'Azerbaijan' },
-  { label: 'Bahamas' },
-  { label: 'Bahrain' },
-  { label: 'Bangladesh' },
-  { label: 'Barbados' },
-  { label: 'Belarus' },
-  { label: 'Belgium' },
-  { label: 'Belize' },
-  { label: 'Benin' },
-  { label: 'Bermuda' },
-  { label: 'Bhutan' },
-  { label: 'Bolivia, Plurinational State of' },
-  { label: 'Bonaire, Sint Eustatius and Saba' },
-  { label: 'Bosnia and Herzegovina' },
-  { label: 'Botswana' },
-  { label: 'Bouvet Island' },
-  { label: 'Brazil' },
-  { label: 'British Indian Ocean Territory' },
-  { label: 'Brunei Darussalam' },
-].map(suggestion => ({
-  value: suggestion.label,
-  label: suggestion.label,
-}));
-
 class Option extends React.Component {
   handleClick = event => {
     this.props.onSelect(this.props.option, event);
@@ -127,7 +87,7 @@ const ITEM_HEIGHT = 48;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 250,
+    height: 20,
   },
   chip: {
     margin: theme.spacing.unit / 4,
@@ -138,6 +98,7 @@ const styles = theme => ({
   // Also, we had to reset the default style injected by the library.
   '@global': {
     '.Select-control': {
+      minWidth: 500,
       display: 'flex',
       alignItems: 'center',
       border: 0,
@@ -251,7 +212,7 @@ class IntegrationReactSelect extends React.Component {
     return (
       <div className={classes.root}>
         <Input
-          fullWidth
+          label='Home Country'
           inputComponent={SelectWrapped}
           value={this.state.single}
           onChange={this.handleChange('single')}
@@ -262,45 +223,7 @@ class IntegrationReactSelect extends React.Component {
             name: 'react-select-single',
             instanceId: 'react-select-single',
             simpleValue: true,
-            options: suggestions,
-          }}
-        />
-        <Input
-          fullWidth
-          inputComponent={SelectWrapped}
-          value={this.state.multi}
-          onChange={this.handleChange('multi')}
-          placeholder="Select multiple countries"
-          name="react-select-chip"
-          inputProps={{
-            classes,
-            multi: true,
-            instanceId: 'react-select-chip',
-            id: 'react-select-chip',
-            simpleValue: true,
-            options: suggestions,
-          }}
-        />
-        <TextField
-          fullWidth
-          value={this.state.multiLabel}
-          onChange={this.handleChange('multiLabel')}
-          placeholder="Select multiple countries"
-          name="react-select-chip-label"
-          label="With label"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          InputProps={{
-            inputComponent: SelectWrapped,
-            inputProps: {
-              classes,
-              multi: true,
-              instanceId: 'react-select-chip-label',
-              id: 'react-select-chip-label',
-              simpleValue: true,
-              options: suggestions,
-            },
+            options: this.props.countryNameSuggestions,
           }}
         />
       </div>

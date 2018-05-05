@@ -34,6 +34,9 @@ export default class extends Component {
     const API_KEY = process.env.REACT_APP_CURRENCYLAYER_API_KEY;
 
     // const queryURL = `http://apilayer.net/api/live?access_key=${API_KEY}&source=${this.state.homeCurrency}&currencies=${this.state.locCurrency}&format=1`;
+    if (!API_KEY || !homeCurrency || !locCurrency) {
+      return (console.error('Error with API_KEY, homeCurrency, or locCurrency');
+    }
     const queryURL = `http://apilayer.net/api/live?access_key=${API_KEY}&source=${homeCurrency}&currencies=${locCurrency}&format=1`;
     console.log('currency query:', queryURL);
 

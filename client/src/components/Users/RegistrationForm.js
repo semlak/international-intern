@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, TextField, Typography, Paper } from 'material-ui';
+import { Button, TextField, Typography, } from 'material-ui';
 
+import IntegrationReactSelect from '../../components/Forms/IntegrationReactSelect';
 import API from '../../utils/API';
 // import {Link} from 'react-router-dom';
 
@@ -13,15 +14,18 @@ export default class extends Component {
     passwordConfirm: '',
     fullname: '',
     homeLocationCity: '',
-    homeLocationCountry: '',
+    homeLocationCountry: 'USA',
     homeLocationCountryCode: '',
     homeLocationCurrencyCode: '',
     internLocationCity: '',
-    internLocationCountry: '',
+    internLocationCountry: 'South Korea',
     internLocationCountryCode: '',
     internLocationCurrencyCode: '',
     preferredUnits: 'imperial',
     openWeatherCityCode: '',
+    countryCodeData: {},
+    countryCurrencyCodeData: {},
+    countryNameSuggestions: [],
   }
 
   componentDidMount() {
@@ -29,6 +33,27 @@ export default class extends Component {
     //   const currentUser = response.data.user;
     //   this.setState({ currentUser });
     // });
+    this.loadCountryData();
+  }
+
+  loadCountryData() {
+    API.getAllCountryData()
+      .then(response => {
+        console.log(response);
+        const countryCodeData = response.data.countryCodes || {};
+        const countryNameSuggestions = Object.keys(countryCodeData)
+          .map(suggestion => ({
+            value: suggestion,
+            label: suggestion,
+          }));
+        console.log('countryCodeData', countryCodeData, 'suggestions', countryNameSuggestions);
+        this.setState({
+          countryNameSuggestions,
+          countryCodeData,
+          countryCurrencyCodeData: response.data.countryCurrencyCodes
+        });
+      });
+
   }
 
 
@@ -90,16 +115,18 @@ export default class extends Component {
       .catch(err => console.log('error on registration', err));
   }
 
-  getCurrencyCodes = (countryNames, callback) => {
-    API.getCurrencyCodes(countryNames)
+  getCountryCodes= (countryNames) => {
+    console.log('countryNames:', countryNames);
+    API.getCountryCodes(countryNames)
       .then((response) => {
+        console.log('response for getting country codes', response);
         const data = response.data;
         const currencyCodes = data.currencyCodes;
         const countryCodes = data.countryCodes;
         if (!countryCodes[this.state.homeLocationCountry] ||
-          countryCodes[this.state.internLocationCountry] ||
-          currencyCodes[this.state.homeLocationCountry] ||
-          currencyCodes[this.state.internLocationCountry]
+          !countryCodes[this.state.internLocationCountry] ||
+          !currencyCodes[this.state.homeLocationCountry] ||
+          !currencyCodes[this.state.internLocationCountry]
         ) {
           return console.error("Error retrieving currency/country code data");
         }
@@ -109,7 +136,7 @@ export default class extends Component {
           internLocationCurrencyCode: data.currencyCodes[this.state.internLocationCountry],
           homeLocationCountryCode: data.countryCodes[this.state.homeLocationCountry],
           internLocationCountryCode: data.countryCodes[this.state.internLocationCountry],
-        }, console.log(this.state));
+        });
       })
       .catch(err => console.error('error when gettin currency codes: ', err));
   };
@@ -124,7 +151,7 @@ export default class extends Component {
 
   pullInCurrencyAndCountryCodes = (event) => {
     event.preventDefault();
-    this.getCurrencyCodes([this.state.homeLocationCountry, this.state.internLocationCountry]);
+    this.getCountryCodes([this.state.homeLocationCountry, this.state.internLocationCountry]);
   }
 
   render() {
@@ -134,19 +161,22 @@ export default class extends Component {
         <h1>Registration Form</h1>
         <form>
           <TextField label="Username" name="username" type="text" required value={this.state.username} onChange={this.handleInputChange} />
-          <br/>
+          <br />
           <TextField label="Email" name="email" type="text" required value={this.state.email} onChange={this.handleInputChange} />
-          <br/>
+          <br />
           <TextField label="Password" name="password" type="password" required value={this.state.password} onChange={this.handleInputChange} />
           <TextField label="PasswordConfirm" name="passwordConfirm" required type="password" value={this.state.passwordConfirm} onChange={this.handleInputChange} />
-          <br/>
+          <br />
           <TextField label="Fullname" name="fullname" type="text" required value={this.state.fullname} onChange={this.handleInputChange} />
-          <br/>
+          <br />
           <TextField label="HomeLocationCity" name="homeLocationCity" required type="text" value={this.state.homeLocationCity} onChange={this.handleInputChange} />
           <TextField label="HomeLocationCountry" name="homeLocationCountry" required type="text" value={this.state.homeLocationCountry} onChange={this.handleInputChange} />
+          <br />
+          <IntegrationReactSelect countryNameSuggestions={this.state.countryNameSuggestions}/>
+          <br />
           <TextField label="Country Code" name="homeLocationCountryCode" required type="text" value={this.state.homeLocationCountryCode} onChange={this.handleInputChange} />
           <TextField label="Home Currency" name="homeLocationCurrencyCode" type="text" value={this.state.homeLocationCurrencyCode} onChange={this.handleInputChange} />
-          <br/>
+          <br />
           <TextField label="InternLocationCity" name="internLocationCity" required type="text" value={this.state.internLocationCity} onChange={this.handleInputChange} />
           <TextField label="InternLocationCountry" name="internLocationCountry" required type="text" value={this.state.internLocationCountry} onChange={this.handleInputChange} />
           <TextField label="Country Code" name="internLocationCountryCode" required type="text" value={this.state.internLocationCountryCode} onChange={this.handleInputChange} />

@@ -27,8 +27,9 @@ export default {
   // currency
   getCurrency: queryURL => axios.get(queryURL),
 
-  // get currency codes from country codes
-  getCurrencyCodes: countryNames => axios.get(`/api/currency?country_names=${countryNames.join(',')}`),
+  // get currency and country codes from country names
+  getCountryCodes: countryNames => axios.get(`/api/countries?country_names=${countryNames.join(',')}`),
+  getAllCountryData: () => axios.get('/api/countries/?getall=true'),
 
   // chapters
   addChapter: data => axios.post('/api/chapters/', data),
