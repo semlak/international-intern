@@ -6,6 +6,7 @@ import Ledger from './Ledger';
 import Graph from './Graph';
 import API from '../../utils/API';
 
+
 const style = {
   height: 250,
 };

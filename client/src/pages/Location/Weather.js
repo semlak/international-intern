@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
 import util from '../../utils/util';
+import Typography from 'material-ui/Typography';
 
 export default class extends Component {
   state = {
@@ -81,11 +82,11 @@ export default class extends Component {
       // '&#x2109;' is the HTML code for 'degrees Farenheight'
       // '&#x2103;' is the HTML code for 'degrees Celcius'
       <div>
-        <h2>Weather in {this.state.weather.cityName}</h2>
-        <p>Current Low: {this.state.weather.tempMin}&#x2109;</p>
-        <p>Current High: {this.state.weather.tempMax}&#x2109;</p>
-        <p>Current Wind: {this.state.weather.windSpeed} mph {ordinal}</p>
-        <p>Current Sky: {this.state.weather.sky}</p>
+        <Typography variant="headline">Weather in {this.state.weather.cityName}</Typography>
+        <Typography variant="subheading">Current Low: {this.state.weather.tempMin}&#x2109;</Typography>
+        <Typography variant="subheading">Current High: {this.state.weather.tempMax}&#x2109;</Typography>
+        <Typography variant="subheading">Current Wind: {this.state.weather.windSpeed} mph {ordinal}</Typography>
+        <Typography variant="subheading">Current Sky: {this.state.weather.sky}</Typography>
       </div>
     );
   }
