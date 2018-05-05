@@ -12,7 +12,7 @@ class News extends Component {
   };
 
   componentWillReceiveProps(props) {
-    // console.log("PROPS: ", props, "MORE PROPS", this.props);
+    // console.log('PROPS: ', props, 'MORE PROPS', this.props);
     if (props.currentUser) {
       this.setState({
         cityName: props.currentUser.internLocationCity,
@@ -22,7 +22,7 @@ class News extends Component {
     }
   }
 
-  componentDidMouunt() {
+  componentDidMount() {
     if (this.props.currentUser) {
       this.setState({
         cityName: this.props.currentUser.internLocationCity,

@@ -20,7 +20,7 @@ export default class extends Component {
 
   componentDidMount() {
     if (this.props.currentUser) {
-      this.updateExchangeRate(this.props);
+      this.doWeather(this.props);
     }
   }
 
