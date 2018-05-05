@@ -4,6 +4,8 @@ import Map from './Map';
 import Weather from './Weather';
 import Currency from './Currency';
 import News from './News';
+import Grid from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
 
 // move to registration page
 // const googleMapsClient = require('@google/maps').createClient({
@@ -67,25 +69,38 @@ import News from './News';
 
 // in the call below, I'm hardcoding lat/lng for now
 // TODO - get lat/lng into the props
-const Location = props => (
-  props.currentUser && props.currentUser.username ?
-  <div>
-    <h1>Location</h1>
-    <hr />
-    <Map {...props} />
-    <hr />
-    <Weather {...props} />
-    <hr />
-    <Currency {...props} />
-    <hr />
-    <News {...props} />
-  </div>
-    :
-    <div>
-      <h1>Location</h1>
-      <p>Loading...</p>
-    </div>
-  
-);
+const Location = props => {
+  if (props.currentUser && props.currentUser.username) {
+    return <Grid container spacing={24}>
+      <Grid item xs={12}>
+        <Paper>
+          <Map {...props} />
+        </Paper>
+      </Grid>
+      <Grid item xs={6}>
+        <Paper>
+          <Weather {...props} />
+        </Paper>
+      </Grid>
+      <Grid item xs={6}>
+        <Paper>
+          <Currency {...props} />
+        </Paper>
+      </Grid>
+      
+      {/* <Grid item xs={12}> */}
+        <News {...props} />
+      {/* </Grid> */}
+    </Grid>
+  } else {
+    return <Grid container spacing={24}>
+      <Grid item xs={12}>
+        <h1>Location</h1>
+        <p>Loading...</p>
+      </Grid>
+    </Grid>
+  }
+
+};
 
 export default Location;

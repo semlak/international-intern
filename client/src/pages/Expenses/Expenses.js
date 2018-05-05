@@ -87,9 +87,8 @@ export default class extends Component {
   }
 
   render() {
-    return (
-      this.props.currentUser && this.props.currentUser.username ?
-      <div>
+    return
+      {this.props.currentUser && this.props.currentUser.username ? 
         <Grid container spacing={24}>
           <Grid item xs={12} sm={4}>
             <Paper style={style}>
@@ -111,9 +110,9 @@ export default class extends Component {
             </Paper>
           </Grid>
         </Grid>
-      </div>
       :
-      <div><p>Loading data...</p></div>
-    );
+      <div><p>Loading data...</p></div>}
+      
+    
   }
 }
