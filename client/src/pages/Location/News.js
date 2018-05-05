@@ -86,8 +86,10 @@ class News extends Component {
   render() {
     return (
       <div>
-      <Grid item xs={6}><h2>Current News For {this.state.cityName}, {this.state.countryName}</h2></Grid>
-      <Grid item xs={12}>
+        <Typography variant="headline">Current News For {this.state.cityName}, {this.state.countryName}</Typography>
+      {/* <Grid item xs={6}>
+      <h2>Current News For {this.state.cityName}, {this.state.countryName}</h2></Grid> */}
+        <Grid item xs={12}>
           {this.state.results.map((oneitem, index) => (
             <Card className={this.props.classes.card}>
               {/* <Card className={this.props.classes.card}> */}
@@ -111,7 +113,7 @@ class News extends Component {
             </Card>
           )) || [] }
 
-      </ Grid>
+        </ Grid>
       </div>
 
 

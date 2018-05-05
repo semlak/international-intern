@@ -73,7 +73,6 @@ const styles = theme => ({
   paper: theme.mixins.gutters({
     paddingTop: 16,
     paddingBottom: 16,
-    height: 170,
   }),
 });
 
@@ -89,16 +88,20 @@ const Location = (props) => {
           </Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper className={props.classes.paper}>
+          <Paper className={props.classes.paper} style={{ height: 170 }}>
             <Weather {...props} />
           </Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper className={props.classes.paper}>
+          <Paper className={props.classes.paper} style={{ height: 170 }}>
             <Currency {...props} />
           </Paper>
         </Grid>
-        <News {...props} />
+        <Grid item xs={12}>
+          <Paper className={props.classes.paper}>
+            <News {...props} />
+          </Paper>
+        </Grid>
       </Grid>
     );
   }
