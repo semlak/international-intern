@@ -1,7 +1,9 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-import DropDownContent from './DropDown';
+import DropDown from './DropDown';
+import { FormControl } from 'material-ui/Form';
+import Input, { InputLabel } from 'material-ui/Input';
 
 const AddChapter = (props) => {
 
@@ -33,16 +35,18 @@ const AddChapter = (props) => {
         <input type="file" name="image" value={props.image} id="fileButton" onChange={props.handleInputChange} />
         <br />
 
-        <p>Requirement</p>
-        <select
-          name="requireNum"
-          type="number"
-          value={props.requireNum}
-          onChange={props.handleInputChange}
-        >
-        {props.needs.map(need=>
-          <DropDownContent key={need._id}{...need} />)}
-        </select>
+
+        <FormControl>
+          <InputLabel>Requirement</InputLabel>
+          <DropDown 
+            name="requireNum"
+            type="number"
+            value={props.requireNum}
+            onChange={props.handleInputChange}
+            items={props.needs}
+          />
+        </FormControl>
+
         <br />
 
         <Button variant="raised" onClick={props.handleFormSubmit} color="secondary">
