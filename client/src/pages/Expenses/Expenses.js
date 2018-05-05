@@ -89,31 +89,31 @@ export default class extends Component {
   render() {
     return (
       this.props.currentUser && this.props.currentUser.username ?
-      <div>
-        <Grid container spacing={24}>
-          <Grid item xs={12} sm={4}>
-            <Paper style={style}>
-              <CreateForm
-                handleInputChange={this.handleInputChange}
-                submitForm={this.submitForm}
-                {...this.state}
-              />
-            </Paper>
+        <div>
+          <Grid container spacing={24}>
+            <Grid item xs={12} sm={4}>
+              <Paper style={style}>
+                <CreateForm
+                  handleInputChange={this.handleInputChange}
+                  submitForm={this.submitForm}
+                  {...this.state}
+                />
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <Paper style={style}>
+                <Graph expenses={this.state.expenseData} />
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper>
+                <Ledger expenses={this.state.expenseData} />
+              </Paper>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={8}>
-            <Paper style={style}>
-              <Graph expenses={this.state.expenseData} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Paper>
-              <Ledger expenses={this.state.expenseData} />
-            </Paper>
-          </Grid>
-        </Grid>
-      </div>
-      :
-      <div><p>Loading data...</p></div>
+        </div>
+        :
+        <div><p>Loading data...</p></div>
     );
   }
 }
