@@ -68,6 +68,7 @@ import News from './News';
 // in the call below, I'm hardcoding lat/lng for now
 // TODO - get lat/lng into the props
 const Location = props => (
+  props.currentUser && props.currentUser.username ?
   <div>
     <h1>Location</h1>
     <hr />
@@ -79,6 +80,12 @@ const Location = props => (
     <hr />
     <News {...props} />
   </div>
+    :
+    <div>
+      <h1>Location</h1>
+      <p>Loading...</p>
+    </div>
+  
 );
 
 export default Location;

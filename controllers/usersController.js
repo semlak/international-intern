@@ -28,10 +28,14 @@ const userController = {
       fullname: req.body.fullname,
       homeLocationCity: req.body.homeLocationCity,
       homeLocationCountry: req.body.homeLocationCountry,
-      // internLocation: req.body.internLocation,
+      homeLocationCountryCode: req.body.homeLocationCountryCode,
+      homeLocationCurrencyCode: req.body.homeLocationCurrencyCode,
       internLocationCity: req.body.internLocationCity,
       internLocationCountry: req.body.internLocationCountry,
+      internLocationCountryCode: req.body.internLocationCountryCode,
+      internLocationCurrencyCode: req.body.internLocationCurrencyCode,
     };
+    console.log('data on user registration: ', data);
     User.register(new User(data), req.body.password, (err, user) => {
       if (err) {
       // return res.render('register', { user : user });

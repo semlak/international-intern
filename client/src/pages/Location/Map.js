@@ -29,6 +29,7 @@ export default class extends React.PureComponent {
 
   componentDidMount() {
     this.delayedShowMarker();
+    this.setState({ lat: 37.566535, lng: 126.9779692 });
   }
 
   componentWillReceiveProps(props) {
