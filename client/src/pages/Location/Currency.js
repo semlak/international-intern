@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
+import Typography from 'material-ui/Typography';
 
 export default class extends Component {
   state = {
@@ -74,10 +75,10 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <h2>Currency</h2>
-        <p>Home Currency: {this.state.homeCurrency}</p>
-        <p>Internship Currency: {this.state.locCurrency}</p>
-        <p>Exchange Rate: {this.state.exchangeRate}</p>
+        <Typography variant="headline">Currency</Typography>
+        <Typography variant="subheading">Home Currency: {this.state.homeCurrency}</Typography>
+        <Typography variant="subheading">Internship Currency: {this.state.locCurrency}</Typography>
+        <Typography variant="subheading">Exchange Rate: {this.state.exchangeRate}</Typography>
       </div>
     );
   }
