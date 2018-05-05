@@ -17,4 +17,7 @@ router.get('/logout', Users.logout);
 // api rout to get current user
 router.get('/getCurrentUser', Users.getCurrentUser);
 
+// api rout to update current user
+router.put('/:id', Users.updateUser);
+
 module.exports = router;

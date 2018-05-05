@@ -1,4 +1,10 @@
+import API from './API';
 import currencycodes from '../currencycodes.json';
+
+const googleMapsClient = require('@google/maps').createClient({
+  key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  Promise,
+});
 
 export default {
   convertWind(wd) {
@@ -74,5 +80,37 @@ export default {
     }
     // console.log('currency codes found:', rv);
     return rv;
+  },
+  getGeoLocation(place) {
+    // parameters
+    //   place:  a string containing the place to lookup
+    //           can be as simple as just a city name, can be an entire address
+
+    console.log('getGeoLocation::place:', place);
+    // googleMapsClient.geocode({ address: `${this.state.currentUser.internLocationCity}, ${this.state.currentUser.internLocationCountry}` }).asPromise().then((geo) => {
+    return googleMapsClient.geocode({ address: `${place}` }).asPromise().then((geo) => {
+      console.log('geo:', geo);
+      let place_obj = { };
+      place_obj = {
+        // we don't need place_id until we start adding pins to the map
+        // place_id: geo.results[0].place_id,
+        lat: geo.json.results[0].geometry.location.lat,
+        lng: geo.json.results[0].geometry.location.lng,
+      };
+      for (let i = 0; i < geo.json.results[0].address_components.length; i++) {
+        if (geo.json.results[0].address_components[i].types[0] === 'country') {
+          place_obj.cc = geo.json.results[0].address_components[i].short_name;
+          break;
+        }
+      }
+      // API.updateUser(place_obj);
+      console.log(place_obj);
+      return place_obj;
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+  getTimezone() {
+
   },
 };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, TextField, Typography, Select,  } from 'material-ui';
+import { Button, TextField, Typography, Select, } from 'material-ui';
 
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
@@ -7,6 +7,7 @@ import { FormControl, FormHelperText } from 'material-ui/Form';
 
 import IntegrationReactSelect from '../../components/Forms/IntegrationReactSelect';
 import API from '../../utils/API';
+import util from '../../utils/util';
 // import {Link} from 'react-router-dom';
 
 export default class extends Component {
@@ -21,10 +22,14 @@ export default class extends Component {
     homeLocationCountry: '',
     homeLocationCountryCode: '',
     homeLocationCurrencyCode: '',
+    homeLocationTimezone: '',
     internLocationCity: '',
     internLocationCountry: '',
     internLocationCountryCode: '',
     internLocationCurrencyCode: '',
+    internLocationTimezone: '',
+    internLocationLatitude: '',
+    internLocationLongitude: '',
     preferredUnits: 'imperial',
     openWeatherCityCode: '',
     countryCodeData: {},
@@ -33,16 +38,12 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    // API.getCurrentUser().then((response) => {
-    //   const currentUser = response.data.user;
-    //   this.setState({ currentUser });
-    // });
     this.loadCountryData();
   }
 
   loadCountryData() {
     API.getAllCountryData()
-      .then(response => {
+      .then((response) => {
         console.log(response);
         const countryCodeData = response.data.countryCodes || {};
         const countryNameSuggestions = Object.keys(countryCodeData)
@@ -57,9 +58,7 @@ export default class extends Component {
           countryCurrencyCodeData: response.data.countryCurrencyCodes
         });
       });
-
   }
-
 
   sendRegistrationData = () => {
     console.log('state: ', this.state);
@@ -90,10 +89,14 @@ export default class extends Component {
       homeLocationCountry: this.state.homeLocationCountry,
       homeLocationCountryCode: this.state.homeLocationCountryCode,
       homeLocationCurrencyCode: this.state.homeLocationCurrencyCode,
+      homeLocationTimezone: this.state.homeLocationTimezone,
       internLocationCity: this.state.internLocationCity,
       internLocationCountry: this.state.internLocationCountry,
       internLocationCountryCode: this.state.internLocationCountryCode,
       internLocationCurrencyCode: this.state.internLocationCurrencyCode,
+      internLocationTimezone: this.state.internLocationTimezone,
+      internLocationLatitude: this.state.internLocationLatitude,
+      internLocationLongitude: this.state.internLocationLongitude,
       preferredUnits: this.state.preferredUnits,
     };
     return API.registerUser(data)
@@ -122,20 +125,18 @@ export default class extends Component {
 
   handleInputChange = event => this.setState({ [event.target.name]: event.target.value });
 
-  handleInputChangeForAutoCompleteField = name => value => {
+  handleInputChangeForAutoCompleteField = name => (value) => {
     console.log('name, value', name, value);
     const dataToSet = {};
     dataToSet[name] = value;
     const countryCodeName = name === 'homeLocationCountry' ? 'homeLocationCountryCode' :
-      name === 'internLocationCountry' ? 'internLocationCountryCode' :
-      '';
+      name === 'internLocationCountry' ? 'internLocationCountryCode' : '';
     const currencyCodeName = name === 'homeLocationCountry' ? 'homeLocationCurrencyCode' :
-      name === 'internLocationCountry' ? 'internLocationCurrencyCode' :
-      '';
+      name === 'internLocationCountry' ? 'internLocationCurrencyCode' : '';
     if (this.state.countryCodeData && countryCodeName) {
       const countryCode = this.state.countryCodeData[value] || '';
       if (countryCode) dataToSet[countryCodeName] = countryCode;
-    } 
+    }
     if (this.state.countryCurrencyCodeData && currencyCodeName) {
       const currencyCode = this.state.countryCurrencyCodeData[value] || '';
       if (currencyCode) dataToSet[currencyCodeName] = currencyCode;
@@ -146,9 +147,24 @@ export default class extends Component {
 
   submitForm = (event) => {
     event.preventDefault();
-    this.sendRegistrationData();
+    // get/set intern location
+    let place = `${this.state.internLocationCity}, ${this.state.internLocationCountry}`;
+    util.getGeoLocation(place).then((json) => {
+      this.setState({
+        internLocationCountryCode: json.cc,
+        internLocationLatitude: json.lat,
+        internLocationLongitude: json.lng,
+      });
+      // get/set home location
+      place = `${this.state.homeLocationCity}, ${this.state.homeLocationCountry}`;
+      util.getGeoLocation(place, false).then((json) => {
+        this.setState({
+          internLocationCountryCode: json.cc,
+        });
+        this.sendRegistrationData();
+      });
+    });
   }
-
 
   render() {
     // console.log('state upon rendering: ', this.state);

@@ -26,7 +26,7 @@ export default class extends Component {
       return console.error('unable to retrieve all required props from currentUser. You may need to ensure that the fields \'internLocationCountry\' and \'internLocationCity\' are populated.');
     }
     // console.log("in updateExchangeRate, props: " , props);
-    const currentUser = props.currentUser;
+    const { currentUser } = props;
     const [homeCurrency, locCurrency] = [
       currentUser.homeLocationCurrencyCode || 'USD',
       currentUser.internLocationCurrencyCode || 'CAD'

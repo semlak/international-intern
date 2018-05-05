@@ -20,7 +20,6 @@ const userController = {
     // or atleat don't return priviledged data
     return res.status(401).json({ user: null });
   },
-
   doRegister(req, res) {
     const data = {
       username: req.body.username,
@@ -30,10 +29,14 @@ const userController = {
       homeLocationCountry: req.body.homeLocationCountry,
       homeLocationCountryCode: req.body.homeLocationCountryCode,
       homeLocationCurrencyCode: req.body.homeLocationCurrencyCode,
+      homeLocationTimezone: req.body.homeLocationTimezone,
       internLocationCity: req.body.internLocationCity,
       internLocationCountry: req.body.internLocationCountry,
       internLocationCountryCode: req.body.internLocationCountryCode,
       internLocationCurrencyCode: req.body.internLocationCurrencyCode,
+      internLocationTimezone: req.body.internLocationTimezone,
+      internLocationLatitude: req.body.internLocationLatitude,
+      internLocationLongitude: req.body.internLocationLongitude,
       preferredUnits: req.body.preferredUnits,
     };
     console.log('data on user registration: ', data);
@@ -50,7 +53,6 @@ const userController = {
       });
     });
   },
-
   // Post login
   doLogin(req, res) {
     passport.authenticate('local')(req, res, () => {
@@ -62,7 +64,6 @@ const userController = {
         .then(result => res.json({ user: result }));
     });
   },
-
   // logout
   logout(req, res) {
     req.logout();
@@ -74,8 +75,16 @@ const userController = {
       return res.json({ user: req.user });
     }
     return res.json({ user: null });
-  }
+  },
+  updateUser(req, res) {
+    if (req.isAuthenticated && req.isAuthenticated()) {
+      User.findOneAndUpdate({ id: req.params.id }, req.body)
+        .then(dbUser => res.json(dbUser))
+        .catch(err => res.status(422).json(err));
+    } else {
+      return res.json({ user: null });
+    }
+  },
 };
-
 
 module.exports = userController;

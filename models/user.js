@@ -37,6 +37,9 @@ const UserSchema = new Schema({
   homeLocationCurrencyCode: {
     type: String,
   },
+  homeLocationTimezone: {
+    type: String,
+  },
   internLocationCity: {
     type: String,
     required: 'Internship Location City is Required',
@@ -50,6 +53,15 @@ const UserSchema = new Schema({
   },
   internLocationCurrencyCode: {
     type: String,
+  },
+  internLocationTimezone: {
+    type: String,
+  },
+  internLocationLatitude: {
+    type: Number,
+  },
+  internLocationLongitude: {
+    type: Number,
   },
   preferredUnits: {
     type: String,
