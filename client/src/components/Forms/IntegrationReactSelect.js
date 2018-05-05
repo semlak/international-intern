@@ -118,6 +118,7 @@ const styles = theme => ({
     },
     '.Select.has-value.is-clearable.Select--single > .Select-control .Select-value': {
       padding: 0,
+      color: theme.palette.common.black,
     },
     '.Select-noresults': {
       padding: theme.spacing.unit * 2,
@@ -200,10 +201,9 @@ class IntegrationReactSelect extends React.Component {
     multiLabel: null,
   };
 
-  handleChange = name => value => {
-    this.setState({
-      [name]: value,
-    });
+  handleChange = value =>  {
+    // console.log('value, ', value)
+    this.props.handleInputChange(value)(value);
   };
 
   render() {
@@ -212,18 +212,24 @@ class IntegrationReactSelect extends React.Component {
     return (
       <div className={classes.root}>
         <Input
-          label='Home Country'
+          label={this.props.label}
           inputComponent={SelectWrapped}
-          value={this.state.single}
-          onChange={this.handleChange('single')}
-          placeholder="Search a country (start with a)"
-          id="react-select-single"
+          value={this.props.value}
+          onChange={this.handleChange}
+          placeholder={this.props.placeholder}
+          style={{
+            width: this.props.width || 500, 
+            // height: this.props.height || 20,
+            minWidth: this.props.minWidth || 10,
+            // minHeight: this.props.minHeight || 10,
+          }}
           inputProps={{
             classes,
-            name: 'react-select-single',
+            // name: 'react-select-single',
+            name: this.props.name,
             instanceId: 'react-select-single',
             simpleValue: true,
-            options: this.props.countryNameSuggestions,
+            options: this.props.selectSuggestions,
           }}
         />
       </div>

@@ -34,6 +34,7 @@ const userController = {
       internLocationCountry: req.body.internLocationCountry,
       internLocationCountryCode: req.body.internLocationCountryCode,
       internLocationCurrencyCode: req.body.internLocationCurrencyCode,
+      preferredUnits: req.body.preferredUnits,
     };
     console.log('data on user registration: ', data);
     User.register(new User(data), req.body.password, (err, user) => {
