@@ -35,7 +35,7 @@ export default class extends Component {
 
     // const queryURL = `http://apilayer.net/api/live?access_key=${API_KEY}&source=${this.state.homeCurrency}&currencies=${this.state.locCurrency}&format=1`;
     if (!API_KEY || !homeCurrency || !locCurrency) {
-      return (console.error('Error with API_KEY, homeCurrency, or locCurrency');
+      return (console.error('Error with API_KEY, homeCurrency, or locCurrency'));
     }
     const queryURL = `http://apilayer.net/api/live?access_key=${API_KEY}&source=${homeCurrency}&currencies=${locCurrency}&format=1`;
     console.log('currency query:', queryURL);
@@ -55,6 +55,9 @@ export default class extends Component {
       // }
       const quoteCode = `${homeCurrency}${locCurrency}`;
       let quote;
+      if (!json || !json.data || !json.data.quotes) {
+        return (console.error('Error in retrieved currency quote data.'));
+      }
       const keys_arr = Object.keys(json.data.quotes);
       for (let i = 0; i < keys_arr.length; i++) {
         const key = keys_arr[i];
