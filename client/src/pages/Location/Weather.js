@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import Typography from 'material-ui/Typography';
 import API from '../../utils/API';
 import util from '../../utils/util';
-import Typography from 'material-ui/Typography';
 
 export default class extends Component {
   state = {
@@ -17,6 +17,7 @@ export default class extends Component {
       sky: '',
     },
     APIKey: process.env.REACT_APP_OPEN_WEATHERMAPS_API_KEY,
+    units: '',
   }
 
   componentDidMount() {
@@ -32,27 +33,21 @@ export default class extends Component {
   doWeather(props) {
     // fetch the user to get their location, etc...
     // Internship location
-    const city = props.currentUser.internLocationCity;
-    const country_code = props.currentUser.internLocationCountryCode;
+    const lat = props.currentUser.internLocationLatitude;
+    const lng = props.currentUser.internLocationLongitude;
+    const units = props.currentUser.preferredUnits.toLowerCase();
+    this.setState({ units });
 
     //
     // Now get the weather...
     //
 
     // current weather -- (forcast query is a pay-for feature)
-    const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country_code}&units=imperial&appid=${this.state.APIKey}`;
-    // api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey;
-    // api.openweathermap.org/data/2.5/weather?q={city name}&appid=${APIKey}
-    // api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid=${APIKey}
+    const queryURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=${units}&appid=${this.state.APIKey}`;
+    // const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country_code}&units=imperial&appid=${this.state.APIKey}`;
 
     API.getWeather(queryURL).then((response) => {
-      console.log(`weather for ${city}, ${country_code}:`, response);
-      // next 4 lines for default units (Kelvin) / wind in m/s
-      // const tempMinC = (response.data.main.temp_min - 273.15).toFixed(1);
-      // const tempMaxC = (response.data.main.temp_max - 273.15).toFixed(1);
-      // const tempMinF = ((tempMinC * 1.8) + 32).toFixed(1);
-      // const tempMaxF = ((tempMaxC * 1.8) + 32).toFixed(1);
-      // next 2 lines for Imperial units / wind in mph
+      // console.log(`weather for ${city}, ${country_code}:`, response);
       const tempMin = response.data.main.temp_min;
       const tempMax = response.data.main.temp_max;
 
@@ -78,14 +73,29 @@ export default class extends Component {
     // convert the wind direction (degrees) to a well-known ordinal
     const ordinal = util.convertWind(this.state.weather.windDirection);
 
+    // this if-statement is necessarily 'wet' code because of the HTML symbols
+    // the only way to 'dry' out the code is to use dangerouslySetInnerHTML,
+    // which is not recommended
+    if (this.state.units === 'imperial') {
+      return (
+        // '&#x2109;' is the HTML code for 'degrees Farenheight'
+        <div>
+          <Typography variant="headline">Weather</Typography>
+          <Typography variant="subheading">Current Low: {this.state.weather.tempMin}&#x2109;</Typography>
+          <Typography variant="subheading">Current High: {this.state.weather.tempMax}&#x2109;</Typography>
+          <Typography variant="subheading">Current Wind: {this.state.weather.windSpeed} {this.state.windSymbol} {ordinal}</Typography>
+          <Typography variant="subheading">Current Sky: {this.state.weather.sky}</Typography>
+        </div>
+      );
+    }
+    // else metric
     return (
-      // '&#x2109;' is the HTML code for 'degrees Farenheight'
       // '&#x2103;' is the HTML code for 'degrees Celcius'
       <div>
-        <Typography variant="headline">Weather in {this.state.weather.cityName}</Typography>
-        <Typography variant="subheading">Current Low: {this.state.weather.tempMin}&#x2109;</Typography>
-        <Typography variant="subheading">Current High: {this.state.weather.tempMax}&#x2109;</Typography>
-        <Typography variant="subheading">Current Wind: {this.state.weather.windSpeed} mph {ordinal}</Typography>
+        <Typography variant="headline">Weather</Typography>
+        <Typography variant="subheading">Current Low: {this.state.weather.tempMin}&#x2103;</Typography>
+        <Typography variant="subheading">Current High: {this.state.weather.tempMax}&#x2103;</Typography>
+        <Typography variant="subheading">Current Wind: {this.state.weather.windSpeed} {this.state.windSymbol} {ordinal}</Typography>
         <Typography variant="subheading">Current Sky: {this.state.weather.sky}</Typography>
       </div>
     );

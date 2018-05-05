@@ -25,17 +25,23 @@ const MapComponent = compose(
 export default class extends React.PureComponent {
   state = {
     isMarkerShown: false,
+    // lat: 44.9537, // Saint Paul
+    // lng: 93.0900,
   }
 
   componentDidMount() {
-    this.delayedShowMarker();
-    this.setState({ lat: 37.566535, lng: 126.9779692 });
+    if (this.props.currentUser && this.props.currentUser.username) {
+      this.delayedShowMarker();
+    }
   }
 
   componentWillReceiveProps(props) {
-    // this.doMap(props);
-    // TODO - fix this setState when lat/lng come in props
-    this.setState({ lat: 37.566535, lng: 126.9779692 });
+    // if (props.currentUser && props.currentUser.username) {
+    //   this.setState({
+    //     lat: props.currentUser.internLocationLatitude,
+    //     lng: props.currentUser.internLocationLongitude,
+    //   });
+    // }
   }
 
   delayedShowMarker = () => {
@@ -54,8 +60,8 @@ export default class extends React.PureComponent {
       <MapComponent
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
-        lat={this.state.lat}
-        lng={this.state.lng}
+        lat={this.props.currentUser.internLocationLatitude || 44.9537}
+        lng={this.props.currentUser.internLocationLongitude || 93.0900}
       />
     );
   }

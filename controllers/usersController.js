@@ -29,10 +29,14 @@ const userController = {
       homeLocationCountry: req.body.homeLocationCountry,
       homeLocationCountryCode: req.body.homeLocationCountryCode,
       homeLocationCurrencyCode: req.body.homeLocationCurrencyCode,
+      homeLocationTimezone: req.body.homeLocationTimezone,
       internLocationCity: req.body.internLocationCity,
       internLocationCountry: req.body.internLocationCountry,
       internLocationCountryCode: req.body.internLocationCountryCode,
       internLocationCurrencyCode: req.body.internLocationCurrencyCode,
+      internLocationTimezone: req.body.internLocationTimezone,
+      internLocationLatitude: req.body.internLocationLatitude,
+      internLocationLongitude: req.body.internLocationLongitude,
       preferredUnits: req.body.preferredUnits,
     };
     console.log('data on user registration: ', data);

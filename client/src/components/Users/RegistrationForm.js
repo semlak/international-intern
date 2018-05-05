@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, TextField, Typography, Select,  } from 'material-ui';
+import { Button, TextField, Typography, Select, } from 'material-ui';
 
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
@@ -38,16 +38,12 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    // API.getCurrentUser().then((response) => {
-    //   const currentUser = response.data.user;
-    //   this.setState({ currentUser });
-    // });
     this.loadCountryData();
   }
 
   loadCountryData() {
     API.getAllCountryData()
-      .then(response => {
+      .then((response) => {
         console.log(response);
         const countryCodeData = response.data.countryCodes || {};
         const countryNameSuggestions = Object.keys(countryCodeData)
@@ -62,64 +58,6 @@ export default class extends Component {
           countryCurrencyCodeData: response.data.countryCurrencyCodes
         });
       });
-
-  }
-
-  getCurrencyCode = (countryName, h_or_i) => {
-    // parameters:
-    //   countryName: array of one string - long name of country
-    //   h_or_i:   boolean - true for intern, false for home
-    util.getCurrencyCodes(countryName)
-      .then((response) => {
-        const { data } = response;
-        const { currencyCodes } = data;
-        const { countryCodes } = data;
-
-        console.log('resonse from getting currency codes:', response);
-        if (h_or_i) {
-          if (!countryCodes[this.state.internLocationCountry] &&
-              !currencyCodes[this.state.internLocationCountry]) {
-            return console.error('Error retrieving currency/country code data');
-          }
-          this.setState({
-            internLocationCurrencyCode: data.currencyCodes[this.state.internLocationCountry],
-            // internLocationCountryCode: data.countryCodes[this.state.internLocationCountry],
-          });
-        } else {
-          if (!countryCodes[this.state.homeLocationCountry] &&
-              !currencyCodes[this.state.homeLocationCountry]) {
-            return console.error('Error retrieving currency/country code data');
-          }
-          this.setState({
-            homeLocationCurrencyCode: data.currencyCodes[this.state.homeLocationCountry],
-            // homeLocationCountryCode: data.countryCodes[this.state.homeLocationCountry],
-          });
-        }
-        return true;
-      })
-      .catch(err => console.error('error when gettin currency codes: ', err));
-  };
-
-  pullInCurrencyAndCountryCodes = (event) => {
-    event.preventDefault();
-    // get/set intern location
-    let place = `${this.state.internLocationCity}, ${this.state.internLocationCountry}`;
-    util.getGeoLocation(place).then((json) => {
-      this.setState({
-        internLocationCountryCode: json.cc,
-        internLocationLatitude: json.lat,
-        internLocationLongitude: json.lng,
-      });
-      this.getCurrencyCode([this.state.internLocationCountry]);
-    });
-    // get/set home location
-    place = `${this.state.homeLocationCity}, ${this.state.homeLocationCountry}`;
-    util.getGeoLocation(place, false).then((json) => {
-      this.setState({
-        internLocationCountryCode: json.cc,
-      });
-      this.getCurrencyCode([this.state.homeLocationCountry]);
-    });
   }
 
   sendRegistrationData = () => {
@@ -151,10 +89,14 @@ export default class extends Component {
       homeLocationCountry: this.state.homeLocationCountry,
       homeLocationCountryCode: this.state.homeLocationCountryCode,
       homeLocationCurrencyCode: this.state.homeLocationCurrencyCode,
+      homeLocationTimezone: this.state.homeLocationTimezone,
       internLocationCity: this.state.internLocationCity,
       internLocationCountry: this.state.internLocationCountry,
       internLocationCountryCode: this.state.internLocationCountryCode,
       internLocationCurrencyCode: this.state.internLocationCurrencyCode,
+      internLocationTimezone: this.state.internLocationTimezone,
+      internLocationLatitude: this.state.internLocationLatitude,
+      internLocationLongitude: this.state.internLocationLongitude,
       preferredUnits: this.state.preferredUnits,
     };
     return API.registerUser(data)
@@ -183,20 +125,18 @@ export default class extends Component {
 
   handleInputChange = event => this.setState({ [event.target.name]: event.target.value });
 
-  handleInputChangeForAutoCompleteField = name => value => {
+  handleInputChangeForAutoCompleteField = name => (value) => {
     console.log('name, value', name, value);
     const dataToSet = {};
     dataToSet[name] = value;
     const countryCodeName = name === 'homeLocationCountry' ? 'homeLocationCountryCode' :
-      name === 'internLocationCountry' ? 'internLocationCountryCode' :
-      '';
+      name === 'internLocationCountry' ? 'internLocationCountryCode' : '';
     const currencyCodeName = name === 'homeLocationCountry' ? 'homeLocationCurrencyCode' :
-      name === 'internLocationCountry' ? 'internLocationCurrencyCode' :
-      '';
+      name === 'internLocationCountry' ? 'internLocationCurrencyCode' : '';
     if (this.state.countryCodeData && countryCodeName) {
       const countryCode = this.state.countryCodeData[value] || '';
       if (countryCode) dataToSet[countryCodeName] = countryCode;
-    } 
+    }
     if (this.state.countryCurrencyCodeData && currencyCodeName) {
       const currencyCode = this.state.countryCurrencyCodeData[value] || '';
       if (currencyCode) dataToSet[currencyCodeName] = currencyCode;
@@ -207,7 +147,23 @@ export default class extends Component {
 
   submitForm = (event) => {
     event.preventDefault();
-    this.sendRegistrationData();
+    // get/set intern location
+    let place = `${this.state.internLocationCity}, ${this.state.internLocationCountry}`;
+    util.getGeoLocation(place).then((json) => {
+      this.setState({
+        internLocationCountryCode: json.cc,
+        internLocationLatitude: json.lat,
+        internLocationLongitude: json.lng,
+      });
+      // get/set home location
+      place = `${this.state.homeLocationCity}, ${this.state.homeLocationCountry}`;
+      util.getGeoLocation(place, false).then((json) => {
+        this.setState({
+          internLocationCountryCode: json.cc,
+        });
+        this.sendRegistrationData();
+      });
+    });
   }
 
   render() {

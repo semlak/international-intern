@@ -55,4 +55,3 @@ const Location = (props) => {
 };
 
 export default withStyles(styles)(Location);
-
