@@ -63,11 +63,8 @@ export default class extends Component {
 	    console.log('current state', this.state);
 	    let fileButton = document.getElementById("fileButton");
 	    let file = fileButton.files[0];
-	    // console.log(file.name);
-	    console.log(file);
         
 	    if (this.state.image !== ""){
-	      // let file = fileButton.files[0];
 	      let image = "";
 	      //create storage ref
 	      let storageRef = firebase.storage().ref("chapImg/" + Date.now() + file.name);
@@ -113,12 +110,6 @@ export default class extends Component {
 		      }
 		    )
 		} else{
-
-		  // let image = "";
-	   //    //create storage ref
-	   //    let storageRef = "";
-	   //    //upload file
-	   //    let task = storageRef.put(file);	
 		  let data = {
 		  	chapTitle: this.state.chapterTitle,
 		  	chapNote: this.state.description,
