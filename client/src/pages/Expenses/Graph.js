@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Chartist from 'chartist';
 import API from '../../utils/API';
 import chartistpluginaxistitle from 'chartist-plugin-axistitle';
+import Typography from 'material-ui/Typography';
 
 export default class extends Component {
   state = {}
@@ -50,29 +51,29 @@ export default class extends Component {
         bottom: 30,
         left: 50
       },
-        plugins: [
-          Chartist.plugins.ctAxisTitle({
-            axisX: {
-              axisTitle: 'Item',
-              axisClass: 'ct-axis-title',
-              offset: {
-                x: 0,
-                y: 30
-              },
-              textAnchor: 'middle'
+      plugins: [
+        Chartist.plugins.ctAxisTitle({
+          axisX: {
+            axisTitle: 'Item',
+            axisClass: 'ct-axis-title',
+            offset: {
+              x: 0,
+              y: 30
             },
-            axisY: {
-              axisTitle: 'Expense USD',
-              axisClass: 'ct-axis-title',
-              offset: {
-                x: 0,
-                y: 55
-              },
-              textAnchor: 'middle',
-              flipTitle: true
-            }
-          })
-        ],
+            textAnchor: 'middle'
+          },
+          axisY: {
+            axisTitle: 'Expense USD',
+            axisClass: 'ct-axis-title',
+            offset: {
+              x: 0,
+              y: 55
+            },
+            textAnchor: 'middle',
+            flipTitle: true
+          }
+        })
+      ],
       series: {
         'series-1': {
           showLine: false,
@@ -89,7 +90,9 @@ export default class extends Component {
 
   render() {
     return (
-      <div className="ct-chart" />
+      <Typography>
+        <div className="ct-chart" />
+      </Typography>
     );
   }
 }
