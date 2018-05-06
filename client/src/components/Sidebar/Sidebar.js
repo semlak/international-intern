@@ -33,10 +33,6 @@ const links = [
     text: 'Requirements',
     path: '/requirements',
     icon: <AssignmentTurnedIn />,
-  }, {
-    text: 'temp - Register',
-    path: '/register',
-    icon: <Create />,
   },
 ];
 
@@ -57,7 +53,6 @@ const styles = theme => ({
 });
 
 const Sidebar = (props) => {
-
   return (
     <Drawer
       variant="permanent"
@@ -67,30 +62,34 @@ const Sidebar = (props) => {
         <Typography variant="title" color="inherit" noWrap>Intl.Intern</Typography>
       </div>
       <Divider />
-      <MenuList>
-        {links.map(link => (
-          <SidebarLink
-            key={link.text}
-            text={link.text}
-            path={link.path}
-            icon={link.icon}
-            pageChange={props.pageChange}
-          />
-        ))}
-      </MenuList>
-      <Divider />
-      <div style={{overflowY: 'auto', height: '100%'}}>
-        {/* dont break if no user is logged in, or user has no reqs  */}
-        {props.currentUser && props.currentUser.needsRef ?
-          props.currentUser.needsRef.map(need => (
-            <SidebarReqs
-              key={need.needDesc}
-              text={need.needDesc}
-              title={need.needTitle}
-              number={need.needNumber}
-            />
-          )) : null }
-      </div>
+      {props.currentUser && props.currentUser.username ?
+        <div>
+          <MenuList>
+            {links.map(link => (
+              <SidebarLink
+                key={link.text}
+                text={link.text}
+                path={link.path}
+                icon={link.icon}
+                pageChange={props.pageChange}
+              />
+            ))}
+          </MenuList>
+          <Divider />
+          <div style={{overflowY: 'auto', height: '100%'}}>
+            {/* check that there is a user with props */}
+            {props.currentUser && props.currentUser.needsRef ?
+              props.currentUser.needsRef.map(need => (
+                <SidebarReqs
+                  key={need.needDesc}
+                  text={need.needDesc}
+                  title={need.needTitle}
+                  number={need.needNumber}
+                />
+              )) : null }
+          </div>
+        </div>
+      : null }
     </Drawer>
   );
 };

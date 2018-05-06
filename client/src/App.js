@@ -1,6 +1,6 @@
 import React from 'react';
 import dotenv from 'dotenv';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 // Material UI components
 import CssBaseline from 'material-ui/CssBaseline';
 // from Material, used to inject an array of styles into the DOM
@@ -73,20 +73,29 @@ class App extends React.Component {
           <CssBaseline />
           <div className={classes.root}>
             <div className={classes.appFrame}>
-              <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} pageTitle={this.state.currentPage}/>            
-              <Sidebar pageChange={this.pageChange} currentUser={this.state.currentUser}  />
-              <main className={classes.content}>
-                <div className={classes.toolbar} />
-                <Switch>
-                  <Route exact path="/" render={() => <Journal { ...this.state} />} />
-                  <Route exact path="/journal" render={() => <Journal {...this.state} />} />
-                  <Route exact path="/expenses" render={() => <Expenses {...this.state} />} />
-                  <Route exact path="/location" render={() => <UserLocation {...this.state} />} />
-                  <Route exact path="/requirements" render={() => <Requirements {...this.state} />} />
-                  <Route exact path="/register" component={RegistrationForm} />
-                  <Route component={NoMatch} />
-                </Switch>
-              </main>
+              <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} pageTitle={this.state.currentPage} />
+              {this.state.currentUser && this.state.currentUser.username ?
+                <div>
+                  <Sidebar pageChange={this.pageChange} currentUser={this.state.currentUser} />
+                  <main className={classes.content}>
+                    <div className={classes.toolbar} />
+                    <Switch>
+                      <Route exact path="/" render={() => <Journal {...this.state} />} />
+                      <Route exact path="/journal" render={() => <Journal {...this.state} />} />
+                      <Route exact path="/expenses" render={() => <Expenses {...this.state} />} />
+                      <Route exact path="/location" render={() => <UserLocation {...this.state} />} />
+                      <Route exact path="/requirements" render={() => <Requirements {...this.state} />} />
+                      {/* <Route exact path="/register" component={RegistrationForm} /> */}
+                      <Route component={NoMatch} />
+                    </Switch>
+                  </main>
+                </div>
+              : // user is not logged in
+                <div>
+                  <Redirect to={{ pathname: '/'}} />
+                  <Route exact path="/" render={() => <RegistrationForm {...this.state} />} />
+                </div>
+              }
             </div>
           </div>
         </React.Fragment>

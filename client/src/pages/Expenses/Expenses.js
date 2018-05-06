@@ -114,7 +114,7 @@ export default class extends Component {
           </Grid>
         </div>
         :
-        <div><p>Loading data...</p></div>
+        <div><p>Please Loading data...</p></div>
     );
   }
 }

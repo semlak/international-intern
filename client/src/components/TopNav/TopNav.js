@@ -28,7 +28,7 @@ const styles = theme => ({
   },
   appBar: {
     position: 'fixed',
-    width: `calc(100% - ${drawerWidth}px)`,
+    // width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
   },
   toolbar: theme.mixins.toolbar,
@@ -95,11 +95,14 @@ class TopNav extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <AppBar
-          className={classes.appBar}
-        >
-          <Toolbar>
-            <Typography variant="title" color="inherit" style={{ flex: 1 }} noWrap>{this.props.pageTitle}</Typography>
+        <AppBar className={classes.appBar}>
+          <Toolbar>  
+            {/*  Logo */}
+            {this.props.currentUser && this.props.currentUser.username ?
+              <Typography variant="title" color="inherit" style={{ flex: 1 }} noWrap>{this.props.pageTitle}</Typography>
+            :
+              <Typography variant="title" color="inherit" style={{ flex: 1 }}>Intl.Intern</Typography>
+            }
             { this.props.currentUser && this.props.currentUser.email ? 
               <div>
                 <Typography color="inherit" variant="subheading" style={{display: 'inline-block', paddingRight: '10px'}}>
