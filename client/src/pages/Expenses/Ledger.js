@@ -10,7 +10,7 @@ const Ledger = props => (
         <TableCell>Date</TableCell>
         <TableCell>Description</TableCell>
         <TableCell>Amount USD</TableCell>
-        <TableCell>Amount XXX</TableCell>
+        <TableCell>Amount KRW</TableCell>
       </TableRow>
     </TableHead>
     <TableBody>

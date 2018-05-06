@@ -8,7 +8,7 @@ import API from '../../utils/API';
 
 
 const style = {
-  height: 250,
+  height: 350,
 };
 
 
@@ -17,10 +17,12 @@ export default class extends Component {
     expenseDescription: '',
     date: '', // '', Date.now(), now working currenlty
     usdAmount: '0.00',
+    locationAmount: '0',
     currencyCode: 'KRW',
     expenseData: [],
+    selectCurrency: 'usd',
+    exchangeRate:  1000,
   };
-
 
   componentDidMount() {
     this.updateExpenses(this.props);
@@ -30,6 +32,11 @@ export default class extends Component {
     this.updateExpenses(props);
   }
 
+  handleDivChange = (event) => {
+    console.log("ID from Radio Button: ", event.target.id);
+    console.log(event.target.name);
+    this.setState({selectCurrency: event.target.id});
+  }
 
   handleInputChange = event => this.setState({
     [event.target.name]: event.target.value,
@@ -54,13 +61,26 @@ export default class extends Component {
     event.preventDefault();
     // console.log('current state', this.state);
 
+
     if (this.state.expenseDescription &&
       this.state.date &&
-      this.state.usdAmount && this.state.currencyCode) {
+      (this.state.usdAmount || this.state.locationAmount)) {
+
+        (this.state.usdAmount>0) ? 
+          (
+            this.state.locationAmount=this.state.usdAmount*this.state.exchangeRate
+            // console.log("AMOUNT USD given: ", this.state.locationAmount)
+          ):(
+            this.state.usdAmount=this.state.locationAmount/this.state.exchangeRate
+            // console.log("AMOUNT KRW given: ", this.state.usdAmount)
+          );
+        
+
       const data = {
         expDesc: this.state.expenseDescription,
         expAmount: this.state.usdAmount,
         expDate: this.state.date,
+        expAmountLocalCurrency: this.state.locationAmount,
       };
 
       API.newExpense(data)
@@ -70,6 +90,7 @@ export default class extends Component {
             expenseDescription: '',
             usdAmount: '0.00',
             date: '',
+            locationAmount: '0',
 
           });
           API.getExpenses().then((res) => {
@@ -95,6 +116,7 @@ export default class extends Component {
             <Grid item xs={12} sm={4}>
               <Paper style={style}>
                 <CreateForm
+                  handleDivChange={this.handleDivChange}
                   handleInputChange={this.handleInputChange}
                   submitForm={this.submitForm}
                   {...this.state}

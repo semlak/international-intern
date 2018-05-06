@@ -6,6 +6,7 @@ const ExpenseLedgerItem = props =>(
     <TableCell>{props.expDate.slice(0, 10)}</TableCell>
     <TableCell>{props.expDesc}</TableCell>
     <TableCell>{props.expAmount.toFixed(2)}</TableCell>
+    <TableCell>{props.expAmountLocalCurrency.toFixed(2)}</TableCell>
     <TableCell />
   </TableRow>
 );
