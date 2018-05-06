@@ -27,7 +27,9 @@ export default class extends Component {
   }
 
   componentWillReceiveProps(props) {
-    this.doWeather(props);
+    if (props.currentUser) {
+      this.doWeather(props);
+    }
   }
 
   doWeather(props) {

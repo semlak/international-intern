@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import API from '../../utils/API';
 import Typography from 'material-ui/Typography';
+import API from '../../utils/API';
 
 export default class extends Component {
   state = {

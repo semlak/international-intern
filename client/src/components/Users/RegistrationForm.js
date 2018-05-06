@@ -149,19 +149,31 @@ export default class extends Component {
     event.preventDefault();
     // get/set intern location
     let place = `${this.state.internLocationCity}, ${this.state.internLocationCountry}`;
-    util.getGeoLocation(place).then((json) => {
+    util.getGeoLocation(place).then((iGeo) => {
       this.setState({
-        internLocationCountryCode: json.cc,
-        internLocationLatitude: json.lat,
-        internLocationLongitude: json.lng,
+        // internLocationCountryCode: iGeo.cc,
+        internLocationLatitude: iGeo.lat,
+        internLocationLongitude: iGeo.lng,
       });
-      // get/set home location
-      place = `${this.state.homeLocationCity}, ${this.state.homeLocationCountry}`;
-      util.getGeoLocation(place, false).then((json) => {
+      util.getTimezone({ lat: iGeo.lat, lng: iGeo.lng }).then((iTZ) => {
         this.setState({
-          internLocationCountryCode: json.cc,
+          internLocationTimezone: JSON.stringify(iTZ.json),
         });
-        this.sendRegistrationData();
+        // get/set home location
+        place = `${this.state.homeLocationCity}, ${this.state.homeLocationCountry}`;
+        util.getGeoLocation(place, false).then((hGeo) => {
+          this.setState({
+            // homeLocationCountryCode: json2.cc,
+            homeLocationLatitude: hGeo.lat,
+            homeLocationLongitude: hGeo.lng,
+          });
+          util.getTimezone({ lat: hGeo.lat, lng: hGeo.lng }).then((hTZ) => {
+            this.setState({
+              homeLocationTimezone: JSON.stringify(hTZ.json),
+            });
+            this.sendRegistrationData();
+          });
+        });
       });
     });
   }

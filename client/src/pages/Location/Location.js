@@ -3,6 +3,7 @@ import React from 'react';
 import Map from './Map';
 import Weather from './Weather';
 import Currency from './Currency';
+import Timezones from './Timezones';
 import News from './News';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
@@ -26,14 +27,19 @@ const Location = (props) => {
             <Map {...props} />
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <Paper className={props.classes.paper} style={{ height: 170 }}>
             <Weather {...props} />
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <Paper className={props.classes.paper} style={{ height: 170 }}>
             <Currency {...props} />
+          </Paper>
+        </Grid>
+        <Grid item xs={4}>
+          <Paper className={props.classes.paper} style={{ height: 170 }}>
+            <Timezones {...props} />
           </Paper>
         </Grid>
         <Grid item xs={12}>
