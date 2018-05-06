@@ -30,6 +30,8 @@ const userController = {
       homeLocationCountryCode: req.body.homeLocationCountryCode,
       homeLocationCurrencyCode: req.body.homeLocationCurrencyCode,
       homeLocationTimezone: req.body.homeLocationTimezone,
+      homeLocationLatitude: req.body.homeLocationLatitude,
+      homeLocationLongitude: req.body.homeLocationLongitude,
       internLocationCity: req.body.internLocationCity,
       internLocationCountry: req.body.internLocationCountry,
       internLocationCountryCode: req.body.internLocationCountryCode,
@@ -81,9 +83,8 @@ const userController = {
       User.findOneAndUpdate({ id: req.params.id }, req.body)
         .then(dbUser => res.json(dbUser))
         .catch(err => res.status(422).json(err));
-    } else {
-      return res.json({ user: null });
     }
+    return res.json({ user: null });
   },
 };
 

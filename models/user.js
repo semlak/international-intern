@@ -40,6 +40,12 @@ const UserSchema = new Schema({
   homeLocationTimezone: {
     type: String,
   },
+  homeLocationLatitude: {
+    type: Number,
+  },
+  homeLocationLongitude: {
+    type: Number,
+  },
   internLocationCity: {
     type: String,
     required: 'Internship Location City is Required',

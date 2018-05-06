@@ -1,4 +1,3 @@
-import API from './API';
 import currencycodes from '../currencycodes.json';
 
 const googleMapsClient = require('@google/maps').createClient({
@@ -65,7 +64,7 @@ export default {
 
     // console.log('countries:', countries);
     let i, j;
-    // pre-initialize the return vaules with 'not found'
+    // pre-initialize the return values with 'not found'
     for (j = 0; j < countries.length; j++) {
       rv[j] = '???';
     }
@@ -86,10 +85,9 @@ export default {
     //   place:  a string containing the place to lookup
     //           can be as simple as just a city name, can be an entire address
 
-    console.log('getGeoLocation::place:', place);
-    // googleMapsClient.geocode({ address: `${this.state.currentUser.internLocationCity}, ${this.state.currentUser.internLocationCountry}` }).asPromise().then((geo) => {
+    // console.log('getGeoLocation::place:', place);
     return googleMapsClient.geocode({ address: `${place}` }).asPromise().then((geo) => {
-      console.log('geo:', geo);
+      // console.log('geo:', geo);
       let place_obj = { };
       place_obj = {
         // we don't need place_id until we start adding pins to the map
@@ -103,14 +101,21 @@ export default {
           break;
         }
       }
-      // API.updateUser(place_obj);
-      console.log(place_obj);
+      // console.log(place_obj);
       return place_obj;
     }).catch((err) => {
       console.log(err);
     });
   },
-  getTimezone() {
+  getTimezone(lat_lng) {
+    // parameters
+    //   lat_lng:  an object { lat, lng }
 
+    return googleMapsClient.timezone({ location: lat_lng }).asPromise().then((tz) => {
+      console.log('tz:', tz);
+      return tz;
+    }).catch((err) => {
+      console.log(err);
+    });
   },
 };
