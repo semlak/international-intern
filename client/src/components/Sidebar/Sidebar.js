@@ -75,18 +75,16 @@ const Sidebar = (props) => {
             ))}
           </MenuList>
           <Divider />
-          <div style={{overflowY: 'auto', height: '100%'}}>
-            {/* check that there is a user with props */}
-            {props.currentUser && props.currentUser.needsRef ?
-              props.currentUser.needsRef.map(need => (
-                <SidebarReqs
-                  key={need.needDesc}
-                  text={need.needDesc}
-                  title={need.needTitle}
-                  number={need.needNumber}
-                />
-              )) : null }
-          </div>
+          {/* check that there is a user with props */}
+          {props.currentUser && props.currentUser.needsRef ?
+            props.currentUser.needsRef.map(need => (
+              <SidebarReqs
+                key={need.needDesc}
+                text={need.needDesc}
+                title={need.needTitle}
+                number={need.needNumber}
+              />
+            )) : null }
         </div>
       : null }
     </Drawer>
