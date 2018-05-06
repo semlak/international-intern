@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, TextField, Typography, Select, } from 'material-ui';
+import { Button, TextField, Select, } from 'material-ui';
 
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
@@ -228,7 +228,6 @@ export default class extends Component {
           <br />
           <Button variant="raised" color="primary" onClick={this.submitForm}>Register</Button>
         </form>
-        {/* <Link to="/login">Login</Link>  */}
       </div>
     );
   }
