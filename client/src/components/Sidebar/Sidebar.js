@@ -33,10 +33,6 @@ const links = [
     text: 'Requirements',
     path: '/requirements',
     icon: <AssignmentTurnedIn />,
-  }, {
-    text: 'temp - Register',
-    path: '/register',
-    icon: <Create />,
   },
 ];
 
