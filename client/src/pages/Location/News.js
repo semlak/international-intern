@@ -3,7 +3,7 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import API from '../../utils/API';
-import ListItem from './ListItem';
+// import ListItem from './ListItem';
 import Grid from 'material-ui/Grid';
 
 const styles = theme => ({
