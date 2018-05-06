@@ -73,20 +73,29 @@ class App extends React.Component {
           <CssBaseline />
           <div className={classes.root}>
             <div className={classes.appFrame}>
-              <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} pageTitle={this.state.currentPage}/>            
-              <Sidebar pageChange={this.pageChange} currentUser={this.state.currentUser}  />
-              <main className={classes.content}>
-                <div className={classes.toolbar} />
-                <Switch>
-                  <Route exact path="/" render={() => <Journal { ...this.state} />} />
-                  <Route exact path="/journal" render={() => <Journal {...this.state} />} />
-                  <Route exact path="/expenses" render={() => <Expenses {...this.state} />} />
-                  <Route exact path="/location" render={() => <UserLocation {...this.state} />} />
-                  <Route exact path="/requirements" render={() => <Requirements {...this.state} />} />
-                  <Route exact path="/register" component={RegistrationForm} />
-                  <Route component={NoMatch} />
-                </Switch>
-              </main>
+                <TopNav onLogin={this.handleLogin} currentUser={this.state.currentUser} pageTitle={this.state.currentPage}/>
+                {this.state.currentUser && this.state.currentUser.username ?
+                  <div>
+
+                  <Sidebar pageChange={this.pageChange} currentUser={this.state.currentUser}  />
+                  <main className={classes.content}>
+                    <div className={classes.toolbar} />
+                    <Switch>
+                      <Route exact path="/" render={() => <Journal { ...this.state} />} />
+                      <Route exact path="/journal" render={() => <Journal {...this.state} />} />
+                      <Route exact path="/expenses" render={() => <Expenses {...this.state} />} />
+                      <Route exact path="/location" render={() => <UserLocation {...this.state} />} />
+                      <Route exact path="/requirements" render={() => <Requirements {...this.state} />} />
+                      <Route exact path="/register" component={RegistrationForm} />
+                      <Route component={NoMatch} />
+                    </Switch>
+                </main>
+  </div>
+
+                 :  
+
+<h1>please log in</h1>
+}
             </div>
           </div>
         </React.Fragment>
