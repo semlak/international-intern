@@ -59,14 +59,19 @@ const styles = theme => ({
 const Sidebar = (props) => {
 
   return (
+
     <Drawer
       variant="permanent"
       classes={{ paper: props.classes.drawerPaper }}
     >
-      <div className={props.classes.drawerHeader}>
-        <Typography variant="title" color="inherit" noWrap>Intl.Intern</Typography>
-      </div>
+  <div className={props.classes.drawerHeader}>
+    <Typography variant="title" color="inherit" noWrap>Intl.Intern</Typography>
+  </div>
+
+
       <Divider />
+      {props.currentUser && props.currentUser.username ?
+      <div>
       <MenuList>
         {links.map(link => (
           <SidebarLink
@@ -78,6 +83,7 @@ const Sidebar = (props) => {
           />
         ))}
       </MenuList>
+
       <Divider />
       <div style={{overflowY: 'auto', height: '100%'}}>
         {/* dont break if no user is logged in, or user has no reqs  */}
@@ -91,7 +97,11 @@ const Sidebar = (props) => {
             />
           )) : null }
       </div>
+
+      </div>
+     : null }
     </Drawer>
+
   );
 };
 
