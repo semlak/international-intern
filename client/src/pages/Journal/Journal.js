@@ -63,7 +63,7 @@ export default class extends Component {
 	    console.log('current state', this.state);
 	    let fileButton = document.getElementById("fileButton");
 	    let file = fileButton.files[0];
-        
+        console.log("THIS: ", this)
 	    if (this.state.image !== ""){
 	      let image = "";
 	      //create storage ref
@@ -141,6 +141,26 @@ export default class extends Component {
 	  }
 	}
 
+	deleteChapter = (event) => {
+	  console.log("deleting chapter");
+	  // console.log(this.state.chapterData.index);
+		API.deleteChapter(this._id).then((response) => {
+	  	  console.log("Response from deleting chapter: ", response);
+	  	  API.getChapters().then((response) => {
+		  	this.setState({
+		  	  chapterData:response.data
+		  	});
+	  	  });
+	 //  	this.setState({
+	 //  	  chapterTitle:"",
+	 //  	  description: "",
+	 //  	  date: "",
+	 //  	  requireNum:"",
+	 // });
+	  	})
+	  // )
+	}
+
 	render() {
 		return (
 			<div>
@@ -149,7 +169,8 @@ export default class extends Component {
 		    	  handleInputChange={this.handleInputChange} 
 		    	  handleFormSubmit={this.handleFormSubmit} 
 		    	  {...this.state}/>
-		    	<ChapterCard chapters={this.state.chapterData} />
+		    	<ChapterCard chapters={this.state.chapterData} 
+		    	deleteChapter={this.deleteChapter.bind(this)}/>
 		  	</div>
 		);
 	}

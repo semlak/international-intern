@@ -1,5 +1,6 @@
 import React from 'react';
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
+import Button from 'material-ui/Button';
 
 const ChapterContent = props => (
   <Card>
@@ -13,6 +14,9 @@ const ChapterContent = props => (
       <p>{props.chapTitle}</p>
       <p>{props.chapNote}</p>
       <p>{props.reqNum}</p>
+      <Button variant="raised" onClick={props.deleteChapter} color="secondary" id="deleteButton">
+        Delete
+      </Button>
     </CardContent>
   </Card>
 );
