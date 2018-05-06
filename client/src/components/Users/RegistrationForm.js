@@ -106,6 +106,7 @@ export default class extends Component {
     return API.registerUser(data)
       .then((response) => {
         const newUser = response.data.user;
+        // send the new user data up to the App.js component
         console.log('newUser: ', newUser);
         this.setState({
           // currentUser: newUser,
@@ -122,7 +123,7 @@ export default class extends Component {
           internLocationCountry: '',
           internLocationCountryCode: '',
           internLocationCurrencyCode: '',
-        });
+        }, ((typeof this.props.onLogin === 'function') && this.props.onLogin(newUser)));
       })
       .catch(err => console.log('error on registration', err));
   }
@@ -199,13 +200,13 @@ export default class extends Component {
           <br />
           <TextField label="HomeLocationCity" name="homeLocationCity" required type="text" value={this.state.homeLocationCity} onChange={this.handleInputChange} />
           <br />
-          <IntegrationReactSelect label="Home Country" value={this.state.homeLocationCountry} handleInputChange={() => this.handleInputChangeForAutoCompleteField('homeLocationCountry')} placeholder={'Home Location Country'} selectSuggestions={this.state.countryNameSuggestions} />
+          <IntegrationReactSelect label="Home Country" value={this.state.homeLocationCountry} handleInputChange={value => this.handleInputChangeForAutoCompleteField('homeLocationCountry')(value)} placeholder="Home Location Country" selectSuggestions={this.state.countryNameSuggestions} />
           <br />
           <TextField label="Country Code" name="homeLocationCountryCode" required type="text" value={this.state.homeLocationCountryCode} onChange={this.handleInputChange} />
           <TextField label="Home Currency" name="homeLocationCurrencyCode" type="text" value={this.state.homeLocationCurrencyCode} onChange={this.handleInputChange} />
           <br />
           <TextField label="InternLocationCity" name="internLocationCity" required type="text" value={this.state.internLocationCity} onChange={this.handleInputChange} />
-          <IntegrationReactSelect label="Intern Country" name="internLocationCountry" required type="text" value={this.state.internLocationCountry} handleInputChange={(value) => this.handleInputChangeForAutoCompleteField('internLocationCountry')} selectSuggestions={this.state.countryNameSuggestions} placeholder="Intern Location Country" />
+          <IntegrationReactSelect label="Intern Country" name="internLocationCountry" required type="text" value={this.state.internLocationCountry} handleInputChange={value => this.handleInputChangeForAutoCompleteField('internLocationCountry')(value)} selectSuggestions={this.state.countryNameSuggestions} placeholder="Intern Location Country" />
           <TextField label="Country Code" name="internLocationCountryCode" required type="text" value={this.state.internLocationCountryCode} onChange={this.handleInputChange} />
           <TextField label="Intern Location Currency" name="internLocationCurrencyCode" type="text" value={this.state.internLocationCurrencyCode} onChange={this.handleInputChange} />
           <br />
@@ -220,8 +221,8 @@ export default class extends Component {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value='imperial'>Imperial</MenuItem>
-              <MenuItem value='metric'>Metric</MenuItem>
+              <MenuItem value="imperial">Imperial</MenuItem>
+              <MenuItem value="metric">Metric</MenuItem>
             </Select>
             <FormHelperText>Units for retrieved weather data</FormHelperText>
           </FormControl>

@@ -87,7 +87,9 @@ const ITEM_HEIGHT = 48;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 20,
+    height: 30,
+    marginTop: 14,
+    marginBottom: 0,
   },
   chip: {
     margin: theme.spacing.unit / 4,
@@ -164,12 +166,14 @@ const styles = theme => ({
       width: '100%',
       zIndex: 2,
       maxHeight: ITEM_HEIGHT * 4.5,
+      height: ITEM_HEIGHT * 4.5,
     },
     '.Select.is-focused:not(.is-open) > .Select-control': {
       boxShadow: 'none',
     },
     '.Select-menu': {
       maxHeight: ITEM_HEIGHT * 4.5,
+      height: ITEM_HEIGHT * 4.5,
       overflowY: 'auto',
     },
     '.Select-menu div': {
@@ -203,7 +207,7 @@ class IntegrationReactSelect extends React.Component {
 
   handleChange = value =>  {
     // console.log('value, ', value)
-    this.props.handleInputChange(value)(value);
+    this.props.handleInputChange(value);
   };
 
   render() {
