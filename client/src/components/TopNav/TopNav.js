@@ -103,7 +103,6 @@ class TopNav extends Component {
             :
               <Typography variant="title" color="inherit" style={{ flex: 1 }}>Intl.Intern</Typography>
             }
-
             { this.props.currentUser && this.props.currentUser.email ? 
               <div>
                 <Typography color="inherit" variant="subheading" style={{display: 'inline-block', paddingRight: '10px'}}>
