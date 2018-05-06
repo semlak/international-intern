@@ -1,6 +1,6 @@
 import React from 'react';
 import dotenv from 'dotenv';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 // Material UI components
 import CssBaseline from 'material-ui/CssBaseline';
 // from Material, used to inject an array of styles into the DOM
@@ -85,13 +85,16 @@ class App extends React.Component {
                       <Route exact path="/expenses" render={() => <Expenses {...this.state} />} />
                       <Route exact path="/location" render={() => <UserLocation {...this.state} />} />
                       <Route exact path="/requirements" render={() => <Requirements {...this.state} />} />
-                      <Route exact path="/register" component={RegistrationForm} />
+                      {/* <Route exact path="/register" component={RegistrationForm} /> */}
                       <Route component={NoMatch} />
                     </Switch>
                   </main>
                 </div>
-              :
-                null // user is not logged in
+              : // user is not logged in
+                <div>
+                  <Redirect to={{ pathname: '/'}} />
+                  <Route exact path="/" render={() => <RegistrationForm {...this.state} />} />
+                </div>
               }
             </div>
           </div>
