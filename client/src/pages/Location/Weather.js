@@ -85,7 +85,7 @@ export default class extends Component {
           <Typography variant="headline">Weather</Typography>
           <Typography variant="subheading">Current Low: {this.state.weather.tempMin}&#x2109;</Typography>
           <Typography variant="subheading">Current High: {this.state.weather.tempMax}&#x2109;</Typography>
-          <Typography variant="subheading">Current Wind: {this.state.weather.windSpeed} {this.state.windSymbol} {ordinal}</Typography>
+          <Typography variant="subheading">Current Wind: {this.state.weather.windSpeed} mph {ordinal}</Typography>
           <Typography variant="subheading">Current Sky: {this.state.weather.sky}</Typography>
         </div>
       );
@@ -97,7 +97,7 @@ export default class extends Component {
         <Typography variant="headline">Weather</Typography>
         <Typography variant="subheading">Current Low: {this.state.weather.tempMin}&#x2103;</Typography>
         <Typography variant="subheading">Current High: {this.state.weather.tempMax}&#x2103;</Typography>
-        <Typography variant="subheading">Current Wind: {this.state.weather.windSpeed} {this.state.windSymbol} {ordinal}</Typography>
+        <Typography variant="subheading">Current Wind: {this.state.weather.windSpeed} m/s {ordinal}</Typography>
         <Typography variant="subheading">Current Sky: {this.state.weather.sky}</Typography>
       </div>
     );
