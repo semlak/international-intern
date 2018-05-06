@@ -9,7 +9,6 @@ import { withStyles } from 'material-ui/styles';
 import Place from '@material-ui/icons/Place';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import AssignmentTurnedIn from '@material-ui/icons/AssignmentTurnedIn';
-import Create from '@material-ui/icons/Create';
 import Book from '@material-ui/icons/Book';
 // components
 import SidebarLink from './SidebarLink';

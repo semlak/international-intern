@@ -10,7 +10,12 @@ export default class Option extends React.Component {
   };
 
   render() {
-    const { children, isFocused, isSelected, onFocus } = this.props;
+    const {
+      children,
+      isFocused,
+      isSelected,
+      onFocus
+    } = this.props;
 
     return (
       <MenuItem
