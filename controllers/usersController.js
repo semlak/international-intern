@@ -30,7 +30,7 @@ const userController = {
       homeLocationCountryCode: req.body.homeLocationCountryCode,
       homeLocationCurrencyCode: req.body.homeLocationCurrencyCode,
       homeLocationTimezone: req.body.homeLocationTimezone,
-      homenLocationLatitude: req.body.homenLocationLatitude,
+      homeLocationLatitude: req.body.homeLocationLatitude,
       homeLocationLongitude: req.body.homeLocationLongitude,
       internLocationCity: req.body.internLocationCity,
       internLocationCountry: req.body.internLocationCountry,
