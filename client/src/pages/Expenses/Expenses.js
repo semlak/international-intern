@@ -5,7 +5,7 @@ import CreateForm from './CreateForm';
 import Ledger from './Ledger';
 import Graph from './Graph';
 import API from '../../utils/API';
-
+import Util from '../../utils/util';
 
 const style = {
   height: 350,
@@ -21,15 +21,25 @@ export default class extends Component {
     currencyCode: 'KRW',
     expenseData: [],
     selectCurrency: 'usd',
-    exchangeRate:  1000,
+    exchangeRate: '1000',
   };
 
   componentDidMount() {
     this.updateExpenses(this.props);
+    if (this.props.currentUser) {
+      const { homeLocationCurrencyCode, internLocationCurrencyCode } = this.props.currentUser;
+      Util.getExchangeRate(homeLocationCurrencyCode, internLocationCurrencyCode)
+        .then(result => {
+          console.log("result from getExchangeRate:", result);
+          this.setState({ exchangeRate: result.quote.toFixed(2) });
+        })
+        .catch(err => console.log("err getting exchangeRate", err));
+    }
   }
 
   componentWillReceiveProps(props) {
     this.updateExpenses(props);
+    
   }
 
   handleDivChange = (event) => {
@@ -38,9 +48,20 @@ export default class extends Component {
     this.setState({selectCurrency: event.target.id});
   }
 
-  handleInputChange = event => this.setState({
+  handleInputChange = event => {
+     console.log('in handleInputChange, event:', event.target.name, event.target.value);
+    this.setState({
     [event.target.name]: event.target.value,
   })
+  }
+
+ 
+  handleInputChangeForNumberFormatField = values => {
+    console.log('values', values);
+    this.setState({ exchangeRate: values.value });
+    return values.floatValue;
+  }
+
 
   updateExpenses(props) {
     if (props.currentUser) {
@@ -118,6 +139,7 @@ export default class extends Component {
                 <CreateForm
                   handleDivChange={this.handleDivChange}
                   handleInputChange={this.handleInputChange}
+                  handleInputChangeForNumberFormatField={this.handleInputChangeForNumberFormatField}  
                   submitForm={this.submitForm}
                   {...this.state}
                 />
