@@ -18,24 +18,30 @@ export default class extends Component {
     date: '', // '', Date.now(), now working currenlty
     usdAmount: '0.00',
     locationAmount: '0',
-    currencyCode: 'KRW',
+    currencyCode: '',
     expenseData: [],
     selectCurrency: 'usd',
     exchangeRate: '1000',
   };
 
-  componentDidMount() {
-    this.updateExpenses(this.props);
-    if (this.props.currentUser) {
-      const { homeLocationCurrencyCode, internLocationCurrencyCode } = this.props.currentUser;
+  updateFormCurrencyWithUserData(currentUser) {
+    if (currentUser) {
+      const { homeLocationCurrencyCode, internLocationCurrencyCode } = currentUser;
       Util.getExchangeRate(homeLocationCurrencyCode, internLocationCurrencyCode)
         .then(result => this.setState({ exchangeRate: result.quote.toFixed(2) }))
         .catch(err => console.log('err getting exchangeRate', err));
     }
   }
 
+
+  componentDidMount() {
+    this.updateExpenses(this.props);
+    this.updateFormCurrencyWithUserData(this.props.currentUser);
+  }
+
   componentWillReceiveProps(props) {
     this.updateExpenses(props);
+    this.updateFormCurrencyWithUserData(props.currentUser);
   }
 
   handleDivChange = (event) => {
@@ -133,6 +139,7 @@ export default class extends Component {
                   handleInputChange={this.handleInputChange}
                   handleInputChangeForNumberFormatField={this.handleInputChangeForNumberFormatField}
                   submitForm={this.submitForm}
+                  currentUser={this.props.currentUser}
                   {...this.state}
                 />
               </Paper>

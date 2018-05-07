@@ -27,7 +27,7 @@ const CreateForm = props => (
           value={1}
           onClick={props.handleDivChange}
         />
-        USD
+        {props.currentUser ? props.currentUser.homeLocationCurrencyCode : 'usd'}
       </label>
       <label htmlFor="other">
         <input
@@ -37,8 +37,9 @@ const CreateForm = props => (
           value={2}
           onClick={props.handleDivChange}
         />
-        KRW
+        {props.currentUser ? props.currentUser.internLocationCurrencyCode : 'other'}
       </label>
+      <br />
       <br />
 
       {(props.selectCurrency === 'usd') ? (
