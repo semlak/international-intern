@@ -11,7 +11,6 @@ const style = {
   height: 350,
 };
 
-
 export default class extends Component {
   state = {
     expenseDescription: '',
@@ -22,17 +21,9 @@ export default class extends Component {
     expenseData: [],
     selectCurrency: 'usd',
     exchangeRate: '1000',
+    homeLabel: '',
+    internLabel: '',
   };
-
-  updateFormCurrencyWithUserData(currentUser) {
-    if (currentUser) {
-      const { homeLocationCurrencyCode, internLocationCurrencyCode } = currentUser;
-      Util.getExchangeRate(homeLocationCurrencyCode, internLocationCurrencyCode)
-        .then(result => this.setState({ exchangeRate: result.quote.toFixed(2) }))
-        .catch(err => console.log('err getting exchangeRate', err));
-    }
-  }
-
 
   componentDidMount() {
     this.updateExpenses(this.props);
@@ -44,6 +35,19 @@ export default class extends Component {
     this.updateFormCurrencyWithUserData(props.currentUser);
   }
 
+  updateFormCurrencyWithUserData(currentUser) {
+    if (currentUser) {
+      const { homeLocationCurrencyCode, internLocationCurrencyCode } = currentUser;
+      Util.getExchangeRate(homeLocationCurrencyCode, internLocationCurrencyCode)
+        .then(result => this.setState({
+          exchangeRate: result.quote.toFixed(2),
+          homeLabel: `${homeLocationCurrencyCode} Amount`,
+          internLabel: `${internLocationCurrencyCode} Amount`,
+        }))
+        .catch(err => console.log('err getting exchangeRate', err));
+    }
+  }
+
   handleDivChange = (event) => {
     console.log('ID from Radio Button: ', event.target.id);
     console.log(event.target.name);
@@ -53,7 +57,6 @@ export default class extends Component {
   handleInputChange = event => this.setState({ [event.target.name]: event.target.value })
 
   handleInputChangeForNumberFormatField = values => this.setState({ exchangeRate: values.value })
-
 
   updateExpenses(props) {
     if (props.currentUser) {
@@ -73,7 +76,6 @@ export default class extends Component {
   submitForm = (event) => {
     event.preventDefault();
     // console.log('current state', this.state);
-
 
     if (this.state.expenseDescription &&
       this.state.date &&
@@ -151,7 +153,7 @@ export default class extends Component {
             </Grid>
             <Grid item xs={12}>
               <Paper>
-                <Ledger expenses={this.state.expenseData} />
+                <Ledger expenses={this.state.expenseData} home={this.state.homeLabel} intern={this.state.internLabel} />
               </Paper>
             </Grid>
           </Grid>

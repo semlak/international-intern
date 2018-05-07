@@ -5,7 +5,6 @@ import Button from 'material-ui/Button';
 import PropTypes from 'prop-types';
 
 const CreateForm = props => (
-
   <div>
     <form>
       <TextField
@@ -44,7 +43,7 @@ const CreateForm = props => (
 
       {(props.selectCurrency === 'usd') ? (
         <TextField
-          label="USD Amount"
+          label={props.homeLabel}
           name="usdAmount"
           type="number"
           step="0.01"
@@ -56,9 +55,8 @@ const CreateForm = props => (
           }}
         />
       ) : (
-
         <TextField
-          label="KRW Amount"
+          label={props.internLabel}
           name="locationAmount"
           type="number"
           placeholder="0"
@@ -108,6 +106,8 @@ CreateForm.propTypes = {
   selectCurrency: PropTypes.string.isRequired,
   usdAmount: PropTypes.string.isRequired,
   locationAmount: PropTypes.string.isRequired,
+  homeLabel: PropTypes.string.isRequired,
+  internLabel: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   exchangeRate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   handleInputChange: PropTypes.func.isRequired,
@@ -115,6 +115,5 @@ CreateForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
   handleInputChangeForNumberFormatField: PropTypes.func.isRequired,
 };
-
 
 export default CreateForm;

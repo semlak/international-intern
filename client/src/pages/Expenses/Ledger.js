@@ -9,8 +9,8 @@ const Ledger = props => (
       <TableRow>
         <TableCell>Date</TableCell>
         <TableCell>Description</TableCell>
-        <TableCell>Amount USD</TableCell>
-        <TableCell>Amount KRW</TableCell>
+        <TableCell>{props.home}</TableCell>
+        <TableCell>{props.intern}</TableCell>
       </TableRow>
     </TableHead>
     <TableBody>
