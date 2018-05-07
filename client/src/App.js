@@ -92,7 +92,7 @@ class App extends React.Component {
                 </div>
               : // user is not logged in
                 <div>
-                  <Redirect to={{ pathname: '/'}} />
+                  <Redirect to={{ pathname: '/' }} />
                   <Route exact path="/" render={() => <RegistrationForm {...this.state} />} />
                 </div>
               }

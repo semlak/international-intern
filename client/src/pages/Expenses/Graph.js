@@ -67,7 +67,7 @@ export default class extends Component {
             axisClass: 'ct-axis-title',
             offset: {
               x: 0,
-              y: 55
+              y: 40
             },
             textAnchor: 'middle',
             flipTitle: true
