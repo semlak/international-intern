@@ -6,7 +6,7 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
-
+import PropTypes from 'prop-types';
 
 const styles = theme => ({
   root: {
@@ -64,7 +64,7 @@ class SidebarReqs extends React.Component {
         <ExpansionPanel className={classes.panel} expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
           <ExpansionPanelSummary className={classes.summary}>
             <Avatar className={classes.avatar}>{this.props.number}</Avatar>
-            <Typography className={classes.secondaryHeading} >{this.props.title}</Typography> 
+            <Typography className={classes.secondaryHeading} >{this.props.title}</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>
             <Typography>
@@ -76,5 +76,11 @@ class SidebarReqs extends React.Component {
     );
   }
 }
+
+SidebarReqs.propTypes = {
+  text: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  number: PropTypes.number.isRequired,
+};
 
 export default withStyles(styles)(SidebarReqs);

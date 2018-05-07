@@ -50,14 +50,14 @@ export default class extends Component {
     axiosReference
       .promise
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         const countryCodeData = response.data.countryCodes || {};
         const countryNameSuggestions = Object.keys(countryCodeData)
           .map(suggestion => ({
             value: suggestion,
             label: suggestion,
           }));
-        console.log('countryCodeData', countryCodeData, 'suggestions', countryNameSuggestions);
+        // console.log('countryCodeData', countryCodeData, 'suggestions', countryNameSuggestions);
         this.setState({
           countryNameSuggestions,
           countryCodeData,
@@ -150,7 +150,7 @@ export default class extends Component {
   handleInputChange = event => this.setState({ [event.target.name]: event.target.value });
 
   handleInputChangeForAutoCompleteField = name => (value) => {
-    console.log('name, value', name, value);
+    // console.log('name, value', name, value);
     const dataToSet = {};
     dataToSet[name] = value;
     const countryCodeName = name === 'homeLocationCountry' ? 'homeLocationCountryCode' :
@@ -165,7 +165,7 @@ export default class extends Component {
       const currencyCode = this.state.countryCurrencyCodeData[value] || '';
       if (currencyCode) dataToSet[currencyCodeName] = currencyCode;
     }
-    console.log('new state data to set', dataToSet);
+    // console.log('new state data to set', dataToSet);
     this.setState(dataToSet);
   }
 
