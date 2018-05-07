@@ -11,6 +11,10 @@ const expenseSchema = new Schema({
     type: Number,
     required: true
   },
+  expAmountLocalCurrency: {
+    type: Number,
+    required: true
+  },
   expDate: {
     type: Date,
     default: Date.now

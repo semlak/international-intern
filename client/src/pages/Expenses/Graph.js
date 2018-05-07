@@ -43,7 +43,7 @@ export default class extends Component {
         data: cumulativeExpense
       }],
     }, {
-      height: '250px',
+      height: '350px',
       fullWidth: true,
       chartPadding: {
         top: 40,

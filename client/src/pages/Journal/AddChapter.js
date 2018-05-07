@@ -46,7 +46,6 @@ const AddChapter = (props) => {
             items={props.needs}
           />
         </FormControl>
-
         <br />
 
         <Button variant="raised" onClick={props.handleFormSubmit} color="secondary">

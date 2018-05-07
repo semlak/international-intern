@@ -58,7 +58,11 @@ class App extends React.Component {
 
   // pass to TopNav component
   handleLogin = (currentUser) => {
+    console.log('in App.handleLogin, user is ', currentUser);
     this.setState({ currentUser });
+    if (!currentUser) {
+      window.history.pushState({},"", '/');
+    }
   }
   // pass to Sidebar component
   pageChange = (currentPage) => {
@@ -67,6 +71,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props;
+
     return (
       <Router>
         <React.Fragment>
@@ -92,8 +97,7 @@ class App extends React.Component {
                 </div>
               : // user is not logged in
                 <div>
-                  <Redirect to={{ pathname: '/' }} />
-                  <Route exact path="/" render={() => <RegistrationForm {...this.state} />} />
+                  <Route path="/" render={() => <RegistrationForm onLogin={this.handleLogin} {...this.state} />} />
                 </div>
               }
             </div>

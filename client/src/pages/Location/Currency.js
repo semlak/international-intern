@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Typography from 'material-ui/Typography';
-import API from '../../utils/API';
+import Util from '../../utils/util';
 
 export default class extends Component {
   state = {
@@ -31,45 +31,16 @@ export default class extends Component {
       currentUser.homeLocationCurrencyCode || 'USD',
       currentUser.internLocationCurrencyCode || 'CAD'
     ];
-
-    const API_KEY = process.env.REACT_APP_CURRENCYLAYER_API_KEY;
-
-    // const queryURL = `http://apilayer.net/api/live?access_key=${API_KEY}&source=${this.state.homeCurrency}&currencies=${this.state.locCurrency}&format=1`;
-    if (!API_KEY || !homeCurrency || !locCurrency) {
-      return (console.error('Error with API_KEY, homeCurrency, or locCurrency'));
-    }
-    const queryURL = `http://apilayer.net/api/live?access_key=${API_KEY}&source=${homeCurrency}&currencies=${locCurrency}&format=1`;
-    console.log('currency query:', queryURL);
-
-    return API.getCurrency(queryURL).then((json) => {
-      console.log('currency:', json);
-      // sample data
-      // {
-      //   "success": true,
-      //   "terms": "https://currencylayer.com/terms",
-      //   "privacy": "https://currencylayer.com/privacy",
-      //   "timestamp": 1524873843,
-      //   "source": "USD",
-      //   "quotes": {
-      //     "USDCAD": 1.282104,
-      //   }
-      // }
-      const quoteCode = `${homeCurrency}${locCurrency}`;
-      let quote;
-      if (!json || !json.data || !json.data.quotes) {
-        return (console.error('Error in retrieved currency quote data.'));
-      }
-      const keys_arr = Object.keys(json.data.quotes);
-      for (let i = 0; i < keys_arr.length; i++) {
-        const key = keys_arr[i];
-        if (key === quoteCode) {
-          quote = json.data.quotes[key];
+    return Util.getExchangeRate(homeCurrency, locCurrency)
+      .then((results) => {
+        console.log('results when getting exchange rate', results);
+        if (results || results.quote) {
+          this.setState({ homeCurrency, locCurrency, exchangeRate: results.quote });
+        } else {
+          console.error('Encountered error while trying to receive currency rate');
         }
-      }
-      this.setState({ homeCurrency, locCurrency, exchangeRate: quote });
-    }).catch((error) => {
-      throw error;
-    });
+      })
+      .catch(err => console.error('Encountered error while trying to receive currency rate', err));
   }
 
   render() {
