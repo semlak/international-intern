@@ -29,50 +29,36 @@ export default class extends Component {
     if (this.props.currentUser) {
       const { homeLocationCurrencyCode, internLocationCurrencyCode } = this.props.currentUser;
       Util.getExchangeRate(homeLocationCurrencyCode, internLocationCurrencyCode)
-        .then(result => {
-          console.log("result from getExchangeRate:", result);
-          this.setState({ exchangeRate: result.quote.toFixed(2) });
-        })
-        .catch(err => console.log("err getting exchangeRate", err));
+        .then(result => this.setState({ exchangeRate: result.quote.toFixed(2) }))
+        .catch(err => console.log('err getting exchangeRate', err));
     }
   }
 
   componentWillReceiveProps(props) {
     this.updateExpenses(props);
-    
   }
 
   handleDivChange = (event) => {
-    console.log("ID from Radio Button: ", event.target.id);
+    console.log('ID from Radio Button: ', event.target.id);
     console.log(event.target.name);
-    this.setState({selectCurrency: event.target.id});
+    this.setState({ selectCurrency: event.target.id });
   }
 
-  handleInputChange = event => {
-     console.log('in handleInputChange, event:', event.target.name, event.target.value);
-    this.setState({
-    [event.target.name]: event.target.value,
-  })
-  }
+  handleInputChange = event => this.setState({ [event.target.name]: event.target.value })
 
- 
-  handleInputChangeForNumberFormatField = values => {
-    console.log('values', values);
-    this.setState({ exchangeRate: values.value });
-    return values.floatValue;
-  }
+  handleInputChangeForNumberFormatField = values => this.setState({ exchangeRate: values.value })
 
 
   updateExpenses(props) {
     if (props.currentUser) {
-      // console.log("in componentWillReceiveProps. New props are: " , props);
+      // console.log('in componentWillReceiveProps. New props are: ' , props);
       // this is signaling that user is now logged in. so, use the expenses if provided,
       // otherwise retrieve via api
       if (props.currentUser.expRef && props.currentUser.expRef[0] && props.currentUser.expRef[0].expDesc) {
-        // console.log("using expenses provided in user");
+        // console.log('using expenses provided in user');
         this.setState({ expenseData: props.currentUser.expRef });
       } else {
-        // console.log("using API to retrieve expenses");
+        // console.log('using API to retrieve expenses');
         API.getExpenses().then(response => this.setState({ expenseData: response.data }));
       }
     }
@@ -86,22 +72,27 @@ export default class extends Component {
     if (this.state.expenseDescription &&
       this.state.date &&
       (this.state.usdAmount || this.state.locationAmount)) {
+      console.log('state', this.state);
+      const usdAmount = this.state.selectCurrency === 'usd' ? this.state.usdAmount : (this.state.locationAmount / this.state.exchangeRate).toFixed(2);
+      const locationAmount = this.state.selectCurrency !== 'usd' ? this.state.locationAmount : (this.state.usdAmount * this.state.exchangeRate).toFixed(2);
 
-        (this.state.usdAmount>0) ? 
-          (
-            this.state.locationAmount=this.state.usdAmount*this.state.exchangeRate
-            // console.log("AMOUNT USD given: ", this.state.locationAmount)
-          ):(
-            this.state.usdAmount=this.state.locationAmount/this.state.exchangeRate
-            // console.log("AMOUNT KRW given: ", this.state.usdAmount)
-          );
-        
+      // (this.state.usdAmount > 0) ? (
+      //     this.setState({ locationAmount: (this.state.usdAmount * this.state.exchangeRate).toFixed(2) })
+      //     // this.state.locationAmount=this.state.usdAmount*this.state.exchangeRate
+      //     // console.log('AMOUNT USD given: ', this.state.locationAmount)
+      //   ) : (
+      //     this.setState({ usdAmount: (this.state.locationAmount / this.state.exchangeRate).toFixed(2) })
+      //     // this.state.usdAmount=this.state.locationAmount/this.state.exchangeRate
+      //     // console.log('AMOUNT KRW given: ', this.state.usdAmount)
+      //   );
+
+      this.setState({ usdAmount, locationAmount });
 
       const data = {
         expDesc: this.state.expenseDescription,
-        expAmount: this.state.usdAmount,
+        expAmount: usdAmount,
         expDate: this.state.date,
-        expAmountLocalCurrency: this.state.locationAmount,
+        expAmountLocalCurrency: locationAmount,
       };
 
       API.newExpense(data)
@@ -130,6 +121,7 @@ export default class extends Component {
   }
 
   render() {
+    console.log('rendering Expenses, state is', this.state);
     return (
       this.props.currentUser && this.props.currentUser.username ?
         <div>
@@ -139,7 +131,7 @@ export default class extends Component {
                 <CreateForm
                   handleDivChange={this.handleDivChange}
                   handleInputChange={this.handleInputChange}
-                  handleInputChangeForNumberFormatField={this.handleInputChangeForNumberFormatField}  
+                  handleInputChangeForNumberFormatField={this.handleInputChangeForNumberFormatField}
                   submitForm={this.submitForm}
                   {...this.state}
                 />
