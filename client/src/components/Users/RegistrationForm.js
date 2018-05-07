@@ -37,6 +37,7 @@ export default class extends Component {
     countryCodeData: {},
     countryCurrencyCodeData: {},
     countryNameSuggestions: [],
+    axiosCancelToken: null,
   }
 
   componentDidMount() {
@@ -44,7 +45,10 @@ export default class extends Component {
   }
 
   loadCountryData() {
-    API.getAllCountryData()
+    const axiosReference = API.getAllCountryData();
+    this.setState({ axiosCancelToken: axiosReference });
+    axiosReference
+      .promise
       .then((response) => {
         console.log(response);
         const countryCodeData = response.data.countryCodes || {};
@@ -59,7 +63,22 @@ export default class extends Component {
           countryCodeData,
           countryCurrencyCodeData: response.data.countryCurrencyCodes
         });
+      })
+      .catch((err) => {
+        // Error on request for country data. This could just be due to the request being canceled.
+        // print is it is due to something other than the request being canceled
+        if (err.isCanceled) {
+          console.log('Axios request in RegistrationForm for getting country data canceled. This is normal');
+        } else {
+          console.error('Error on request for country data.', err);
+        }
       });
+  }
+
+  componentWillUnmount() {
+    if (this.state.axiosCancelToken) {
+      this.state.axiosCancelToken.cancel();
+    }
   }
 
   sendRegistrationData = () => {
