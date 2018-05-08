@@ -143,28 +143,18 @@ export default class extends Component {
 
 	deleteChapter = (event) => {
 	  console.log("deleting chapter");
+	  let deleteButton= document.getElementById("deleteButton");
+	  let chapterId = deleteButton.accessKey;
 
-	  let array = this.state.chapterData;
-	  let index = array.indexOf(event.target.value);
-	  array.splice(array, 1);
-	  this.setState({chapterData:array});
-	  
 	  //This will delete from database- need to figure out how to get i
-	  API.deleteChapter(this.state.chapterData[i]._id).then((response) => {
+	  API.deleteChapter(chapterId).then((response) => {
 		console.log("Response from deleting chapter: ", response);
 		API.getChapters().then((response) => {
 	  	  this.setState({
 	  	    chapterData:response.data
 	  	  });
 		});
-	//  	this.setState({
-	//  	  chapterTitle:"",
-	//  	  description: "",
-	//  	  date: "",
-	//  	  requireNum:"",
-	// });
 	  })
-	// )
 	}
 
 
