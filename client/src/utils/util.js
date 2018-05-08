@@ -132,7 +132,7 @@ export default {
       throw new Error('Error with API_KEY, fromCurrency, or toCurrency');
     }
     const queryURL = `http://apilayer.net/api/live?access_key=${API_KEY}&source=${fromCurrency}&currencies=${toCurrency}&format=1`;
-    console.log('currency query:', queryURL);
+    // console.log('currency query:', queryURL);
 
     return axios.get(queryURL).then((json) => {
       console.log('currency:', json);
