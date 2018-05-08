@@ -143,23 +143,20 @@ export default class extends Component {
 
 	deleteChapter = (event) => {
 	  console.log("deleting chapter");
-	  // console.log(this.state.chapterData.index);
-		API.deleteChapter(this._id).then((response) => {
-	  	  console.log("Response from deleting chapter: ", response);
-	  	  API.getChapters().then((response) => {
-		  	this.setState({
-		  	  chapterData:response.data
-		  	});
+	  let deleteButton= document.getElementById("deleteButton");
+	  let chapterId = deleteButton.accessKey;
+
+	  //This will delete from database- need to figure out how to get i
+	  API.deleteChapter(chapterId).then((response) => {
+		console.log("Response from deleting chapter: ", response);
+		API.getChapters().then((response) => {
+	  	  this.setState({
+	  	    chapterData:response.data
 	  	  });
-	 //  	this.setState({
-	 //  	  chapterTitle:"",
-	 //  	  description: "",
-	 //  	  date: "",
-	 //  	  requireNum:"",
-	 // });
-	  	})
-	  // )
+		});
+	  })
 	}
+
 
 	render() {
 		return (
@@ -170,7 +167,7 @@ export default class extends Component {
 		    	  handleFormSubmit={this.handleFormSubmit} 
 		    	  {...this.state}/>
 		    	<ChapterCard chapters={this.state.chapterData} 
-		    	deleteChapter={this.deleteChapter.bind(this)}/>
+		    	deleteChapter={this.deleteChapter}/>
 		  	</div>
 		);
 	}

@@ -14,7 +14,7 @@ const ChapterContent = props => (
       <p>{props.chapTitle}</p>
       <p>{props.chapNote}</p>
       <p>{props.reqNum}</p>
-      <Button variant="raised" onClick={props.deleteChapter} color="secondary" id="deleteButton">
+      <Button variant="raised" accessKey={props._id} onClick={props.deleteChapter.bind(this)} color="secondary"  id="deleteButton">
         Delete
       </Button>
     </CardContent>
