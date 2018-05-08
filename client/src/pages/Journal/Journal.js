@@ -3,6 +3,9 @@ import firebase from 'firebase';
 import AddChapter from './AddChapter';
 import ChapterCard from './ChapterCard';
 import API from '../../utils/API';
+import AddItem from '../../components/AddItem';
+import Grid from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
 
 var config = {
 	apiKey: process.env.REACT_APP_FIREBASE_apikey,
@@ -161,13 +164,26 @@ export default class extends Component {
 	render() {
 		return (
 			<div>
-		    	<AddChapter 
-		    	  needs={this.state.needsData}
-		    	  handleInputChange={this.handleInputChange} 
-		    	  handleFormSubmit={this.handleFormSubmit} 
-		    	  {...this.state}/>
-		    	<ChapterCard chapters={this.state.chapterData} 
-		    	deleteChapter={this.deleteChapter}/>
+        <Grid container spacing={24}>
+          <Grid item xs={12}>
+           
+            <AddChapter 
+              needs={this.state.needsData}
+              handleInputChange={this.handleInputChange} 
+              handleFormSubmit={this.handleFormSubmit} 
+              {...this.state}
+            />
+		     </Grid>
+          <Grid item xs={12}>
+            <ChapterCard 
+              chapters={this.state.chapterData} 
+              deleteChapter={this.deleteChapter}/>
+          </Grid>
+
+        </Grid>
+
+
+
 		  	</div>
 		);
 	}

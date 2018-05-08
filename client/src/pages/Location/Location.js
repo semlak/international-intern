@@ -7,7 +7,6 @@ import Timezones from './Timezones';
 import News from './News';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
-// import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({

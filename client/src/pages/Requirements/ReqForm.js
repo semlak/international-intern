@@ -4,12 +4,17 @@ import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
 import Card, { CardActions, CardHeader, CardContent } from 'material-ui/Card';
 import AddIcon from '@material-ui/icons/Add';
+import AddItem from '../../components/AddItem';
 
 const ReqForm = props => (
-  <Card>
-    <CardHeader
-      avatar={<Avatar>{props.requirementNumber}</Avatar>}
-      title={
+  <div>
+    <AddItem
+      title="Add Requirement"
+      onClick={props.submitForm}
+    >
+      <CardHeader
+        avatar={<Avatar>{props.requirementNumber}</Avatar>}
+        title={
         <div>
           <TextField
             label="Requirement"
@@ -24,8 +29,8 @@ const ReqForm = props => (
           />
         </div>
       }
-    />
-    <CardContent>
+      />
+
       <TextField
         label="Description"
         multiline
@@ -37,13 +42,11 @@ const ReqForm = props => (
         value={props.requirementDesc}
         onChange={props.handleInputChange}
       />
-    </CardContent>
-    <CardActions>
-      <Button variant="fab" mini style={{ marginLeft: 'auto' }} color="primary" aria-label="add" onClick={props.submitForm} disabled={props.formDisabled}>
+      {/* <Button variant="fab" mini style={{ marginLeft: 'auto' }} color="primary" aria-label="add" onClick={props.submitForm} disabled={props.formDisabled}>
         <AddIcon />
-      </Button>
-    </CardActions>
-  </Card>
+      </Button> */}
+    </AddItem>
+  </div>
 );
 
 export default ReqForm;

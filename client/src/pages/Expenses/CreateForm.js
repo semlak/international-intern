@@ -3,9 +3,15 @@ import TextField from 'material-ui/TextField';
 import NumberFormat from 'react-number-format';
 import Button from 'material-ui/Button';
 import PropTypes from 'prop-types';
+import AddItem from '../../components/AddItem';
 
 const CreateForm = props => (
   <div>
+    <AddItem
+      title="Add Expense"
+      onClick={props.submitForm}
+    >
+
     <form>
       <TextField
         label="Description"
@@ -94,10 +100,11 @@ const CreateForm = props => (
 
       <br />
       <br />
-      <Button variant="raised" onClick={props.submitForm} color="primary">
+      {/* <Button variant="raised" onClick={props.submitForm} color="primary">
         Submit
-      </Button>
+      </Button> */}
     </form>
+    </ AddItem >
   </div>
 );
 
