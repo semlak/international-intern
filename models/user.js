@@ -129,7 +129,7 @@ const User = mongoose.model('User', UserSchema);
 
 passport.deserializeUser((user, done) => {
   User.findById(user._id)
-    .populate('expRef')
+    .populate({ path: 'expRef', options: { sort: { expDate: -1 } } })
     .populate('needsRef')
     .populate('chapterRef')
     .exec((err, data) => {

@@ -1,22 +1,85 @@
 import React from 'react';
-import Table, { TableBody, TableHead, TableCell, TableRow } from 'material-ui/Table';
+import Table, { TableBody, TableCell, TableRow, TablePagination, } from 'material-ui/Table';
 // import Card from 'material-ui/Card';
+import { withStyles } from 'material-ui/styles';
 import ExpenseLedgerItem from './ExpenseLedgerItem';
+import LedgerHead from './LedgerHead';
 
-const Ledger = props => (
-  <Table>
-    <TableHead>
-      <TableRow>
-        <TableCell>Date</TableCell>
-        <TableCell>Description</TableCell>
-        <TableCell>{props.home}</TableCell>
-        <TableCell>{props.intern}</TableCell>
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      {props.expenses.map(expense => <ExpenseLedgerItem key={expense._id} {...expense} />)}
-    </TableBody>
-  </Table>
-);
+const styles = theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+  row: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.background.default,
+    },
+  },
+});
 
-export default Ledger;
+class Ledger extends React.Component {
+  state = {
+    page: 0,
+    rowsPerPage: 10,
+  };
+
+  handleChangePage = (event, page) => {
+    this.setState({ page });
+  };
+
+  handleChangeRowsPerPage = (event) => {
+    this.setState({ rowsPerPage: event.target.value });
+  };
+
+
+  render() {
+    const { classes } = this.props;
+    const { rowsPerPage, page } = this.state;
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, this.props.expenses.length - (page * rowsPerPage));
+
+    return (
+      <div className={classes.root}>
+        <div className={classes.tableWrapper}>
+          <Table className={classes.table}>
+            <LedgerHead
+              rowCount={this.props.expenses.length}
+              home={this.props.home}
+              intern={this.props.intern}
+            />
+            <TableBody>
+              {this.props.expenses.slice(page * rowsPerPage, (page * rowsPerPage) + rowsPerPage)
+                  .map((expense, i) => <ExpenseLedgerItem key={expense._id} {...expense} id={i} classes={classes} />)
+              }
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 49 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+        <TablePagination
+          component="div"
+          count={this.props.expenses.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          backIconButtonProps={{
+            'aria-label': 'Previous Page',
+          }}
+          nextIconButtonProps={{
+            'aria-label': 'Next Page',
+          }}
+          onChangePage={this.handleChangePage}
+          onChangeRowsPerPage={this.handleChangeRowsPerPage}
+        />
+      </div>
+    );
+  }
+}
+
+export default withStyles(styles)(Ledger);
+

@@ -60,7 +60,7 @@ const userController = {
     passport.authenticate('local')(req, res, () => {
     // res.redirect('/');
       User.findById(req.user._id)
-        .populate('expRef')
+        .populate({ path: 'expRef', options: { sort: { expDate: -1 } } })
         .populate('needsRef')
         .populate('chapterRef')
         .then(result => res.json({ user: result }));

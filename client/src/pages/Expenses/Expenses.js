@@ -44,13 +44,11 @@ export default class extends Component {
           homeLabel: `${homeLocationCurrencyCode} Amount`,
           internLabel: `${internLocationCurrencyCode} Amount`,
         }))
-        .catch(err => console.log('err getting exchangeRate', err));
+        .catch(err => console.error('err getting exchangeRate', err));
     }
   }
 
   handleDivChange = (event) => {
-    console.log('ID from Radio Button: ', event.target.id);
-    console.log(event.target.name);
     this.setState({ selectCurrency: event.target.id });
   }
 
@@ -80,7 +78,6 @@ export default class extends Component {
     if (this.state.expenseDescription &&
       this.state.date &&
       (this.state.usdAmount || this.state.locationAmount)) {
-      console.log('state', this.state);
       const usdAmount = this.state.selectCurrency === 'usd' ? this.state.usdAmount : (this.state.locationAmount / this.state.exchangeRate).toFixed(2);
       const locationAmount = this.state.selectCurrency !== 'usd' ? this.state.locationAmount : (this.state.usdAmount * this.state.exchangeRate).toFixed(2);
 
@@ -121,45 +118,44 @@ export default class extends Component {
           });
         })
         .catch((err) => {
-          console.log('Error while submitting expense: ', err);
+          console.error('Error while submitting expense: ', err);
         });
     } else {
-      console.log('Unable to submit ');
+      console.error('Unable to submit ');
     }
   }
 
   render() {
-    console.log('rendering Expenses, state is', this.state);
     return (
       this.props.currentUser && this.props.currentUser.username ?
-        <div>
-          <Grid container spacing={24}>
-            <Grid item xs={12} sm={4}>
-              <Paper style={style}>
-                <CreateForm
-                  handleDivChange={this.handleDivChange}
-                  handleInputChange={this.handleInputChange}
-                  handleInputChangeForNumberFormatField={this.handleInputChangeForNumberFormatField}
-                  submitForm={this.submitForm}
-                  currentUser={this.props.currentUser}
-                  {...this.state}
-                />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <Paper style={style}>
-                <Graph expenses={this.state.expenseData} />
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper>
-                <Ledger expenses={this.state.expenseData} home={this.state.homeLabel} intern={this.state.internLabel} />
-              </Paper>
-            </Grid>
+      <div>
+        <Grid container spacing={24}>
+          <Grid item xs={12} sm={4}>
+            <Paper style={style}>
+              <CreateForm
+                handleDivChange={this.handleDivChange}
+                handleInputChange={this.handleInputChange}
+                handleInputChangeForNumberFormatField={this.handleInputChangeForNumberFormatField}
+                submitForm={this.submitForm}
+                currentUser={this.props.currentUser}
+                {...this.state}
+              />
+            </Paper>
           </Grid>
-        </div>
-        :
-        <div><p>Please Loading data...</p></div>
+          <Grid item xs={12} sm={8}>
+            <Paper style={style}>
+              <Graph expenses={this.state.expenseData} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper>
+              <Ledger expenses={this.state.expenseData} home={this.state.homeLabel} intern={this.state.internLabel} />
+            </Paper>
+          </Grid>
+        </Grid>
+      </div>
+      :
+      <div><p>Please Loading data...</p></div>
     );
   }
 }

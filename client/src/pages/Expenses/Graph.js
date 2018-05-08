@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import Chartist from 'chartist';
-import API from '../../utils/API';
 import chartistpluginaxistitle from 'chartist-plugin-axistitle';
 import Typography from 'material-ui/Typography';
+import Moment from 'moment';
+import API from '../../utils/API';
+
+const date0 = new Moment('2018-01-02');
+const date1 = new Moment('2018-01-25');
+const date2 = new Moment('2018-03-01');
+console.log('week numbers', [date0, date1, date2].map(date => ({ date, week: (date.week())}) ));
+
 
 export default class extends Component {
   state = {}
@@ -18,26 +25,155 @@ export default class extends Component {
   }
 
   componentWillReceiveProps() {
-    this.displayGraph();
-    // this.forceUpdate();
+    // this.displayGraph displays our old plot.
+    // this.displayGraph();
+    this.displayWeeklyBarChart()
   }
 
-  displayGraph = function () {
-    const individualExpense = this.props.expenses.map(expense => expense.expAmount);
+  transformExpenseData(expenses, interval) {
+    if (expenses.length < 1) return expenses;
 
+    const sortedExpenses = expenses.slice(0).sort((a,b) => a.expDate > b.expDate ? 1 : -1 );
+    console.log('sortedExpenses');
+    // sortedExpenses.forEach((expense,i) => console.log(i, Moment(expense.expDate).format('YYYY-MM-DD')));
+    const moment = new Moment();
+    //console.log('startDate, endDate, from db', sortedExpenses[0].expDate, sortedExpenses[sortedExpenses.length - 1].expDate);
+    const startDate = new Moment(sortedExpenses[0].expDate);
+    const endDate = new Moment(sortedExpenses[sortedExpenses.length - 1].expDate);
+    console.log('startDate, endDate', startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD'));
+    let numberOfIntervals, startInterval, endInterval;
+    let intervals = [];
+    let labels = [];
+    let weeklyExpenseAmounts = [];
+    let maxUSDAmount = 0;
+    startInterval = (startDate.week());
+    endInterval = (endDate.week());
+    numberOfIntervals = endDate.diff(startDate, 'weeks') + 1;
+    console.log('number of intervals', numberOfIntervals);
+
+    // assumes week starts on Sunday and ends Saturday 
+    labels = Array(...{ length: numberOfIntervals + 1 }).map((val, i) => {
+      const weekNum = i + 1;
+      const start = startDate.clone().add(i*7, 'days');
+      const end = startDate.clone().add((i + 1)*7-1 , 'days');
+      // console.log('startDate', i, startDate.format('YYYY-MM-DD'));
+      return {
+        weekNum: (i + 1),
+        start,
+        end
+      }
+    });
+    // add up expenses for each week
+    //
+    weeklyExpenseAmounts = Array(...{ length: numberOfIntervals + 1 }).map((val, i) => ({ usdAmount: 0, localAmount: 0 }));
+    // sortedExpense.reduce(expense, acc 
+    sortedExpenses.forEach(expense => {
+      const date = new Moment(expense.expDate);
+      // const weekNum = Moment(expense.expDate).diff(startDate, 'weeks')
+      const weekNum = date.diff(startDate, 'weeks') + 1;
+      weeklyExpenseAmounts[weekNum - 1].usdAmount += expense.expAmount;
+      weeklyExpenseAmounts[weekNum - 1].localAmount += expense.expAmountLocalCurrency;
+      if (weeklyExpenseAmounts[weekNum - 1].usdAmount > maxUSDAmount) maxUSDAmount = weeklyExpenseAmounts[weekNum - 1].usdAmount
+
+      // console.log('date', date.format('YYYY-MM-DD'), 'startDate', startDate.format('YYYY-MM-DD'), 'weekNum', weekNum);
+    });
+    // maxUSDAmount = weeklyExpenseAmounts.reduce((week, max) => week.usdAmount > max ? week.usdAmount : max, 0);
+    console.log('weeklyExpenseAmounts', weeklyExpenseAmounts);
+    // labels[0] = {
+    // weekNum: 2,
+    // start: Moment().add(1, 'weeks').format(),
+    // end: Moment().add(2, 'weeks').format(),
+    // blah: startDate.add({ 'weeks': 2, 'days': 5 }).format(),
+    // };
+
+    console.log('intervals:', startInterval, endInterval, numberOfIntervals, labels);
+
+
+    // console.log('sortedExpenses', sortedExpenses);
+    // const cumulativeExpense = expenses.map(expense => ();
+    // const cumulativeExpense = [];
+    // for (let i = 0; i < expenses.length; i++) {
+    // cumulativeExpense[i] = expenses[i] + (i > 0 ? cumulativeExpense[i - 1] : 0);
+    // }
+
+    // const labels = Array(...{ length: (expenses.length) + 1 }).map((val, i) => i + 1);
+    const data = {
+      // labels: labels.map(week => week.start.format('MM-DD') + ' - ' + week.end.format('MM-DD')),
+      labels: labels.map(week => week.start.format('MM-DD')),
+      series: [weeklyExpenseAmounts.map(week => week.usdAmount)],
+      maxUSDAmount,
+    }
+    return data;
+  }
+
+  displayWeeklyBarChart() {
+    const individualExpenses = this.props.expenses.slice(0,30).map(expense => expense.expAmount);
+
+    const weeklyData = this.transformExpenseData(this.props.expenses, 'week');
+    //const weeklyData = [];
+    const weeklyOptions = {
+      high: weeklyData.maxUSDAmount * 1.1,
+      low: 0,
+      axisX: {
+        labelInterpolationFnc: (value, index) => {
+          return index % 2 === 0 ? value : null;
+        }
+      },
+      height: '350px',
+      fullWidth: true,
+      chartPadding: {
+        top: 40,
+        right: 40,
+        bottom: 30,
+        left: 50
+      },
+      plugins: [
+        Chartist.plugins.ctAxisTitle({
+          axisX: {
+            axisTitle: 'Weekly Total Expenses',
+            axisClass: 'ct-axis-title',
+            offset: {
+              x: 0,
+              y: 30
+            },
+            textAnchor: 'middle'
+          },
+          axisY: {
+            axisTitle: 'Expense USD',
+            axisClass: 'ct-axis-title',
+            offset: {
+              x: 0,
+              y: 40
+            },
+            textAnchor: 'middle',
+            flipTitle: true
+          }
+        })
+      ],
+
+    };
+
+    const barChart = new Chartist.Bar('.ct-chart', { labels: weeklyData.labels, series: weeklyData.series }, weeklyOptions);
+    return barChart;
+  }
+
+  displayGraph = () => {
+    const individualExpenses = this.props.expenses.map(expense => expense.expAmount);
     const cumulativeExpense = [];
-    for (let i = 0; i < individualExpense.length; i++) {
-      cumulativeExpense[i] = individualExpense[i] + (i > 0 ? cumulativeExpense[i - 1] : 0);
+    for (let i = 0; i < individualExpenses.length; i++) {
+      cumulativeExpense[i] = individualExpenses[i] + (i > 0 ? cumulativeExpense[i - 1] : 0);
     }
 
-    const labels = Array(...{ length: (individualExpense.length) + 1 }).map((val, i) => i + 1);
+    const labels = Array(...{ length: (individualExpenses.length) + 1 }).map((val, i) => i + 1);
+    // console.log('weekly data', weeklyData);
 
+    // console.log(data, weeklyData);
     const chart = new Chartist.Line('.ct-chart', {
       labels,
       // Naming the series with the series object array notation
       series: [{
         name: 'series-1',
-        data: individualExpense
+        data: individualExpenses
       }, {
         name: 'series-2',
         data: cumulativeExpense
@@ -90,9 +226,9 @@ export default class extends Component {
 
   render() {
     return (
-      <Typography>
-        <div className="ct-chart" />
-      </Typography>
+      <div>
+      <div className="ct-chart" />
+      </div>
     );
   }
 }
