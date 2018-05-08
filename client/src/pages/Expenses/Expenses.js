@@ -6,12 +6,20 @@ import Ledger from './Ledger';
 import Graph from './Graph';
 import API from '../../utils/API';
 import Util from '../../utils/util';
+import { withStyles } from 'material-ui/styles';
+
+const styles = theme => ({
+  paper: theme.mixins.gutters({
+    paddingTop: 16,
+    paddingBottom: 16,
+  }),
+});
 
 const style = {
   height: 350,
 };
 
-export default class extends Component {
+class Expenses extends Component {
   state = {
     expenseDescription: '',
     date: '', // '', Date.now(), now working currenlty
@@ -130,7 +138,7 @@ export default class extends Component {
       this.props.currentUser && this.props.currentUser.username ?
       <div>
         <Grid container spacing={24}>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={6}>
             <Paper style={style}>
               <CreateForm
                 handleDivChange={this.handleDivChange}
@@ -142,7 +150,7 @@ export default class extends Component {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12} sm={6}>
             <Paper style={style}>
               <Graph expenses={this.state.expenseData} />
             </Paper>
@@ -159,3 +167,5 @@ export default class extends Component {
     );
   }
 }
+
+export default withStyles(styles)(Expenses);

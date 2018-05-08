@@ -4,6 +4,7 @@ import Typography from 'material-ui/Typography';
 import ReqForm from './ReqForm';
 import ReqList from './ReqList';
 import API from '../../utils/API';
+import AddItem from '../../components/AddItem';
 
 export default class extends Component {
   state = {
@@ -77,8 +78,9 @@ export default class extends Component {
     return (
       <div>
         <Grid container spacing={24}>
+
           <Grid item xs={12} sm={6}>
-            <Typography variant="title" gutterBottom>Add Requirement</Typography>
+          
             <ReqForm
               handleInputChange={this.handleInputChange}
               submitForm={this.submitForm}
