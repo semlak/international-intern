@@ -149,20 +149,21 @@ export default class extends Component {
 	  array.splice(array, 1);
 	  this.setState({chapterData:array});
 	  
-	//   API.deleteChapter(this.state.chapterData[i]._id).then((response) => {
-	// 	console.log("Response from deleting chapter: ", response);
-		// API.getChapters().then((response) => {
-	 //  	  this.setState({
-	 //  	    chapterData:response.data
-	 //  	  });
-		// });
+	  //This will delete from database- need to figure out how to get i
+	  API.deleteChapter(this.state.chapterData[i]._id).then((response) => {
+		console.log("Response from deleting chapter: ", response);
+		API.getChapters().then((response) => {
+	  	  this.setState({
+	  	    chapterData:response.data
+	  	  });
+		});
 	//  	this.setState({
 	//  	  chapterTitle:"",
 	//  	  description: "",
 	//  	  date: "",
 	//  	  requireNum:"",
 	// });
-		// })
+	  })
 	// )
 	}
 
