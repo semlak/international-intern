@@ -1,5 +1,4 @@
 import React from 'react';
-// import API from '../../utils/API';
 import Map from './Map';
 import Weather from './Weather';
 import Currency from './Currency';
