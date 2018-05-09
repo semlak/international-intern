@@ -2,7 +2,7 @@
 ## An Internship tracking tool
 
 ## Table of Contents
-* [Live Site] (#view-live-site)
+* [View Live Site] (#view-live-site)
 * [About this project] (#about-this-project)
 * [Getting started] (
 * Structure of the project
