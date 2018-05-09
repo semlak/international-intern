@@ -4,9 +4,7 @@
 ## Table of Contents
 * [View Live Site](#view-live-site)
 * [About this project](#about-this-project)
-* [Getting started](
-* Structure of the project
-* Technologies used
+
 
 ## <a name="view-live-site"></a> View Live Site
 
@@ -61,6 +59,9 @@
         * OpenWeather
 
 ## <a name="start-locally"></a> Start Locally
+This section will walk you through the steps to set up this application to run locally on your computer. 
+
+If you don't want to set up this project locally and are looking for the deployed application, go to: <DEPLOYED SITE LINK HERE>. 
 1. Clone the repository
 Start by cloning this project to a local directory on your computer. Run the following commands
 ```
@@ -70,7 +71,7 @@ git clone https://github.com/jstudenski/project-three
 After you clone the reposity, navigate to the root directory (project-three). The project directory structure is set up as follows: 
 
 * Server.js: This file:
-    * Defines and requiers the dependencies, including express, body-parser, morgan logger, mongoose, passport
+    * Defines and requiers the dependencies, including axios, express, body-parser, morgan logger, mongoose, passport
     * Sets up the Express server
     * Sets up the Express server to handle data parsing use body-parser
     * Sets up the logger
@@ -99,37 +100,29 @@ After you clone the reposity, navigate to the root directory (project-three). Th
             * API.js: Contains API calls the database for each page, API calls for images and NYTimes search
             * util.js: Contains API calls for OpenWeather API
     
-
-
 3. Install front and backend dependencies. Whle in this directory, run the following command:
 ```
 yarn installDeps
 ```
+Version information for each package in available in package.json file in the root director (project-three).
 
+4.  Set up MongoDB
 
-
-
-
-
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
-
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
-
-## Starting the app locally
-Start by installing front and backend dependencies. While in this directory, run the following commands:
-```
-yarn install
-cd client
-yarn install
-cd ..
-```
-
-After both installations complete, run the following command in your terminal:
-
+5. Set up APIs
+* To use the APIs you will need to get an individual key for each. Links to API sites are below:
+    * NYT:
+    * OpenWeather:
+    * CurrencyLayer:
+    * GoogleMaps:
+    * Firebase: 
+* Create a .env file to store API key and sensitive Firebase information
+        
+6. Start the app
+    * After performing all the setup steps in the **Start Locally** section, navigate to the root directory (project-three) and run the below code:
 ```
 yarn start
 ```
+Your browser should automatically open and run on http://localhost:3000.
 
-That's it, your app should be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
 
 
