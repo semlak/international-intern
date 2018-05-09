@@ -10,11 +10,11 @@ const ChapterContent = props => (
       src="image"
     />
     <CardContent>
-      <p>{props.chapDate}</p>
+      <p>{props.chapDate.slice(0,10)}</p>
       <p>{props.chapTitle}</p>
       <p>{props.chapNote}</p>
-      <p>{props.reqNum}</p>
-      <Button variant="raised" accessKey={props._id} onClick={props.deleteChapter.bind(this)} color="secondary"  id="deleteButton">
+      <p>Requirement: {props.reqNum}</p>
+      <Button variant="raised" accessKey={props._id} onClick={props.deleteChapter} color="secondary"  id="deleteButton">
         Delete
       </Button>
     </CardContent>
