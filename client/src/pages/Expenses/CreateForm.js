@@ -4,6 +4,9 @@ import NumberFormat from 'react-number-format';
 import Button from 'material-ui/Button';
 import PropTypes from 'prop-types';
 import AddItem from '../../components/AddItem';
+import Radio, { RadioGroup } from 'material-ui/Radio';
+import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';
+import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 
 const CreateForm = props => (
   <div>
@@ -23,7 +26,21 @@ const CreateForm = props => (
           shrink: true,
         }}
       />
-      <p>Enter Expense</p>
+
+      {/* <p>Enter Expense</p> */}
+
+      {/* <RadioGroup
+        // aria-label="gender"
+        name="gender1"
+        // className={classes.group}
+        value={"usd"}
+        onClick={props.handleDivChange}
+      >
+        <FormControlLabel value={"usd"} control={<Radio />} label="USD" />
+        <FormControlLabel value={"other"} control={<Radio />} label="OTHER" />
+      </RadioGroup> */}
+      
+<p>Enter Expense</p>
       <label htmlFor="usd">
         <input
           type="radio"
@@ -44,6 +61,7 @@ const CreateForm = props => (
         />
         {props.currentUser ? props.currentUser.internLocationCurrencyCode : 'other'}
       </label>
+      
       <br />
       <br />
 
@@ -73,6 +91,7 @@ const CreateForm = props => (
           }}
         />
       )}
+      <br />
       <TextField
         label="Date"
         type="date"
@@ -84,6 +103,7 @@ const CreateForm = props => (
           shrink: true,
         }}
       />
+      <br />
       {/* <input name="date" type="date" value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} /> */}
       <NumberFormat
         label="Exchange Rate"
