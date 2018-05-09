@@ -37,7 +37,6 @@ export default class extends Component {
     console.log('sortedExpenses');
     // sortedExpenses.forEach((expense,i) => console.log(i, Moment(expense.expDate).format('YYYY-MM-DD')));
     const moment = new Moment();
-    //console.log('startDate, endDate, from db', sortedExpenses[0].expDate, sortedExpenses[sortedExpenses.length - 1].expDate);
     const startDate = new Moment(sortedExpenses[0].expDate);
     const endDate = new Moment(sortedExpenses[sortedExpenses.length - 1].expDate);
     console.log('startDate, endDate', startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD'));
@@ -63,10 +62,7 @@ export default class extends Component {
         end
       }
     });
-    // add up expenses for each week
-    //
     weeklyExpenseAmounts = Array(...{ length: numberOfIntervals + 1 }).map((val, i) => ({ usdAmount: 0, localAmount: 0 }));
-    // sortedExpense.reduce(expense, acc 
     sortedExpenses.forEach(expense => {
       const date = new Moment(expense.expDate);
       // const weekNum = Moment(expense.expDate).diff(startDate, 'weeks')
@@ -75,31 +71,9 @@ export default class extends Component {
       weeklyExpenseAmounts[weekNum - 1].localAmount += expense.expAmountLocalCurrency;
       if (weeklyExpenseAmounts[weekNum - 1].usdAmount > maxUSDAmount) maxUSDAmount = weeklyExpenseAmounts[weekNum - 1].usdAmount
 
-      // console.log('date', date.format('YYYY-MM-DD'), 'startDate', startDate.format('YYYY-MM-DD'), 'weekNum', weekNum);
     });
-    // maxUSDAmount = weeklyExpenseAmounts.reduce((week, max) => week.usdAmount > max ? week.usdAmount : max, 0);
-    console.log('weeklyExpenseAmounts', weeklyExpenseAmounts);
-    // labels[0] = {
-    // weekNum: 2,
-    // start: Moment().add(1, 'weeks').format(),
-    // end: Moment().add(2, 'weeks').format(),
-    // blah: startDate.add({ 'weeks': 2, 'days': 5 }).format(),
-    // };
-
-    console.log('intervals:', startInterval, endInterval, numberOfIntervals, labels);
-
-
-    // console.log('sortedExpenses', sortedExpenses);
-    // const cumulativeExpense = expenses.map(expense => ();
-    // const cumulativeExpense = [];
-    // for (let i = 0; i < expenses.length; i++) {
-    // cumulativeExpense[i] = expenses[i] + (i > 0 ? cumulativeExpense[i - 1] : 0);
-    // }
-
-    // const labels = Array(...{ length: (expenses.length) + 1 }).map((val, i) => i + 1);
     const data = {
-      // labels: labels.map(week => week.start.format('MM-DD') + ' - ' + week.end.format('MM-DD')),
-      labels: labels.map(week => week.start.format('MM-DD')),
+      labels: labels.map(week => week.start.format('MMM-DD')),
       series: [weeklyExpenseAmounts.map(week => week.usdAmount)],
       maxUSDAmount,
     }
@@ -107,7 +81,7 @@ export default class extends Component {
   }
 
   displayWeeklyBarChart() {
-    const individualExpenses = this.props.expenses.slice(0,30).map(expense => expense.expAmount);
+    const individualExpenses = this.props.expenses.slice(0).map(expense => expense.expAmount);
 
     const weeklyData = this.transformExpenseData(this.props.expenses, 'week');
     //const weeklyData = [];
@@ -153,7 +127,15 @@ export default class extends Component {
 
     };
 
-    const barChart = new Chartist.Bar('.ct-chart', { labels: weeklyData.labels, series: weeklyData.series }, weeklyOptions);
+    const barChart = new Chartist.Bar('.ct-chart', { labels: weeklyData.labels, series: weeklyData.series }, weeklyOptions)
+      .on('draw', function(data) {
+        if(data.type === 'bar') {
+          data.element.attr({
+            style: 'stroke-width: 30px; stroke: #66a6ff;'
+          });
+        }
+      });
+    ;
     return barChart;
   }
 
@@ -227,7 +209,7 @@ export default class extends Component {
   render() {
     return (
       <div>
-      <div className="ct-chart" />
+        <div className="ct-chart" />
       </div>
     );
   }
