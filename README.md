@@ -2,20 +2,20 @@
 ## An Internship tracking tool
 
 ## Table of Contents
-- [View Live Site] (#view-live-site)
+* [View Live Site] (#view-live-site)
 * [About this project] (#about-this-project)
 * [Getting started] (
 * Structure of the project
 * Technologies used
 
-## View Live Site
+## <a name="view-live-site></a> View Live Site
 
-## About this project
-* [How It Works] (## How It Works)
+## <a name="about-this-project></a> About this project
+* [How It Works] (#how-it-works)
 * [Technologies Used] (#technologies-used)
 * [Start Locally] (#start-locally)
 
-## How It Works
+## <a name="how-it-works></a> How It Works
 1. Create Profile
 * Create a user profile with details of your home location and internship locations such as city, country and currency code. 
 
@@ -42,7 +42,7 @@
     * Add a requirement by entering a title and description
     * Conveniently view requirements below your pages on the side navigation
 
-## Technologies Used
+## <a name="technologies-used></a> Technologies Used
 * FRONTEND
     * HTML
     * CSS
@@ -60,7 +60,7 @@
         * NYTimes
         * OpenWeather
 
-## Start Locally
+## <a name="start-locally></a> Start Locally
 1. Clone the repository
 Start by cloning this project to a local directory on your computer. Run the following commands
 ```
