@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const makeCancelable = (promise) => {
   let hasCanceled_ = false;
 
