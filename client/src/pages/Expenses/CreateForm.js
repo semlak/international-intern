@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import AddItem from '../../components/AddItem';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';
-
+import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 
 const CreateForm = props => (
   <div>
@@ -27,7 +27,7 @@ const CreateForm = props => (
         }}
       />
 
-      <p>Enter Expense</p>
+      {/* <p>Enter Expense</p> */}
 
       {/* <RadioGroup
         // aria-label="gender"
@@ -39,7 +39,8 @@ const CreateForm = props => (
         <FormControlLabel value={"usd"} control={<Radio />} label="USD" />
         <FormControlLabel value={"other"} control={<Radio />} label="OTHER" />
       </RadioGroup> */}
-
+      
+<p>Enter Expense</p>
       <label htmlFor="usd">
         <input
           type="radio"
@@ -90,6 +91,7 @@ const CreateForm = props => (
           }}
         />
       )}
+      <br />
       <TextField
         label="Date"
         type="date"
@@ -101,6 +103,7 @@ const CreateForm = props => (
           shrink: true,
         }}
       />
+      <br />
       {/* <input name="date" type="date" value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} /> */}
       <NumberFormat
         label="Exchange Rate"

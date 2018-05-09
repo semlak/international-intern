@@ -11,6 +11,10 @@ const styles = theme => ({
     paddingTop: 16,
     paddingBottom: 16,
   }),
+  fab: {
+    margin: 'auto',
+    // float: 'right',
+  },
 });
 
 const AddItem = (props) => {
@@ -26,6 +30,7 @@ const AddItem = (props) => {
         color="secondary"
         aria-label="add"
         onClick={props.onClick}
+        className={props.classes.fab}
         // disabled={props.formDisabled}
       >
         <AddIcon />
