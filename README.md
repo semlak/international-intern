@@ -2,18 +2,18 @@
 ## An Internship tracking tool
 
 ## Table of Contents
-* [View Live Site] (#view-live-site)
-* [About this project] (#about-this-project)
-* [Getting started] (
+* [View Live Site](#view-live-site)
+* [About this project](#about-this-project)
+* [Getting started](
 * Structure of the project
 * Technologies used
 
 ## <a name="view-live-site"></a> View Live Site
 
 ## <a name="about-this-project"></a> About this project
-* [How It Works] (#how-it-works)
-* [Technologies Used] (#technologies-used)
-* [Start Locally] (#start-locally)
+* [How It Works](#how-it-works)
+* [Technologies Used](#technologies-used)
+* [Start Locally](#start-locally)
 
 ## <a name="how-it-works"></a> How It Works
 1. Create Profile
