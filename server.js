@@ -19,7 +19,7 @@ app.use(logger('dev'));
 
 // initialize passport
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://<dbuser>:<dbpassword>@ds237815.mlab.com:37815/heroku_1zh5xv9h');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/internshipAppDB');
 
 app.use(session({
   secret: 'keyboard cat',
