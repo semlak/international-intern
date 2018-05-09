@@ -57,6 +57,7 @@ class Expenses extends Component {
   }
 
   handleDivChange = (event) => {
+  // this.setState({ selectCurrency: event.target.value });
     this.setState({ selectCurrency: event.target.id });
   }
 
