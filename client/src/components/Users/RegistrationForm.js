@@ -270,7 +270,7 @@ export default class extends Component {
           <br />
           <Button variant="raised" color="primary" onClick={this.submitForm}>Register</Button>
         </form>
-        {/* login modal begin */}
+        {/* error modal begin */}
         <Dialog
           open={this.state.open}
           onClose={this.errDialogClose}
