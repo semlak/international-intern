@@ -6,6 +6,12 @@ import API from '../../utils/API';
 import AddItem from '../../components/AddItem';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
+import {Button, Typography,} from 'material-ui';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
 var config = {
 	apiKey: process.env.REACT_APP_FIREBASE_apikey,
@@ -56,6 +62,11 @@ export default class extends Component {
 		});
 	}
 
+	// open err modal
+  	errDialogOpen = () => { this.setState({ open: true }); };
+  	// close err modal
+  	errDialogClose = () => { this.setState({ open: false }); };
+
 	handleInputChange = (event) => this.setState({
     	[event.target.name]: event.target.value,
  	})
@@ -102,6 +113,10 @@ export default class extends Component {
 				  })
 				  .catch((err) => {
 			  	  	console.log('Error while adding chapter: ', err);
+			  	  	this.setState({ error: "Error while adding chapter."});
+			  	  	//launch error dialog
+			  	  	this.errDialogOpen();
+			  	  	console.error(this.setSate.error, err);
 				  })
 
 				  API.getChapters().then((response) => {
@@ -131,6 +146,10 @@ export default class extends Component {
 		  })
 		  .catch((err) => {
 	  	  	console.log('Error while adding chapter: ', err);
+	  	  	this.setState({ error: "Error while adding chapter."});
+			//launch error dialog
+			this.errDialogOpen();
+			console.error(this.setSate.error, err);
 		  })
 
 		  API.getChapters().then((response) => {
@@ -141,6 +160,9 @@ export default class extends Component {
 		};
 	  } else {
 		console.log("Unable to add chapter.")
+		this.setState({ error: "Incomplete data entered. Please enter title, description, date and requirement number."});
+			//launch error dialog
+			this.errDialogOpen();
 	  }
 	}
 
@@ -164,25 +186,40 @@ export default class extends Component {
 	render() {
 		return (
 			<div>
-        <Grid container spacing={24}>
-          <Grid item xs={12}>
-           
-            <AddChapter 
-              needs={this.state.needsData}
-              handleInputChange={this.handleInputChange} 
-              handleFormSubmit={this.handleFormSubmit} 
-              {...this.state}
-            />
-		     </Grid>
-          <Grid item xs={12}>
-            <ChapterCard 
-              chapters={this.state.chapterData} 
-              deleteChapter={this.deleteChapter}/>
-          </Grid>
+		        <Grid container spacing={24}>
+		          <Grid item xs={12}>
+		           
+		            <AddChapter 
+		              needs={this.state.needsData}
+		              handleInputChange={this.handleInputChange} 
+		              handleFormSubmit={this.handleFormSubmit} 
+		              {...this.state}
+		            />
+				     </Grid>
+		          <Grid item xs={12}>
+		            <ChapterCard 
+		              chapters={this.state.chapterData} 
+		              deleteChapter={this.deleteChapter}/>
+		          </Grid>
 
-        </Grid>
-
-
+		        </Grid>
+				
+		        <Dialog
+		          open={this.state.open}
+		          onClose={this.errDialogClose}
+		          aria-labelledby="alert-dialog-title"
+		          aria-describedby="alert-dialog-description"
+		        >
+		          <DialogTitle id="alert-dialog-title">Error</DialogTitle>
+		          <DialogContent>
+		            <Typography variant="headline">{this.state.error}</Typography>
+		          </DialogContent>
+		          <DialogActions>
+		            <Button onClick={this.errDialogClose} color="primary">
+		              OK
+		            </Button>
+		          </DialogActions>
+		        </Dialog>
 
 		  	</div>
 		);
