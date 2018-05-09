@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { Button, TextField, Select, } from 'material-ui';
-
+import { Button, TextField, Select, Typography, } from 'material-ui';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import { FormControl, FormHelperText } from 'material-ui/Form';
-
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from 'material-ui/Dialog';
 import IntegrationReactSelect from '../../components/Forms/IntegrationReactSelect';
 import API from '../../utils/API';
 import util from '../../utils/util';
@@ -38,11 +41,23 @@ export default class extends Component {
     countryCurrencyCodeData: {},
     countryNameSuggestions: [],
     axiosCancelToken: null,
+    error: '',
   }
 
   componentDidMount() {
     this.loadCountryData();
   }
+
+  componentWillUnmount() {
+    if (this.state.axiosCancelToken) {
+      this.state.axiosCancelToken.cancel();
+    }
+  }
+
+  // open login modal
+  errDialogOpen = () => { this.setState({ open: true }); };
+  // close login modal
+  errDialogClose = () => { this.setState({ open: false }); };
 
   loadCountryData() {
     const axiosReference = API.getAllCountryData();
@@ -70,23 +85,27 @@ export default class extends Component {
         if (err.isCanceled) {
           console.log('Axios request in RegistrationForm for getting country data canceled. This is normal');
         } else {
-          console.error('Error on request for country data.', err);
+          this.setState({ error: 'Error on request for country data' });
+          // launch error dialog
+          this.errDialogOpen();
+          console.error(this.setState.error, err);
         }
       });
-  }
-
-  componentWillUnmount() {
-    if (this.state.axiosCancelToken) {
-      this.state.axiosCancelToken.cancel();
-    }
   }
 
   sendRegistrationData = () => {
     console.log('state: ', this.state);
     if (this.state.password !== this.state.passwordConfirm) {
-      return console.error('Password and Password Confirmation do not match');
+      this.setState({ error: 'Password and Password Confirmation do not match' });
+      // launch error dialog
+      this.errDialogOpen();
+      return console.error(this.state.error);
+    } else if (this.state.password.length < 6) {
+      this.setState({ error: 'Password must be at least 6 characters long' });
+      // launch error dialog
+      this.errDialogOpen();
+      return console.error(this.state.error);
     } else if (
-      this.state.password.length < 1 ||
       this.state.username.length < 1 ||
       this.state.email.length < 1 ||
       this.state.fullname.length < 1 ||
@@ -99,7 +118,10 @@ export default class extends Component {
       this.state.internLocationCountryCode.length < 1 ||
       this.state.internLocationCurrencyCode.length < 1
     ) {
-      return console.error('Bad registration info. This is a crappy error message');
+      this.setState({ error: 'One or more missing required fields' });
+      // launch error dialog
+      this.errDialogOpen();
+      return console.error(this.state.error);
     }
     const data = {
       username: this.state.username,
@@ -222,12 +244,12 @@ export default class extends Component {
           <IntegrationReactSelect label="Home Country" value={this.state.homeLocationCountry} handleInputChange={value => this.handleInputChangeForAutoCompleteField('homeLocationCountry')(value)} placeholder="Home Location Country" selectSuggestions={this.state.countryNameSuggestions} />
           <br />
           <TextField label="Country Code" name="homeLocationCountryCode" required type="text" value={this.state.homeLocationCountryCode} onChange={this.handleInputChange} />
-          <TextField label="Home Currency" name="homeLocationCurrencyCode" type="text" value={this.state.homeLocationCurrencyCode} onChange={this.handleInputChange} />
+          <TextField label="Home Currency" name="homeLocationCurrencyCode" required type="text" value={this.state.homeLocationCurrencyCode} onChange={this.handleInputChange} />
           <br />
           <TextField label="InternLocationCity" name="internLocationCity" required type="text" value={this.state.internLocationCity} onChange={this.handleInputChange} />
           <IntegrationReactSelect label="Intern Country" name="internLocationCountry" required type="text" value={this.state.internLocationCountry} handleInputChange={value => this.handleInputChangeForAutoCompleteField('internLocationCountry')(value)} selectSuggestions={this.state.countryNameSuggestions} placeholder="Intern Location Country" />
           <TextField label="Country Code" name="internLocationCountryCode" required type="text" value={this.state.internLocationCountryCode} onChange={this.handleInputChange} />
-          <TextField label="Intern Location Currency" name="internLocationCurrencyCode" type="text" value={this.state.internLocationCurrencyCode} onChange={this.handleInputChange} />
+          <TextField label="Intern Location Currency" name="internLocationCurrencyCode" required type="text" value={this.state.internLocationCurrencyCode} onChange={this.handleInputChange} />
           <br />
 
           <FormControl >
@@ -248,6 +270,23 @@ export default class extends Component {
           <br />
           <Button variant="raised" color="primary" onClick={this.submitForm}>Register</Button>
         </form>
+        {/* login modal begin */}
+        <Dialog
+          open={this.state.open}
+          onClose={this.errDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">Error</DialogTitle>
+          <DialogContent>
+            <Typography variant="headline">{this.state.error}</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.errDialogClose} color="primary">
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
