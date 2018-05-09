@@ -160,7 +160,7 @@ export default class extends Component {
 		};
 	  } else {
 		console.log("Unable to add chapter.")
-		this.setState({ error: "Incomplete data entered. Please enter title, description, date and requirement number."});
+		this.setState({ error: "Incomplete data entered. Chapters require a title, description and date to be added."});
 			//launch error dialog
 			this.errDialogOpen();
 	  }
