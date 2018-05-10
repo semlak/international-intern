@@ -13,7 +13,7 @@ import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 import Divider from 'material-ui/Divider';
-// 
+//
 import IntegrationReactSelect from '../../components/Forms/IntegrationReactSelect';
 import API from '../../utils/API';
 import util from '../../utils/util';
@@ -311,7 +311,7 @@ class RegistrationForm extends Component {
                   <FormHelperText>Units for retrieved weather data</FormHelperText>
                 </FormControl>
                 <Divider className={this.props.classes.divider} light />
-                <Button  className={this.props.classes.registerButton} variant="raised" color="primary" onClick={this.submitForm}>Register</Button>
+                <Button className={this.props.classes.registerButton} variant="raised" color="primary" onClick={this.submitForm}>Register</Button>
               </form>
             </Paper>
           </Grid>
