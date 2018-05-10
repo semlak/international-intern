@@ -26,8 +26,8 @@ const styles = theme => ({
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
-    display: 'flex',
-    width: '100%',
+    // display: 'flex',
+    // width: '100%',
   },
   toolbar: theme.mixins.toolbar,
   content: {
@@ -97,6 +97,7 @@ class App extends React.Component {
                 </div>
               : // user is not logged in
                 <div>
+                  <div className={classes.toolbar} />
                   <Route path="/" render={() => <RegistrationForm onLogin={this.handleLogin} {...this.state} />} />
                 </div>
               }

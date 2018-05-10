@@ -11,9 +11,28 @@ import Dialog, {
 import IntegrationReactSelect from '../../components/Forms/IntegrationReactSelect';
 import API from '../../utils/API';
 import util from '../../utils/util';
+import Paper from 'material-ui/Paper';
+import Grid from 'material-ui/Grid';
+import { withStyles } from 'material-ui/styles';
 // import {Link} from 'react-router-dom';
 
-export default class extends Component {
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+
+    padding: theme.spacing.unit * 4,
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    // textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+});
+
+
+
+class RegistrationForm extends Component {
   state = {
     // currentUser: '',
     username: '',
@@ -42,6 +61,7 @@ export default class extends Component {
     countryNameSuggestions: [],
     axiosCancelToken: null,
     error: '',
+    open: false,
   }
 
   componentDidMount() {
@@ -227,49 +247,61 @@ export default class extends Component {
   render() {
     // console.log('state upon rendering: ', this.state);
     return (
-      <div>
-        <h1>Registration Form</h1>
-        <form>
-          <TextField label="Username" name="username" type="text" required value={this.state.username} onChange={this.handleInputChange} />
-          <br />
-          <TextField label="Email" name="email" type="text" required value={this.state.email} onChange={this.handleInputChange} />
-          <br />
-          <TextField label="Password" name="password" type="password" required value={this.state.password} onChange={this.handleInputChange} />
-          <TextField label="PasswordConfirm" name="passwordConfirm" required type="password" value={this.state.passwordConfirm} onChange={this.handleInputChange} />
-          <br />
-          <TextField label="Fullname" name="fullname" type="text" required value={this.state.fullname} onChange={this.handleInputChange} />
-          <br />
-          <TextField label="HomeLocationCity" name="homeLocationCity" required type="text" value={this.state.homeLocationCity} onChange={this.handleInputChange} />
-          <br />
-          <IntegrationReactSelect label="Home Country" value={this.state.homeLocationCountry} handleInputChange={value => this.handleInputChangeForAutoCompleteField('homeLocationCountry')(value)} placeholder="Home Location Country" selectSuggestions={this.state.countryNameSuggestions} />
-          <br />
-          <TextField label="Country Code" name="homeLocationCountryCode" required type="text" value={this.state.homeLocationCountryCode} onChange={this.handleInputChange} />
-          <TextField label="Home Currency" name="homeLocationCurrencyCode" required type="text" value={this.state.homeLocationCurrencyCode} onChange={this.handleInputChange} />
-          <br />
-          <TextField label="InternLocationCity" name="internLocationCity" required type="text" value={this.state.internLocationCity} onChange={this.handleInputChange} />
-          <IntegrationReactSelect label="Intern Country" name="internLocationCountry" required type="text" value={this.state.internLocationCountry} handleInputChange={value => this.handleInputChangeForAutoCompleteField('internLocationCountry')(value)} selectSuggestions={this.state.countryNameSuggestions} placeholder="Intern Location Country" />
-          <TextField label="Country Code" name="internLocationCountryCode" required type="text" value={this.state.internLocationCountryCode} onChange={this.handleInputChange} />
-          <TextField label="Intern Location Currency" name="internLocationCurrencyCode" required type="text" value={this.state.internLocationCurrencyCode} onChange={this.handleInputChange} />
-          <br />
+      <div className={this.props.classes.root}>
+        <Grid container spacing={24}>
+          <Grid item xs={6}>
+            <Paper className={this.props.classes.paper}>
+              <Typography variant="headline" gutterBottom>Welcome</Typography>
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={this.props.classes.paper}>
+              <Typography variant="headline" gutterBottom>Registration Form</Typography>
+              <form>
+                <TextField label="Username" name="username" type="text" required value={this.state.username} onChange={this.handleInputChange} />
+                <br />
+                <TextField label="Email" name="email" type="text" required value={this.state.email} onChange={this.handleInputChange} />
+                <br />
+                <TextField label="Password" name="password" type="password" required value={this.state.password} onChange={this.handleInputChange} />
+                <TextField label="PasswordConfirm" name="passwordConfirm" required type="password" value={this.state.passwordConfirm} onChange={this.handleInputChange} />
+                <br />
+                <TextField label="Fullname" name="fullname" type="text" required value={this.state.fullname} onChange={this.handleInputChange} />
+                <br />
+                <TextField label="HomeLocationCity" name="homeLocationCity" required type="text" value={this.state.homeLocationCity} onChange={this.handleInputChange} />
+                <br />
+                <IntegrationReactSelect label="Home Country" value={this.state.homeLocationCountry} handleInputChange={value => this.handleInputChangeForAutoCompleteField('homeLocationCountry')(value)} placeholder="Home Location Country" selectSuggestions={this.state.countryNameSuggestions} />
+                <br />
+                <TextField label="Country Code" name="homeLocationCountryCode" required type="text" value={this.state.homeLocationCountryCode} onChange={this.handleInputChange} />
+                <TextField label="Home Currency" name="homeLocationCurrencyCode" required type="text" value={this.state.homeLocationCurrencyCode} onChange={this.handleInputChange} />
+                <br />
+                <TextField label="InternLocationCity" name="internLocationCity" required type="text" value={this.state.internLocationCity} onChange={this.handleInputChange} />
+                <IntegrationReactSelect label="Intern Country" name="internLocationCountry" required type="text" value={this.state.internLocationCountry} handleInputChange={value => this.handleInputChangeForAutoCompleteField('internLocationCountry')(value)} selectSuggestions={this.state.countryNameSuggestions} placeholder="Intern Location Country" />
+                <TextField label="Country Code" name="internLocationCountryCode" required type="text" value={this.state.internLocationCountryCode} onChange={this.handleInputChange} />
+                <TextField label="Intern Location Currency" name="internLocationCurrencyCode" required type="text" value={this.state.internLocationCurrencyCode} onChange={this.handleInputChange} />
+                <br />
 
-          <FormControl >
-            <InputLabel htmlFor="preferredUnits-helper">Preferred Units</InputLabel>
-            <Select
-              value={this.state.preferredUnits}
-              onChange={this.handleInputChange}
-              input={<Input name="preferredUnits" id="age-helper" />}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value="imperial">Imperial</MenuItem>
-              <MenuItem value="metric">Metric</MenuItem>
-            </Select>
-            <FormHelperText>Units for retrieved weather data</FormHelperText>
-          </FormControl>
-          <br />
-          <Button variant="raised" color="primary" onClick={this.submitForm}>Register</Button>
-        </form>
+                <FormControl >
+                  <InputLabel htmlFor="preferredUnits-helper">Preferred Units</InputLabel>
+                  <Select
+                    value={this.state.preferredUnits}
+                    onChange={this.handleInputChange}
+                    input={<Input name="preferredUnits" id="age-helper" />}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="imperial">Imperial</MenuItem>
+                    <MenuItem value="metric">Metric</MenuItem>
+                  </Select>
+                  <FormHelperText>Units for retrieved weather data</FormHelperText>
+                </FormControl>
+                <br />
+                <Button variant="raised" color="primary" onClick={this.submitForm}>Register</Button>
+              </form>
+            </Paper>
+          </Grid>
+
+        </Grid>
         {/* login modal begin */}
         <Dialog
           open={this.state.open}
@@ -291,3 +323,5 @@ export default class extends Component {
     );
   }
 }
+
+export default withStyles(styles)(RegistrationForm);
