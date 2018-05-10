@@ -13,8 +13,7 @@
     "build": "node scripts/build.js",
     "seed": "node scripts/seedDB.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "installDeps": "yarn && cd client && yarn",
-    "postinstall": "cd client && yarn && yarn run build"
+    "installDeps": "yarn && cd client && yarn"
   },
   "author": "",
   "license": "ISC",
