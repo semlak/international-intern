@@ -12,7 +12,16 @@ import Dialog, {
   DialogContent,
   DialogTitle,
 } from 'material-ui/Dialog';
-import config from "../../config.json"
+
+var config = {
+	apiKey: process.env.REACT_APP_FIREBASE_apikey,
+	authDomain: process.env.REACT_APP_FIREBASE_authDomain,
+	databaseURL: process.env.REACT_APP_FIREBASE_databaseURL,
+	projectId: process.env.REACT_APP_FIREBASE_projectId,
+	storageBucket: "intern-project-4b679.appspot.com",
+	// storageBucket: process.env.REACT_APP_FIREBASE_storageBucket,
+	messagingSenderId: process.env.REACT_APP_FIREBASE_messagingSenderId,
+};
 
 firebase.initializeApp(config);
 
