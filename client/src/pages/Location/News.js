@@ -4,7 +4,6 @@ import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import API from '../../utils/API';
 import Grid from 'material-ui/Grid';
-import config from '../../config.json';
 
 const styles = theme => ({
   card: {
@@ -26,12 +25,14 @@ const styles = theme => ({
   },
 });
 
+
 class News extends Component {
+
   state = {
     cityName: '',
     countryName: '',
     results: [],
-    NYTAPIKey: config.REACT_APP_NYT_API_KEY
+    NYTAPIKey: process.env.REACT_APP_NYT_API_KEY
   };
 
   componentDidMount() {
