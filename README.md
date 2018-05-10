@@ -29,8 +29,9 @@ Intl.Intern works to make managing and reaching goals and requirements easier th
 * [Start Locally](#start-locally)
 
 ## <a name="how-it-works"></a> How It Works
-1. Create Profile
 ![ScreenShot](readme_img/Landing.png)
+1. Create Profile
+![ScreenShot](readme_img/Login.png)
 Create a user profile with details of your home location and internship locations such as city, country and currency code. 
 
 2. Jornal Page
