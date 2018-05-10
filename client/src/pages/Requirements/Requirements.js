@@ -4,7 +4,7 @@ import Typography from 'material-ui/Typography';
 import ReqForm from './ReqForm';
 import ReqList from './ReqList';
 import API from '../../utils/API';
-import AddItem from '../../components/AddItem';
+// import AddItem from '../../components/AddItem';
 
 export default class extends Component {
   state = {

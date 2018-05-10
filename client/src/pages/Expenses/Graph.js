@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Chartist from 'chartist';
 import chartistpluginaxistitle from 'chartist-plugin-axistitle';
-import Typography from 'material-ui/Typography';
+// import Typography from 'material-ui/Typography';
 import Moment from 'moment';
 import API from '../../utils/API';
 
-const date0 = new Moment('2018-01-02');
-const date1 = new Moment('2018-01-25');
-const date2 = new Moment('2018-03-01');
-console.log('week numbers', [date0, date1, date2].map(date => ({ date, week: (date.week())}) ));
+// const date0 = new Moment('2018-01-02');
+// const date1 = new Moment('2018-01-25');
+// const date2 = new Moment('2018-03-01');
+// console.log('week numbers', [date0, date1, date2].map(date => ({ date, week: (date.week())}) ));
 
 
 export default class extends Component {
@@ -27,56 +27,55 @@ export default class extends Component {
   componentWillReceiveProps() {
     // this.displayGraph displays our old plot.
     // this.displayGraph();
-    this.displayWeeklyBarChart()
+    this.displayWeeklyBarChart();
   }
 
   transformExpenseData(expenses, interval) {
     if (expenses.length < 1) return expenses;
 
-    const sortedExpenses = expenses.slice(0).sort((a,b) => a.expDate > b.expDate ? 1 : -1 );
-    console.log('sortedExpenses');
+    const sortedExpenses = expenses.slice(0).sort((a, b) => (a.expDate > b.expDate ? 1 : -1));
+    // console.log('sortedExpenses');
     // sortedExpenses.forEach((expense,i) => console.log(i, Moment(expense.expDate).format('YYYY-MM-DD')));
-    const moment = new Moment();
+    // const moment = new Moment();
     const startDate = new Moment(sortedExpenses[0].expDate);
     const endDate = new Moment(sortedExpenses[sortedExpenses.length - 1].expDate);
-    console.log('startDate, endDate', startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD'));
+    // console.log('startDate, endDate', startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD'));
     let numberOfIntervals, startInterval, endInterval;
-    let intervals = [];
+    const intervals = [];
     let labels = [];
     let weeklyExpenseAmounts = [];
     let maxUSDAmount = 0;
     startInterval = (startDate.week());
     endInterval = (endDate.week());
     numberOfIntervals = endDate.diff(startDate, 'weeks') + 1;
-    console.log('number of intervals', numberOfIntervals);
+    // console.log('number of intervals', numberOfIntervals);
 
-    // assumes week starts on Sunday and ends Saturday 
+    // assumes week starts on Sunday and ends Saturday
     labels = Array(...{ length: numberOfIntervals + 1 }).map((val, i) => {
       const weekNum = i + 1;
-      const start = startDate.clone().add(i*7, 'days');
-      const end = startDate.clone().add((i + 1)*7-1 , 'days');
+      const start = startDate.clone().add(i * 7, 'days');
+      const end = startDate.clone().add((i + 1) * 7 - 1, 'days');
       // console.log('startDate', i, startDate.format('YYYY-MM-DD'));
       return {
         weekNum: (i + 1),
         start,
         end
-      }
+      };
     });
     weeklyExpenseAmounts = Array(...{ length: numberOfIntervals + 1 }).map((val, i) => ({ usdAmount: 0, localAmount: 0 }));
-    sortedExpenses.forEach(expense => {
+    sortedExpenses.forEach((expense) => {
       const date = new Moment(expense.expDate);
       // const weekNum = Moment(expense.expDate).diff(startDate, 'weeks')
       const weekNum = date.diff(startDate, 'weeks') + 1;
       weeklyExpenseAmounts[weekNum - 1].usdAmount += expense.expAmount;
       weeklyExpenseAmounts[weekNum - 1].localAmount += expense.expAmountLocalCurrency;
-      if (weeklyExpenseAmounts[weekNum - 1].usdAmount > maxUSDAmount) maxUSDAmount = weeklyExpenseAmounts[weekNum - 1].usdAmount
-
+      if (weeklyExpenseAmounts[weekNum - 1].usdAmount > maxUSDAmount) maxUSDAmount = weeklyExpenseAmounts[weekNum - 1].usdAmount;
     });
     const data = {
       labels: labels.map(week => week.start.format('MMM-DD')),
       series: [weeklyExpenseAmounts.map(week => week.usdAmount)],
       maxUSDAmount,
-    }
+    };
     return data;
   }
 
@@ -84,14 +83,12 @@ export default class extends Component {
     const individualExpenses = this.props.expenses.slice(0).map(expense => expense.expAmount);
 
     const weeklyData = this.transformExpenseData(this.props.expenses, 'week');
-    //const weeklyData = [];
+    // const weeklyData = [];
     const weeklyOptions = {
       high: weeklyData.maxUSDAmount * 1.1,
       low: 0,
       axisX: {
-        labelInterpolationFnc: (value, index) => {
-          return index % 2 === 0 ? value : null;
-        }
+        labelInterpolationFnc: (value, index) => (index % 2 === 0 ? value : null)
       },
       height: '350px',
       fullWidth: true,
@@ -108,7 +105,7 @@ export default class extends Component {
             axisClass: 'ct-axis-title',
             offset: {
               x: 0,
-              y: 30
+              y: 40
             },
             textAnchor: 'middle'
           },
@@ -128,14 +125,14 @@ export default class extends Component {
     };
 
     const barChart = new Chartist.Bar('.ct-chart', { labels: weeklyData.labels, series: weeklyData.series }, weeklyOptions)
-      .on('draw', function(data) {
-        if(data.type === 'bar') {
+      .on('draw', (data) => {
+        if (data.type === 'bar') {
           data.element.attr({
             style: 'stroke-width: 30px; stroke: #66a6ff;'
           });
         }
       });
-    ;
+
     return barChart;
   }
 
@@ -150,6 +147,7 @@ export default class extends Component {
     // console.log('weekly data', weeklyData);
 
     // console.log(data, weeklyData);
+
     const chart = new Chartist.Line('.ct-chart', {
       labels,
       // Naming the series with the series object array notation
@@ -209,7 +207,7 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <div className="ct-chart" />
+        <div className="ct-chart" style={{fontFamily: 'roboto'}}/>
       </div>
     );
   }

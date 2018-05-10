@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
+import { withStyles } from 'material-ui/styles';
 import CreateForm from './CreateForm';
 import Ledger from './Ledger';
 import Graph from './Graph';
 import API from '../../utils/API';
 import Util from '../../utils/util';
-import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   paper: theme.mixins.gutters({
@@ -14,10 +14,6 @@ const styles = theme => ({
     paddingBottom: 16,
   }),
 });
-
-const style = {
-  height: 350,
-};
 
 class Expenses extends Component {
   state = {
@@ -139,20 +135,18 @@ class Expenses extends Component {
       this.props.currentUser && this.props.currentUser.username ?
       <div>
         <Grid container spacing={24}>
-          <Grid item xs={6} sm={4}>
-            <Paper style={style}>
-              <CreateForm
-                handleDivChange={this.handleDivChange}
-                handleInputChange={this.handleInputChange}
-                handleInputChangeForNumberFormatField={this.handleInputChangeForNumberFormatField}
-                submitForm={this.submitForm}
-                currentUser={this.props.currentUser}
-                {...this.state}
-              />
-            </Paper>
+          <Grid item xs={6} sm={4}>   
+            <CreateForm
+              handleDivChange={this.handleDivChange}
+              handleInputChange={this.handleInputChange}
+              handleInputChangeForNumberFormatField={this.handleInputChangeForNumberFormatField}
+              submitForm={this.submitForm}
+              currentUser={this.props.currentUser}
+              {...this.state}
+            />
           </Grid>
           <Grid item xs={6} sm={8}>
-            <Paper style={style}>
+            <Paper>
               <Graph expenses={this.state.expenseData} />
             </Paper>
           </Grid>
@@ -163,7 +157,7 @@ class Expenses extends Component {
           </Grid>
         </Grid>
       </div>
-      :
+        :
       <div><p>Please Loading data...</p></div>
     );
   }

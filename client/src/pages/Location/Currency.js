@@ -33,7 +33,7 @@ export default class extends Component {
     ];
     return Util.getExchangeRate(homeCurrency, locCurrency)
       .then((results) => {
-        console.log('results when getting exchange rate', results);
+        // console.log('results when getting exchange rate', results);
         if (results || results.quote) {
           this.setState({ homeCurrency, locCurrency, exchangeRate: results.quote });
         } else {

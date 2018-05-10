@@ -1,6 +1,6 @@
 import React from 'react';
 import dotenv from 'dotenv';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Material UI components
 import CssBaseline from 'material-ui/CssBaseline';
 // from Material, used to inject an array of styles into the DOM
@@ -52,13 +52,12 @@ class App extends React.Component {
     currentPage: '',
   };
 
-  componentDidMount() {
-
-  }
+  // componentDidMount() {
+  // }
 
   // pass to TopNav component
   handleLogin = (currentUser) => {
-    console.log('in App.handleLogin, user is ', currentUser);
+    // console.log('in App.handleLogin, user is ', currentUser);
     this.setState({ currentUser });
     if (!currentUser) {
       window.history.pushState({},"", '/');

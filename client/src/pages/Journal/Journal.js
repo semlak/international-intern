@@ -3,39 +3,40 @@ import firebase from 'firebase';
 import AddChapter from './AddChapter';
 import ChapterCard from './ChapterCard';
 import API from '../../utils/API';
-import AddItem from '../../components/AddItem';
 import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
 import {Button, Typography,} from 'material-ui';
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogTitle,
 } from 'material-ui/Dialog';
+// import Paper from 'material-ui/Paper';
+// import AddItem from '../../components/AddItem';
 
-var config = {
-	apiKey: process.env.REACT_APP_FIREBASE_apikey,
-	authDomain: process.env.REACT_APP_FIREBASE_authDomain,
-	databaseURL: process.env.REACT_APP_FIREBASE_databaseURL,
-	projectId: process.env.REACT_APP_FIREBASE_projectId,
-	storageBucket: "intern-project-4b679.appspot.com",
-	// storageBucket: process.env.REACT_APP_FIREBASE_storageBucket,
-	messagingSenderId: process.env.REACT_APP_FIREBASE_messagingSenderId,
+const config = {
+  apiKey: process.env.REACT_APP_FIREBASE_apikey,
+  authDomain: process.env.REACT_APP_FIREBASE_authDomain,
+  databaseURL: process.env.REACT_APP_FIREBASE_databaseURL,
+  projectId: process.env.REACT_APP_FIREBASE_projectId,
+  storageBucket: 'intern-project-4b679.appspot.com',
+  // storageBucket: process.env.REACT_APP_FIREBASE_storageBucket,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_messagingSenderId,
 };
 
 firebase.initializeApp(config);
 
 export default class extends Component {
-  
-	state= {
-		chapterTitle: "",
-		description: "",
-		image:"",
-		date: "",
-		requireNum: 0,
-		chapterData:[],
-		needsData: [],
-	};
+
+  state= {
+    chapterTitle: "",
+    description: "",
+    image:"",
+    date: "",
+    requireNum: 0,
+    chapterData:[],
+    needsData: [],
+    open: false,
+  };
 
 	componentDidMount() {
 		API.getCurrentUser().then(response=> {
@@ -185,46 +186,41 @@ export default class extends Component {
 
 	render() {
 		return (
-			<div>
-		        <Grid container spacing={24}>
-		          <Grid item xs={4}>
-		           
-		            <AddChapter 
-		              needs={this.state.needsData}
-		              handleInputChange={this.handleInputChange} 
-		              handleFormSubmit={this.handleFormSubmit} 
-		              {...this.state}
-		            />
-				  </Grid>
-				
-	          	  <Grid item xs={4}>
-	                <ChapterCard 
-	              	  chapters={this.state.chapterData} 
-	              	  deleteChapter={this.deleteChapter}
-	              	/>
-	          	  </Grid>
-		        </Grid>
-
-	
-				
-		        <Dialog
-		          open={this.state.open}
-		          onClose={this.errDialogClose}
-		          aria-labelledby="alert-dialog-title"
-		          aria-describedby="alert-dialog-description"
-		        >
-		          <DialogTitle id="alert-dialog-title">Error</DialogTitle>
-		          <DialogContent>
-		            <Typography variant="headline">{this.state.error}</Typography>
-		          </DialogContent>
-		          <DialogActions>
-		            <Button onClick={this.errDialogClose} color="primary">
-		              OK
-		            </Button>
-		          </DialogActions>
-		        </Dialog>
-
-		  	</div>
+      <div>
+      <Grid container spacing={24}>
+      <Grid item xs={4}>
+        <AddChapter 
+        needs={this.state.needsData}
+        handleInputChange={this.handleInputChange} 
+        handleFormSubmit={this.handleFormSubmit} 
+        {...this.state}
+        />
+      </Grid>
+      <Grid item xs={4}></Grid>
+      <Grid item xs={4}></Grid>
+      <Grid item xs={4}>
+        <ChapterCard 
+        chapters={this.state.chapterData} 
+        deleteChapter={this.deleteChapter}
+        />
+        </Grid>
+      </Grid>
+      {/* Error dialog */}
+      <Dialog
+      open={this.state.open}
+      onClose={this.errDialogClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Error</DialogTitle>
+        <DialogContent>
+          <Typography variant="headline">{this.state.error}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.errDialogClose} color="primary">OK</Button>
+        </DialogActions>
+      </Dialog>
+      </div>
 		);
 	}
 }

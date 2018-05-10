@@ -13,26 +13,33 @@ const styles = theme => ({
   },
 
   card: {
-    marginBottom:10,
-    marginRight:10,
-    display: ""
+    marginBottom: 10,
+    marginRight: 10,
+    display: ''
   }
-}); 
+});
 
 const ChapterContent = props => (
   <Card className={props.classes.card}>
-    <CardMedia
-      style={{ height: 0, paddingTop: '56.25%' }}
-      image={props.chapImg}
-      src="image"
-    />
+    {props.chapImg ?
+      <CardMedia
+        style={{ height: 0, paddingTop: '56.25%' }}
+        image={props.chapImg}
+        src="image"
+      /> : null } 
     <CardContent>
       <Typography variant="title" gutterBottom>{props.chapTitle}</Typography>
-      <Typography variant="subheading" gutterBottom>{props.chapDate.slice(0,10)}</Typography>
-    
+      <Typography variant="subheading" gutterBottom>{props.chapDate.slice(0, 10)}</Typography>
       <Typography variant="subheading" gutterBottom>{props.chapNote}</Typography>
       <Typography variant="subheading" gutterBottom>{<Avatar>{props.reqNum}</Avatar>}</Typography>
-      <Button className={props.classes.deleteBtn} variant="raised" accessKey={props._id} onClick={props.deleteChapter} color="secondary"  id="deleteButton">
+      <Button
+        className={props.classes.deleteBtn}
+        variant="raised"
+        accessKey={props._id}
+        onClick={props.deleteChapter}
+        color="secondary"
+        id="deleteButton"
+      >
         Delete
       </Button>
     </CardContent>

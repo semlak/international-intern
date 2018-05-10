@@ -135,7 +135,7 @@ export default {
     // console.log('currency query:', queryURL);
 
     return axios.get(queryURL).then((json) => {
-      console.log('currency:', json);
+      // console.log('currency:', json);
       // sample data
       // {
       //   "success": true,
