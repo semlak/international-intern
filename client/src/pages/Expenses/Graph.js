@@ -105,7 +105,7 @@ export default class extends Component {
             axisClass: 'ct-axis-title',
             offset: {
               x: 0,
-              y: 30
+              y: 40
             },
             textAnchor: 'middle'
           },
@@ -207,7 +207,7 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <div className="ct-chart" />
+        <div className="ct-chart" style={{fontFamily: 'roboto'}}/>
       </div>
     );
   }

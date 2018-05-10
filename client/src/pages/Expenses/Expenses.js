@@ -16,7 +16,7 @@ const styles = theme => ({
 });
 
 const style = {
-  height: 350,
+ // height: 350,
 };
 
 class Expenses extends Component {
@@ -139,8 +139,7 @@ class Expenses extends Component {
       this.props.currentUser && this.props.currentUser.username ?
       <div>
         <Grid container spacing={24}>
-          <Grid item xs={6} sm={4}>
-            <Paper style={style}>
+          <Grid item xs={6} sm={4}>   
               <CreateForm
                 handleDivChange={this.handleDivChange}
                 handleInputChange={this.handleInputChange}
@@ -149,7 +148,6 @@ class Expenses extends Component {
                 currentUser={this.props.currentUser}
                 {...this.state}
               />
-            </Paper>
           </Grid>
           <Grid item xs={6} sm={8}>
             <Paper style={style}>
@@ -163,7 +161,7 @@ class Expenses extends Component {
           </Grid>
         </Grid>
       </div>
-      :
+        :
       <div><p>Please Loading data...</p></div>
     );
   }

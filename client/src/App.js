@@ -52,9 +52,8 @@ class App extends React.Component {
     currentPage: '',
   };
 
-  componentDidMount() {
-
-  }
+  // componentDidMount() {
+  // }
 
   // pass to TopNav component
   handleLogin = (currentUser) => {
