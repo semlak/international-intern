@@ -1,4 +1,5 @@
 import React from 'react';
+import dotenv from 'dotenv';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 // Material UI components
 import CssBaseline from 'material-ui/CssBaseline';
