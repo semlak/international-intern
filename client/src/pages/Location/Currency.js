@@ -34,10 +34,11 @@ export default class extends Component {
     return Util.getExchangeRate(homeCurrency, locCurrency)
       .then((results) => {
         // console.log('results when getting exchange rate', results);
+        if (results.error) return console.error(results.message);
         if (results || results.quote) {
           this.setState({ homeCurrency, locCurrency, exchangeRate: results.quote });
         } else {
-          console.error('Encountered error while trying to receive currency rate');
+          console.error('Encountered error while trying to receive currency rate. response was', results);
         }
       })
       .catch(err => console.error('Encountered error while trying to receive currency rate', err));
@@ -49,7 +50,7 @@ export default class extends Component {
         <Typography variant="headline">Currency</Typography>
         <Typography variant="subheading">Home Currency: {this.state.homeCurrency}</Typography>
         <Typography variant="subheading">Internship Currency: {this.state.locCurrency}</Typography>
-        <Typography variant="subheading">Exchange Rate: {this.state.exchangeRate}</Typography>
+        <Typography variant="subheading">Exchange Rate: {this.state.exchangeRate.toFixed(2)}</Typography>
       </div>
     );
   }

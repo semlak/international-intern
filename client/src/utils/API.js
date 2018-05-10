@@ -42,7 +42,7 @@ export default {
   getWeather: queryURL => axios.get(queryURL),
 
   // currency
-  getCurrency: queryURL => axios.get(queryURL),
+  // getCurrency: queryURL => axios.get(queryURL),
 
   // get currency and country codes from country names
   // getCountryCodes: countryNames => axios.get(`/api/countries?country_names=${countryNames.join(',')}`),
