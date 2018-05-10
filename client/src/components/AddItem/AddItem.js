@@ -12,8 +12,15 @@ const styles = theme => ({
     paddingBottom: 16,
   }),
   fab: {
-    margin: 'auto',
+    margin: 0,
+    top: 'auto',
+    left: 350,
+    bottom: 0,
+    // right: -200,
+    // position: 'fixed'
+    // margin: 'auto',
     // float: 'right',
+  
   },
 });
 
