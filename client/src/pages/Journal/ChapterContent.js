@@ -5,6 +5,9 @@ import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
 import { withStyles } from 'material-ui/styles';
 
+import red from 'material-ui/colors/red';
+import Icon from 'material-ui/Icon';
+
 const styles = theme => ({
   deleteBtn: {
     margin: 'auto',
@@ -28,20 +31,22 @@ const ChapterContent = props => (
         src="image"
       /> : null } 
     <CardContent>
+      <Typography variant="caption" align="right">{props.chapDate.slice(0, 10)}</Typography>
       <Typography variant="title" gutterBottom>{props.chapTitle}</Typography>
-      <Typography variant="subheading" gutterBottom>{props.chapDate.slice(0, 10)}</Typography>
       <Typography variant="subheading" gutterBottom>{props.chapNote}</Typography>
       <Typography variant="subheading" gutterBottom>{<Avatar>{props.reqNum}</Avatar>}</Typography>
-      <Button
-        className={props.classes.deleteBtn}
-        variant="raised"
-        accessKey={props._id}
-        onClick={props.deleteChapter}
-        color="secondary"
+
+      <div className={props.classes.deleteBtn}>
+      <Icon 
         id="deleteButton"
-      >
-        Delete
-      </Button>
+        accessKey={props._id}
+        className={props.classes.icon}
+        color="secondary"
+        onClick={props.deleteChapter}
+        > close 
+      </Icon>
+      </div>
+
     </CardContent>
   </Card>
 );

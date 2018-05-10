@@ -31,12 +31,10 @@ const AddChapter = (props) => {
             value={props.description}
             onChange={props.handleInputChange}
           />
-          <br />
+          
+          <input style={{padding: 5, marginTop: 10, marginBottom: 10}} name="date" type="date" step='' value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
 
-          <input name="date" type="date" step='' value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} />
-          <br />
-
-          <input type="file" name="image" value={props.image} id="fileButton" onChange={props.handleInputChange} />
+          <input style={{marginBottom: 10}} type="file" name="image" value={props.image} id="fileButton" onChange={props.handleInputChange} />
           <br />
 
           <FormControl>

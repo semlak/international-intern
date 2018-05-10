@@ -6,9 +6,10 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
 	chapter: {
-		
+    // display: 'flex',
+    // flexWrap: 'wrap',
+    // justifyContent: 'space-between',
 	}
-
 })
 
 const ChapterCard = props => (

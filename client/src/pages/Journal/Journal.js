@@ -12,6 +12,18 @@ import Dialog, {
 } from 'material-ui/Dialog';
 // import Paper from 'material-ui/Paper';
 // import AddItem from '../../components/AddItem';
+import { withStyles } from 'material-ui/styles';
+
+
+const styles = theme => ({
+	root: {
+    // display: 'flex',
+    // flexWrap: 'wrap',
+    // justifyContent: 'space-around',
+	}
+})
+
+
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_apikey,
@@ -25,7 +37,7 @@ const config = {
 
 firebase.initializeApp(config);
 
-export default class extends Component {
+class Journal extends Component {
 
   state= {
     chapterTitle: "",
@@ -186,7 +198,7 @@ export default class extends Component {
 
 	render() {
 		return (
-      <div>
+      <div style={styles.root}>
       <Grid container spacing={24}>
       <Grid item xs={4}>
         <AddChapter 
@@ -196,8 +208,8 @@ export default class extends Component {
         {...this.state}
         />
       </Grid>
-      <Grid item xs={4}></Grid>
-      <Grid item xs={4}></Grid>
+      {/* <Grid item xs={4}></Grid> */}
+      {/* <Grid item xs={4}></Grid> */}
       <Grid item xs={4}>
         <ChapterCard 
         chapters={this.state.chapterData} 
@@ -224,3 +236,5 @@ export default class extends Component {
 		);
 	}
 }
+
+export default withStyles(styles)(Journal);
