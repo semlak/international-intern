@@ -187,7 +187,7 @@ export default class extends Component {
 		return (
 			<div>
 		        <Grid container spacing={24}>
-		          <Grid item xs={12}>
+		          <Grid item xs={4}>
 		           
 		            <AddChapter 
 		              needs={this.state.needsData}
@@ -195,14 +195,17 @@ export default class extends Component {
 		              handleFormSubmit={this.handleFormSubmit} 
 		              {...this.state}
 		            />
-				     </Grid>
-		          <Grid item xs={12}>
-		            <ChapterCard 
-		              chapters={this.state.chapterData} 
-		              deleteChapter={this.deleteChapter}/>
-		          </Grid>
-
+				  </Grid>
+				
+	          	  <Grid item xs={4}>
+	                <ChapterCard 
+	              	  chapters={this.state.chapterData} 
+	              	  deleteChapter={this.deleteChapter}
+	              	/>
+	          	  </Grid>
 		        </Grid>
+
+	
 				
 		        <Dialog
 		          open={this.state.open}

@@ -11,10 +11,16 @@ const styles = theme => ({
     float: 'right',
     marginBottom: 10,
   },
+
+  card: {
+    marginBottom:10,
+    marginRight:10,
+    display: ""
+  }
 }); 
 
 const ChapterContent = props => (
-  <Card>
+  <Card className={props.classes.card}>
     <CardMedia
       style={{ height: 0, paddingTop: '56.25%' }}
       image={props.chapImg}
