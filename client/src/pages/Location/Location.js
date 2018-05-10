@@ -27,17 +27,17 @@ const Location = (props) => {
           </Paper>
         </Grid>
         <Grid item xs={4}>
-          <Paper className={props.classes.paper} style={{ height: 170 }}>
+          <Paper className={props.classes.paper} style={{ height: 185 }}>
             <Weather {...props} />
           </Paper>
         </Grid>
         <Grid item xs={4}>
-          <Paper className={props.classes.paper} style={{ height: 170 }}>
+          <Paper className={props.classes.paper} style={{ height: 185 }}>
             <Currency {...props} />
           </Paper>
         </Grid>
         <Grid item xs={4}>
-          <Paper className={props.classes.paper} style={{ height: 170 }}>
+          <Paper className={props.classes.paper} style={{ height: 185 }}>
             <Timezones {...props} />
           </Paper>
         </Grid>

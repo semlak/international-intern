@@ -51,12 +51,12 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <Typography variant="subheading">Home Timezone:</Typography>
-        <Typography variant="body1" align="right">{this.state.homeTZName}</Typography>
-        <Typography variant="subheading">Internship Timezone:</Typography>
-        <Typography variant="body1" align="right">{this.state.internTZName}</Typography>
-        <Typography variant="subheading">Difference to Home:</Typography>
-        <Typography variant="body1" align="right">{this.state.tzDiff} hours</Typography>
+        <Typography variant="headline">Timezone</Typography>
+        <Typography variant="body2">Home:</Typography>
+        <Typography variant="subheading">{this.state.homeTZName}</Typography>
+        <Typography variant="body2">Internship:</Typography>
+        <Typography variant="subheading">{this.state.internTZName}</Typography>
+        <Typography variant="body2">Difference to Home: {this.state.tzDiff} hours</Typography>
       </div>
     );
   }
