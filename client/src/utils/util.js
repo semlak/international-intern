@@ -1,9 +1,8 @@
 import axios from 'axios';
 import currencycodes from '../currencycodes.json';
-import config from '../config.json';
 
 const googleMapsClient = require('@google/maps').createClient({
-  key: config.REACT_APP_GOOGLE_MAPS_API_KEY,
+  key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   Promise,
 });
 
@@ -127,7 +126,7 @@ export default {
     }
     // console.log("in updateExchangeRate, props: " , props);
 
-    const API_KEY = config.REACT_APP_CURRENCYLAYER_API_KEY;
+    const API_KEY = process.env.REACT_APP_CURRENCYLAYER_API_KEY;
 
     if (!API_KEY || !fromCurrency || !toCurrency) {
       throw new Error('Error with API_KEY, fromCurrency, or toCurrency');

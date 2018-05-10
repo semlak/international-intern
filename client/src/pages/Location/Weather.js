@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Typography from 'material-ui/Typography';
 import API from '../../utils/API';
 import util from '../../utils/util';
-import config from '../../config.json';
 
 export default class extends Component {
   state = {
@@ -17,7 +16,7 @@ export default class extends Component {
       windDirection: 0,
       sky: '',
     },
-    APIKey: config.REACT_APP_OPEN_WEATHERMAPS_API_KEY,
+    APIKey: process.env.REACT_APP_OPEN_WEATHERMAPS_API_KEY,
     units: '',
   }
 
