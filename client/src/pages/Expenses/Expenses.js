@@ -43,17 +43,20 @@ class Expenses extends Component {
     if (currentUser) {
       const { homeLocationCurrencyCode, internLocationCurrencyCode } = currentUser;
       Util.getExchangeRate(homeLocationCurrencyCode, internLocationCurrencyCode)
-        .then(result => this.setState({
-          exchangeRate: result.quote.toFixed(2),
-          homeLabel: `${homeLocationCurrencyCode} Amount`,
-          internLabel: `${internLocationCurrencyCode} Amount`,
-        }))
+        .then(result => {
+          if (result.error) return console.error(result.message);
+          return this.setState({
+            exchangeRate: result.quote.toFixed(2),
+            homeLabel: `${homeLocationCurrencyCode} Amount`,
+            internLabel: `${internLocationCurrencyCode} Amount`,
+          });
+        })
         .catch(err => console.error('err getting exchangeRate', err));
     }
   }
 
   handleDivChange = (event) => {
-  // this.setState({ selectCurrency: event.target.value });
+    // this.setState({ selectCurrency: event.target.value });
     this.setState({ selectCurrency: event.target.id });
   }
 
@@ -157,7 +160,7 @@ class Expenses extends Component {
           </Grid>
         </Grid>
       </div>
-        :
+      :
       <div><p>Please Loading data...</p></div>
     );
   }

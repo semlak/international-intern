@@ -105,7 +105,7 @@ export default {
       // console.log(place_obj);
       return place_obj;
     }).catch((err) => {
-      console.log(err);
+      console.error(err);
     });
   },
   getTimezone(lat_lng) {
@@ -120,45 +120,26 @@ export default {
     });
   },
 
-  getExchangeRate(fromCurrency, toCurrency) {
+  getExchangeRate: (fromCurrency, toCurrency) => {
     if (!fromCurrency || !toCurrency || fromCurrency.length !== 3 || toCurrency.length !== 3) {
       throw new Error('unable to retrieve all required props from currentUser. You may need to ensure that the fields \'internLocationCountry\' and \'internLocationCity\' are populated.');
     }
     // console.log("in updateExchangeRate, props: " , props);
 
-    const API_KEY = process.env.REACT_APP_CURRENCYLAYER_API_KEY;
+    // const API_KEY = process.env.REACT_APP_CURRENCYLAYER_API_KEY;
 
-    if (!API_KEY || !fromCurrency || !toCurrency) {
+    // if (!API_KEY || !fromCurrency || !toCurrency) {
+    if (!fromCurrency || !toCurrency) {
       throw new Error('Error with API_KEY, fromCurrency, or toCurrency');
     }
-    const queryURL = `http://apilayer.net/api/live?access_key=${API_KEY}&source=${fromCurrency}&currencies=${toCurrency}&format=1`;
+    // const queryURL = `http://apilayer.net/api/live?access_key=${API_KEY}&source=${fromCurrency}&currencies=${toCurrency}&format=1`;
+    const queryURL = `/api/exchangerates/?fromCurrency=${fromCurrency}&toCurrency=${toCurrency}&format=1`;
+
     // console.log('currency query:', queryURL);
 
-    return axios.get(queryURL).then((json) => {
-      // console.log('currency:', json);
-      // sample data
-      // {
-      //   "success": true,
-      //   "terms": "https://currencylayer.com/terms",
-      //   "privacy": "https://currencylayer.com/privacy",
-      //   "timestamp": 1524873843,
-      //   "source": "USD",
-      //   "quotes": {
-      //     "USDCAD": 1.282104,
-      //   }
-      // }
-      const quoteCode = `${fromCurrency}${toCurrency}`;
-      if (!json || !json.data || !json.data.quotes || !json.data.quotes[quoteCode]) {
-        console.error('Error in retrieved currency quote data.');
-        return ({ error: true, message: 'Error in retrieved currence quote data.' });
-      }
-      return ({
-        quote: json.data.quotes[quoteCode],
-        fromCurrency,
-        toCurrency,
-        otherQuoteData: json.data.quotes
-      });
-    }).catch(err => ({ error: true, errorObject: err }));
+    return axios.get(queryURL)
+      .then(json => json.data)
+      .catch(err => ({ error: true, errorObject: err }));
   },
 
 
