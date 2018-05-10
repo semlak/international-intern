@@ -78,14 +78,14 @@ export default class extends Component {
     return (
       <div>
         <Grid container spacing={24}>
-          <Grid item xs={6} sm={6}>
+          <Grid item xs={4} sm={4}>
             <ReqForm
               handleInputChange={this.handleInputChange}
               submitForm={this.submitForm}
               {...this.state}
             />
           </Grid>
-          <Grid item xs={6} sm={6}>
+          <Grid item xs={8} sm={8}>
             <Typography variant="title" gutterBottom>Requirements</Typography>
             <ReqList needs={this.state.needsData} />
           </Grid>
