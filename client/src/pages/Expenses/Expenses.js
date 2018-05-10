@@ -139,7 +139,7 @@ class Expenses extends Component {
       this.props.currentUser && this.props.currentUser.username ?
       <div>
         <Grid container spacing={24}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6} sm={4}>
             <Paper style={style}>
               <CreateForm
                 handleDivChange={this.handleDivChange}
@@ -151,7 +151,7 @@ class Expenses extends Component {
               />
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6} sm={8}>
             <Paper style={style}>
               <Graph expenses={this.state.expenseData} />
             </Paper>

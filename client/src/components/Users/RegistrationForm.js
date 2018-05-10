@@ -20,8 +20,12 @@ import { withStyles } from 'material-ui/styles';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-
     padding: theme.spacing.unit * 4,
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
   },
   paper: {
     padding: theme.spacing.unit * 2,
@@ -258,27 +262,27 @@ class RegistrationForm extends Component {
             <Paper className={this.props.classes.paper}>
               <Typography variant="headline" gutterBottom>Registration Form</Typography>
               <form>
-                <TextField label="Username" name="username" type="text" required value={this.state.username} onChange={this.handleInputChange} />
-                <br />
-                <TextField label="Email" name="email" type="text" required value={this.state.email} onChange={this.handleInputChange} />
-                <br />
-                <TextField label="Password" name="password" type="password" required value={this.state.password} onChange={this.handleInputChange} />
-                <TextField label="PasswordConfirm" name="passwordConfirm" required type="password" value={this.state.passwordConfirm} onChange={this.handleInputChange} />
-                <br />
-                <TextField label="Fullname" name="fullname" type="text" required value={this.state.fullname} onChange={this.handleInputChange} />
-                <br />
-                <TextField label="HomeLocationCity" name="homeLocationCity" required type="text" value={this.state.homeLocationCity} onChange={this.handleInputChange} />
-                <br />
+                <TextField className={this.props.classes.textField} label="Username" name="username" type="text" required value={this.state.username} onChange={this.handleInputChange} />
+                {/* <br /> */}
+                <TextField className={this.props.classes.textField} label="Email" name="email" type="text" required value={this.state.email} onChange={this.handleInputChange} />
+                {/* <br /> */}
+                <TextField className={this.props.classes.textField} label="Password" name="password" type="password" required value={this.state.password} onChange={this.handleInputChange} />
+                <TextField className={this.props.classes.textField} label="PasswordConfirm" name="passwordConfirm" required type="password" value={this.state.passwordConfirm} onChange={this.handleInputChange} />
+                {/* <br /> */}
+                <TextField className={this.props.classes.textField} label="Fullname" name="fullname" type="text" required value={this.state.fullname} onChange={this.handleInputChange} />
+                {/* <br /> */}
+                <TextField className={this.props.classes.textField} label="HomeLocationCity" name="homeLocationCity" required type="text" value={this.state.homeLocationCity} onChange={this.handleInputChange} />
+                {/* <br /> */}
                 <IntegrationReactSelect label="Home Country" value={this.state.homeLocationCountry} handleInputChange={value => this.handleInputChangeForAutoCompleteField('homeLocationCountry')(value)} placeholder="Home Location Country" selectSuggestions={this.state.countryNameSuggestions} />
-                <br />
-                <TextField label="Country Code" name="homeLocationCountryCode" required type="text" value={this.state.homeLocationCountryCode} onChange={this.handleInputChange} />
-                <TextField label="Home Currency" name="homeLocationCurrencyCode" required type="text" value={this.state.homeLocationCurrencyCode} onChange={this.handleInputChange} />
-                <br />
-                <TextField label="InternLocationCity" name="internLocationCity" required type="text" value={this.state.internLocationCity} onChange={this.handleInputChange} />
+                {/* <br /> */}
+                <TextField className={this.props.classes.textField} label="Country Code" name="homeLocationCountryCode" required type="text" value={this.state.homeLocationCountryCode} onChange={this.handleInputChange} />
+                <TextField className={this.props.classes.textField} label="Home Currency" name="homeLocationCurrencyCode" required type="text" value={this.state.homeLocationCurrencyCode} onChange={this.handleInputChange} />
+                {/* <br /> */}
+                <TextField className={this.props.classes.textField} label="InternLocationCity" name="internLocationCity" required type="text" value={this.state.internLocationCity} onChange={this.handleInputChange} />
                 <IntegrationReactSelect label="Intern Country" name="internLocationCountry" required type="text" value={this.state.internLocationCountry} handleInputChange={value => this.handleInputChangeForAutoCompleteField('internLocationCountry')(value)} selectSuggestions={this.state.countryNameSuggestions} placeholder="Intern Location Country" />
-                <TextField label="Country Code" name="internLocationCountryCode" required type="text" value={this.state.internLocationCountryCode} onChange={this.handleInputChange} />
-                <TextField label="Intern Location Currency" name="internLocationCurrencyCode" required type="text" value={this.state.internLocationCurrencyCode} onChange={this.handleInputChange} />
-                <br />
+                <TextField className={this.props.classes.textField} label="Country Code" name="internLocationCountryCode" required type="text" value={this.state.internLocationCountryCode} onChange={this.handleInputChange} />
+                <TextField className={this.props.classes.textField} label="Intern Location Currency" name="internLocationCurrencyCode" required type="text" value={this.state.internLocationCurrencyCode} onChange={this.handleInputChange} />
+                {/* <br /> */}
 
                 <FormControl >
                   <InputLabel htmlFor="preferredUnits-helper">Preferred Units</InputLabel>

@@ -86,10 +86,12 @@ const ITEM_HEIGHT = 48;
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
+    // flexGrow: 1,
     height: 30,
     marginTop: 14,
     marginBottom: 0,
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
   },
   chip: {
     margin: theme.spacing.unit / 4,
@@ -100,7 +102,8 @@ const styles = theme => ({
   // Also, we had to reset the default style injected by the library.
   '@global': {
     '.Select-control': {
-      minWidth: 500,
+      minWidth: 200,
+
       display: 'flex',
       alignItems: 'center',
       border: 0,
@@ -222,7 +225,7 @@ class IntegrationReactSelect extends React.Component {
           onChange={this.handleChange}
           placeholder={this.props.placeholder}
           style={{
-            width: this.props.width || 500, 
+            width: this.props.width || 200, 
             // height: this.props.height || 20,
             minWidth: this.props.minWidth || 10,
             // minHeight: this.props.minHeight || 10,
