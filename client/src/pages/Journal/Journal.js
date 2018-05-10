@@ -3,15 +3,15 @@ import firebase from 'firebase';
 import AddChapter from './AddChapter';
 import ChapterCard from './ChapterCard';
 import API from '../../utils/API';
-import AddItem from '../../components/AddItem';
 import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
 import {Button, Typography,} from 'material-ui';
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogTitle,
 } from 'material-ui/Dialog';
+// import Paper from 'material-ui/Paper';
+// import AddItem from '../../components/AddItem';
 
 var config = {
 	apiKey: process.env.REACT_APP_FIREBASE_apikey,
@@ -34,7 +34,8 @@ export default class extends Component {
 		date: "",
 		requireNum: 0,
 		chapterData:[],
-		needsData: [],
+    needsData: [],
+    open: false,
 	};
 
 	componentDidMount() {

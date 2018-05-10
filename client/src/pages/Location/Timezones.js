@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Typography from 'material-ui/Typography';
-import util from '../../utils/util';
+// import util from '../../utils/util';
 
 export default class extends Component {
   state = {
@@ -39,8 +39,8 @@ export default class extends Component {
     const internTZ = JSON.parse(props.currentUser.internLocationTimezone);
     const homeTime = parseInt(homeTZ.dstOffset, 10) + parseInt(homeTZ.rawOffset, 10);
     const internTime = parseInt(internTZ.dstOffset, 10) + parseInt(internTZ.rawOffset, 10);
-    console.log('homeTZ:', homeTZ, 'internTZ:', internTZ);
-    console.log('homeTime:', homeTime, 'internTime:', internTime);
+    // console.log('homeTZ:', homeTZ, 'internTZ:', internTZ);
+    // console.log('homeTime:', homeTime, 'internTime:', internTime);
     this.setState({
       homeTZName: homeTZ.timeZoneName,
       internTZName: internTZ.timeZoneName,

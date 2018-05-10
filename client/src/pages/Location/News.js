@@ -78,8 +78,8 @@ class News extends Component {
   render() {
     return (
       <div>
-        <Typography variant="headline">Current News For {this.state.cityName}, {this.state.countryName}</Typography>
         <Grid item xs={12}>
+        <Typography variant="headline">Current News For {this.state.cityName}, {this.state.countryName}</Typography>
           {this.state.results.map((oneitem, i) => (
             <Card key={i} className={this.props.classes.card}>
               <CardMedia
