@@ -85,11 +85,16 @@ function SelectWrapped(props) {
 const ITEM_HEIGHT = 48;
 
 const styles = theme => ({
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
   root: {
     // flexGrow: 1,
-    height: 30,
-    marginTop: 14,
-    marginBottom: 0,
+    // height: 30,
+    // marginTop: 14,
+    // marginBottom: 0,
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
@@ -217,7 +222,7 @@ class IntegrationReactSelect extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
+      // <div className={classes.root}>
         <Input
           label={this.props.label}
           inputComponent={SelectWrapped}
@@ -230,6 +235,7 @@ class IntegrationReactSelect extends React.Component {
             minWidth: this.props.minWidth || 10,
             // minHeight: this.props.minHeight || 10,
           }}
+          className={classes.textField}
           inputProps={{
             classes,
             // name: 'react-select-single',
@@ -239,7 +245,7 @@ class IntegrationReactSelect extends React.Component {
             options: this.props.selectSuggestions,
           }}
         />
-      </div>
+      // </div>
     );
   }
 }
