@@ -34,4 +34,10 @@ const AddItem = props => (
   </Paper>
 );
 
+AddItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+
 export default withStyles(styles)(AddItem);
