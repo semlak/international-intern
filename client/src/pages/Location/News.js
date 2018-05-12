@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
-import API from '../../utils/API';
 import Grid from 'material-ui/Grid';
+import API from '../../utils/API';
 
 const styles = theme => ({
   card: {
