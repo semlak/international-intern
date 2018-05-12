@@ -12,7 +12,6 @@ export default class extends Component {
     requirementTitle: '',
     requirementDesc: '',
     formDisabled: true,
-    // date: Date.now(),
     needsData: []
   };
 
