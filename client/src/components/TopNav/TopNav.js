@@ -96,16 +96,16 @@ class TopNav extends Component {
     return (
       <div>
         <AppBar className={classes.appBar}>
-          <Toolbar>  
+          <Toolbar>
             {/*  Logo */}
             {this.props.currentUser && this.props.currentUser.username ?
               <Typography variant="title" color="inherit" style={{ flex: 1 }} noWrap>{this.props.pageTitle}</Typography>
             :
               <Typography variant="title" color="inherit" style={{ flex: 1 }}>Intl.Intern</Typography>
             }
-            { this.props.currentUser && this.props.currentUser.email ? 
+            { this.props.currentUser && this.props.currentUser.email ?
               <div>
-                <Typography color="inherit" variant="subheading" style={{display: 'inline-block', paddingRight: '10px'}}>
+                <Typography color="inherit" variant="subheading" style={{ display: 'inline-block', paddingRight: '10px' }}>
                   {this.props.currentUser.email}
                 </Typography>
                 <Button color="inherit" onClick={this.logoff}>Logoff</Button>

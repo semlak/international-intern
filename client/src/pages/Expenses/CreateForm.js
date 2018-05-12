@@ -9,46 +9,44 @@ import AddItem from '../../components/AddItem';
 // import Button from 'material-ui/Button';
 
 const CreateForm = props => (
-  <div  style={{fontFamily: 'roboto'}}>
+  <div style={{ fontFamily: 'roboto' }}>
     <AddItem
       title="Add Expense"
       onClick={props.submitForm}
     >
-
-    <form>
-      <TextField
-        label="Description"
-        name="expenseDescription"
-        type="text"
-        value={props.expenseDescription}
-        onChange={props.handleInputChange}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-
-      {(props.selectCurrency === 'usd') ? (
+      <form>
         <TextField
-          label={props.homeLabel}
-          name="usdAmount"
-          type="number"
-          step="0.01"
-          style={{width: 100}}
-          placeholder="0.00"
-          value={props.usdAmount}
+          label="Description"
+          name="expenseDescription"
+          type="text"
+          value={props.expenseDescription}
           onChange={props.handleInputChange}
           InputLabelProps={{
+          shrink: true,
+        }}
+        />
+        <br />
+        {(props.selectCurrency === 'usd') ? (
+          <TextField
+            label={props.homeLabel}
+            name="usdAmount"
+            type="number"
+            step="0.01"
+            style={{ width: 100 }}
+            placeholder="0.00"
+            value={props.usdAmount}
+            onChange={props.handleInputChange}
+            InputLabelProps={{
             shrink: true,
           }}
-        />
+          />
       ) : (
         <TextField
           label={props.internLabel}
           name="locationAmount"
           type="number"
           placeholder="0"
-          style={{width: 100}}
+          style={{ width: 100 }}
           value={props.locationAmount}
           onChange={props.handleInputChange}
           InputLabelProps={{
@@ -56,62 +54,54 @@ const CreateForm = props => (
           }}
         />
       )}
-
-
-<div style={{display: 'inline-block'}}>
-       <label htmlFor="usd">
-        <input
-          type="radio"
-          id="usd"
-          name="selectCurrency"
-          value={1}
-          onClick={props.handleDivChange}
+        <div style={{ display: 'inline-block' }}>
+          <label htmlFor="usd">
+            <input
+              type="radio"
+              id="usd"
+              name="selectCurrency"
+              value={1}
+              onClick={props.handleDivChange}
+            />
+            {props.currentUser ? props.currentUser.homeLocationCurrencyCode : 'usd'}
+          </label>
+          <br />
+          <label htmlFor="other">
+            <input
+              type="radio"
+              id="other"
+              name="selectCurrency"
+              value={2}
+              onClick={props.handleDivChange}
+            />
+            {props.currentUser ? props.currentUser.internLocationCurrencyCode : 'other'}
+          </label>
+        </div>
+        <br />
+        <TextField
+          label="Date"
+          type="date"
+          name="date"
+          value={props.date}
+          onChange={props.handleInputChange}
+          InputLabelProps={{ shrink: true }} />
+        <br />
+        {/* <input name="date" type="date" value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} /> */}
+        <NumberFormat
+          label="Exchange Rate"
+          name="exchangeRate"
+          customInput={TextField}
+          onValueChange={props.handleInputChangeForNumberFormatField}
+          value={props.exchangeRate}
+          type="tel"
+          InputLabelProps={{ shrink: true }}
+          thousandSeparator=","
+          decimalSeparator="."
+          decimalScale={2}
         />
-        {props.currentUser ? props.currentUser.homeLocationCurrencyCode : 'usd'}
-      </label>
 
-      <br />
-
-      <label htmlFor="other">
-        <input
-          type="radio"
-          id="other"
-          name="selectCurrency"
-          value={2}
-          onClick={props.handleDivChange}
-        />
-        {props.currentUser ? props.currentUser.internLocationCurrencyCode : 'other'}
-      </label>
-   </div>
-
-      <br />
-      <TextField
-        label="Date"
-        type="date"
-        name="date"
-        value={props.date}
-        onChange={props.handleInputChange}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      {/* <input name="date" type="date" value={props.date} placeholder={Date.now()} onChange={props.handleInputChange} /> */}
-      <NumberFormat
-        label="Exchange Rate"
-        name="exchangeRate"
-        customInput={TextField}
-        onValueChange={props.handleInputChangeForNumberFormatField}
-        value={props.exchangeRate}
-        type="tel"
-        InputLabelProps={{ shrink: true }}
-        thousandSeparator=","
-        decimalSeparator="."
-        decimalScale={2}
-      />
-
-    </form>
-    </ AddItem >
+      </form>
+    </AddItem >
   </div>
 );
 
