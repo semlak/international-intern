@@ -18,6 +18,8 @@ import IntegrationReactSelect from '../../components/Forms/IntegrationReactSelec
 import API from '../../utils/API';
 import util from '../../utils/util';
 
+import welcomeImage from '../../images/homepageWelcome.png';
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -263,6 +265,9 @@ class RegistrationForm extends Component {
           <Grid item xs={6}>
             <Paper className={this.props.classes.paper}>
               <Typography variant="headline" gutterBottom>Welcome</Typography>
+              <Typography variant="body1" gutterBottom>You can login to a guest account with username '<kbd>guest</kbd>' and password '<kbd>password</kbd>'.</Typography>
+              <br />
+              <img className="responsive-img" style={{width: '100%'}} src={welcomeImage} title="International Intern" alt="International Intern" />
             </Paper>
           </Grid>
           <Grid item xs={6}>
