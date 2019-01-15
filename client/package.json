@@ -6,6 +6,7 @@
   "dependencies": {
     "@firebase/app-types": "0.x",
     "@google/maps": "^0.4.6",
+    "@material-ui/core": "^3.9.0",
     "@material-ui/icons": "^1.0.0-beta.43",
     "@types/googlemaps": "^3.0.0",
     "@types/markerclustererplus": "^2.1.29",
